@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOEL OS v2</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00ff88">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JOEL OS">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808;--surface:#101010;--surface2:#181818;--border:#1e1e1e;
+  --text:#ebebeb;--muted:#484848;
+  --g:#00ff88;--r:#ff3366;--b:#4488ff;--y:#ffcc00;--p:#bf5fff;--o:#ff8800;
+  --font-ui:'Space Mono',monospace;--font-d:'Syne',sans-serif;--font-b:'Instrument Serif',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-ui);min-height:100vh;overflow-x:hidden;}
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(8,8,8,0.97);backdrop-filter:blur(20px);z-index:200;gap:12px;flex-wrap:wrap;}
+.logo{font-family:var(--font-d);font-weight:800;font-size:1.2rem;letter-spacing:-0.03em;flex-shrink:0;}
+.logo span{color:var(--g);}
+.logo sub{font-size:0.45rem;color:var(--muted);margin-left:3px;}
+.header-center{display:flex;align-items:center;gap:16px;flex:1;justify-content:center;}
+.xp-wrap{display:flex;align-items:center;gap:8px;}
+.xp-bar-bg{width:100px;height:4px;background:var(--surface2);border-radius:2px;}
+.xp-bar-fill{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--g),#00ccff);transition:width 0.6s ease;}
+.level-pill{font-size:0.6rem;background:var(--g);color:#000;padding:3px 8px;border-radius:2px;font-weight:700;white-space:nowrap;}
+.streak-pill{font-size:0.65rem;color:var(--y);display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.header-clock{font-size:0.65rem;color:var(--muted);text-align:right;flex-shrink:0;line-height:1.5;}
+.header-clock #htime{color:var(--g);font-size:0.85rem;}
+
+/* MODE TOGGLE */
+.mode-toggle{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:3px;overflow:hidden;flex-shrink:0;}
+.mode-btn{padding:6px 14px;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border:none;background:none;color:var(--muted);transition:all 0.2s;}
+.mode-btn.active{background:var(--g);color:#000;font-weight:700;}
+
+/* TABS */
+.tabs-wrap{background:var(--surface);border-bottom:1px solid var(--border);}
+.tabs{display:flex;overflow-x:auto;padding:0 24px;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:11px 15px;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border:none;background:none;color:var(--muted);transition:color 0.2s;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;flex-shrink:0;}
+.tab:hover{color:var(--text);}
+.tab.active{border-bottom-color:var(--g);color:var(--g);}
+.tab.life-tab.active{border-bottom-color:var(--p);color:var(--p);}
+
+/* SECTIONS */
+.section{display:none;padding:24px;animation:fi 0.25s ease;}
+.section.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:900px){.g4,.g3{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.g4,.g3,.g2{grid-template-columns:1fr;}}
+
+/* CARD */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;transition:border-color 0.2s;}
+.card:hover{border-color:#2a2a2a;}
+.card-label{font-size:0.57rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.card-value{font-family:var(--font-d);font-size:1.6rem;font-weight:700;}
+.card-sub{font-size:0.65rem;color:var(--muted);margin-top:3px;}
+
+/* STAT COLORS */
+.cg{color:var(--g);} .cr{color:var(--r);} .cb{color:var(--b);} .cy{color:var(--y);} .cp{color:var(--p);}
+
+/* SECTION TITLE */
+.stitle{font-family:var(--font-d);font-size:1.3rem;font-weight:700;margin-bottom:4px;}
+.ssub{font-size:0.68rem;color:var(--muted);margin-bottom:22px;letter-spacing:0.04em;}
+.divider{border:none;border-top:1px solid var(--border);margin:22px 0;}
+
+/* GREETING */
+.greeting{font-family:var(--font-d);font-size:2.4rem;font-weight:800;line-height:1.1;margin-bottom:6px;}
+.greeting em{font-family:var(--font-b);font-style:italic;color:var(--g);}
+.sys-active{font-size:0.65rem;color:var(--muted);margin-bottom:28px;letter-spacing:0.06em;}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block;margin-right:5px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+
+/* PROJECT CARDS */
+.proj-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;background:var(--surface);transition:transform 0.2s,border-color 0.2s;cursor:pointer;}
+.proj-card:hover{transform:translateY(-2px);}
+.proj-header{padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;}
+.proj-name{font-family:var(--font-d);font-size:1.2rem;font-weight:700;letter-spacing:-0.02em;}
+.proj-tag{font-size:0.58rem;padding:3px 8px;border-radius:2px;letter-spacing:0.08em;text-transform:uppercase;}
+.proj-body{padding:16px;}
+.proj-desc{font-size:0.72rem;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.prog-bar{background:var(--surface2);border-radius:2px;height:3px;margin-bottom:5px;}
+.prog-fill{height:3px;border-radius:2px;}
+.prog-label{font-size:0.62rem;color:var(--muted);display:flex;justify-content:space-between;}
+
+/* METRICS ROW */
+.metrics-row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.metric-chip{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:5px 10px;font-size:0.62rem;display:flex;flex-direction:column;gap:2px;}
+.metric-chip span{color:var(--muted);font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;}
+.metric-chip strong{font-family:var(--font-d);font-size:0.85rem;}
+
+/* PROJECT COLORS */
+.kaia{border-color:#ff336620;} .kaia:hover{border-color:var(--r);}
+.kaia .proj-name{color:var(--r);} .kaia .proj-tag{background:#ff336612;color:var(--r);border:1px solid #ff336625;}
+.kaia .prog-fill{background:var(--r);}
+.nh{border-color:#00ff8820;} .nh:hover{border-color:var(--g);}
+.nh .proj-name{color:var(--g);} .nh .proj-tag{background:#00ff8812;color:var(--g);border:1px solid #00ff8825;}
+.nh .prog-fill{background:var(--g);}
+.re{border-color:#4488ff20;} .re:hover{border-color:var(--b);}
+.re .proj-name{color:var(--b);} .re .proj-tag{background:#4488ff12;color:var(--b);border:1px solid #4488ff25;}
+.re .prog-fill{background:var(--b);}
+.beb{border-color:#ffcc0020;} .beb:hover{border-color:var(--y);}
+.beb .proj-name{color:var(--y);} .beb .proj-tag{background:#ffcc0012;color:var(--y);border:1px solid #ffcc0025;}
+.beb .prog-fill{background:var(--y);}
+
+/* TASKS */
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #161616;cursor:pointer;transition:opacity 0.2s;}
+.task-item:hover{opacity:0.8;}
+.task-check{width:15px;height:15px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.task-item.done .task-check{background:var(--g);border-color:var(--g);}
+.task-item.done .task-check::after{content:'✓';font-size:9px;color:#000;}
+.task-item.done .task-text{text-decoration:line-through;color:var(--muted);}
+.task-text{font-size:0.78rem;line-height:1.5;flex:1;}
+.task-tag{font-size:0.58rem;padding:2px 7px;border-radius:2px;flex-shrink:0;}
+.task-area{margin-bottom:24px;}
+.task-area-title{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+.input-row{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap;}
+.inp{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:9px 12px;color:var(--text);font-family:var(--font-ui);font-size:0.73rem;outline:none;transition:border-color 0.2s;min-width:120px;}
+.inp:focus{border-color:#333;}
+.inp::placeholder{color:var(--muted);}
+select.inp{cursor:pointer;}
+textarea.inp{resize:none;}
+.btn{background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:9px 16px;color:var(--text);font-family:var(--font-ui);font-size:0.68rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn:hover{background:#222;border-color:#333;}
+.btn-g{background:var(--g);border-color:var(--g);color:#000;font-weight:700;}
+.btn-g:hover{background:#00dd77;border-color:#00dd77;}
+.btn-r{background:var(--r);border-color:var(--r);color:#fff;font-weight:700;}
+
+/* HABITS */
+.hab-row{margin-bottom:20px;}
+.hab-name{font-size:0.7rem;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+.hab-name strong{color:var(--text);}
+.hab-name span{color:var(--g);font-size:0.62rem;}
+.hab-dots{display:flex;gap:4px;}
+.hab-dot{width:32px;height:32px;border-radius:3px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:transparent;}
+.hab-dot.done{background:var(--g);border-color:var(--g);color:#000;}
+.hab-dot:hover{border-color:#444;}
+.day-labels{display:flex;gap:4px;margin-bottom:6px;}
+.day-label{width:32px;text-align:center;font-size:0.55rem;color:var(--muted);}
+
+/* FINANCES */
+.fin-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-size:0.78rem;}
+.fin-row:last-child{border-bottom:none;}
+.fin-label{color:var(--muted);font-size:0.68rem;}
+.fin-amount{font-family:var(--font-d);font-size:1rem;font-weight:700;}
+.fin-input-row{display:grid;grid-template-columns:1fr 1fr auto auto;gap:7px;margin-top:14px;}
+@media(max-width:600px){.fin-input-row{grid-template-columns:1fr 1fr;}}
+
+/* IDEAS */
+.ideas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+.idea-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;}
+.idea-proj{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.idea-text{font-size:0.78rem;line-height:1.6;}
+.idea-del{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.75rem;}
+.idea-del:hover{color:var(--r);}
+
+/* ROAD */
+.road-item{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid #141414;}
+.road-num{font-size:0.62rem;color:var(--muted);width:22px;flex-shrink:0;padding-top:2px;}
+.road-content{flex:1;}
+.road-item-title{font-size:0.78rem;font-weight:700;margin-bottom:3px;}
+.road-item-desc{font-size:0.68rem;color:var(--muted);line-height:1.6;}
+.road-status{font-size:0.58rem;padding:3px 7px;border-radius:2px;flex-shrink:0;height:fit-content;text-transform:uppercase;letter-spacing:0.07em;}
+.s-now{background:#00ff8812;color:var(--g);border:1px solid #00ff8825;}
+.s-next{background:#4488ff12;color:var(--b);border:1px solid #4488ff25;}
+.s-later{background:#ffffff06;color:var(--muted);border:1px solid var(--border);}
+.road-section{margin-bottom:30px;}
+.road-section-title{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid var(--border);}
+
+/* AI CHAT */
+.ai-area{max-width:680px;}
+.ai-messages{min-height:300px;max-height:420px;overflow-y:auto;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:18px;margin-bottom:10px;display:flex;flex-direction:column;gap:12px;}
+.ai-msg{font-size:0.78rem;line-height:1.7;max-width:88%;}
+.ai-msg.user{align-self:flex-end;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:9px 13px;}
+.ai-msg.assistant{align-self:flex-start;}
+.ai-msg-label{font-size:0.57rem;color:var(--muted);margin-bottom:3px;letter-spacing:0.07em;text-transform:uppercase;}
+.ai-input-row{display:flex;gap:7px;}
+.ai-input-row textarea{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:11px 14px;color:var(--text);font-family:var(--font-ui);font-size:0.73rem;outline:none;resize:none;height:48px;line-height:1.5;}
+.ai-hint{font-size:0.6rem;color:var(--muted);margin-top:6px;}
+.loading-dots::after{content:'...';animation:dots 1.2s steps(3,end) infinite;}
+@keyframes dots{0%,100%{content:'.'}33%{content:'..'}66%{content:'...'}}
+
+/* ===== ENGLISH MODULE ===== */
+.eng-hero{background:linear-gradient(135deg,#0a0a1a,#0d0d0d);border:1px solid #4488ff25;border-radius:6px;padding:28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.eng-hero::before{content:'EN';position:absolute;right:20px;top:10px;font-family:var(--font-d);font-size:5rem;font-weight:800;color:#4488ff08;pointer-events:none;}
+.eng-word{font-family:var(--font-d);font-size:2.2rem;font-weight:800;color:var(--b);margin-bottom:4px;}
+.eng-pron{font-size:0.8rem;color:var(--muted);margin-bottom:10px;font-style:italic;}
+.eng-meaning{font-size:0.85rem;line-height:1.7;margin-bottom:14px;}
+.eng-example{background:var(--surface2);border-left:3px solid var(--b);padding:10px 14px;font-size:0.78rem;line-height:1.6;color:var(--muted);border-radius:0 3px 3px 0;}
+.eng-example strong{color:var(--text);}
+.eng-chips{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.eng-chip{font-size:0.65rem;padding:5px 12px;border-radius:20px;border:1px solid var(--b);color:var(--b);background:#4488ff08;cursor:pointer;transition:all 0.2s;}
+.eng-chip:hover,.eng-chip.active{background:var(--b);color:#fff;}
+.eng-phrases{display:grid;gap:8px;margin-top:16px;}
+.eng-phrase{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:12px 14px;}
+.eng-phrase .en{font-size:0.82rem;color:var(--b);margin-bottom:3px;}
+.eng-phrase .es{font-size:0.75rem;color:var(--muted);}
+.eng-quiz{background:var(--surface);border:1px solid #4488ff25;border-radius:4px;padding:18px;margin-top:16px;}
+.eng-quiz-q{font-size:0.85rem;margin-bottom:14px;line-height:1.6;}
+.eng-quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.eng-quiz-opt{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:10px;font-size:0.75rem;cursor:pointer;transition:all 0.2s;text-align:center;}
+.eng-quiz-opt:hover{border-color:var(--b);color:var(--b);}
+.eng-quiz-opt.correct{background:#00ff8815;border-color:var(--g);color:var(--g);}
+.eng-quiz-opt.wrong{background:#ff336615;border-color:var(--r);color:var(--r);}
+.eng-score{font-size:0.7rem;color:var(--muted);margin-top:10px;}
+
+/* ===== SPIRITUALITY ===== */
+.spirit-hero{background:linear-gradient(135deg,#0d0a1a,#0a0a0a);border:1px solid #bf5fff20;border-radius:6px;padding:28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.spirit-hero::before{content:'✦';position:absolute;right:24px;top:16px;font-size:4rem;color:#bf5fff08;}
+.spirit-quote{font-family:var(--font-b);font-size:1.4rem;font-style:italic;line-height:1.6;color:var(--p);margin-bottom:8px;}
+.spirit-author{font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
+.spirit-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:16px;}
+.spirit-card{background:var(--surface);border:1px solid #bf5fff15;border-radius:4px;padding:14px;cursor:pointer;transition:border-color 0.2s;}
+.spirit-card:hover{border-color:#bf5fff40;}
+.spirit-card-icon{font-size:1.4rem;margin-bottom:8px;}
+.spirit-card-title{font-size:0.75rem;font-weight:700;color:var(--p);margin-bottom:4px;}
+.spirit-card-text{font-size:0.7rem;color:var(--muted);line-height:1.6;}
+.spirit-practice{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:18px;margin-top:16px;}
+.spirit-practice-title{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--p);margin-bottom:12px;}
+.practice-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #141414;cursor:pointer;}
+.practice-item:last-child{border-bottom:none;}
+.practice-dot{width:14px;height:14px;border:1px solid var(--border);border-radius:50%;flex-shrink:0;transition:all 0.2s;}
+.practice-item.done .practice-dot{background:var(--p);border-color:var(--p);}
+.practice-text{font-size:0.78rem;flex:1;}
+.practice-time{font-size:0.62rem;color:var(--muted);}
+
+/* ===== GYM ===== */
+.gym-hero{background:linear-gradient(135deg,#0a1208,#0a0a0a);border:1px solid #00ff8820;border-radius:6px;padding:24px;margin-bottom:20px;}
+.gym-day-title{font-family:var(--font-d);font-size:1.4rem;font-weight:700;color:var(--g);margin-bottom:4px;}
+.gym-day-sub{font-size:0.7rem;color:var(--muted);margin-bottom:18px;}
+.exercise-item{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:14px;}
+.exercise-num{font-family:var(--font-d);font-size:1.1rem;font-weight:700;color:var(--g);width:28px;flex-shrink:0;}
+.exercise-info{flex:1;}
+.exercise-name{font-size:0.82rem;font-weight:700;margin-bottom:3px;}
+.exercise-detail{font-size:0.68rem;color:var(--muted);}
+.exercise-done{width:24px;height:24px;border:1px solid var(--border);border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;}
+.exercise-item.done .exercise-done{background:var(--g);border-color:var(--g);color:#000;}
+.exercise-item.done .exercise-done::after{content:'✓';font-size:11px;}
+.exercise-item.done .exercise-name{text-decoration:line-through;color:var(--muted);}
+.gym-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.gym-tab{padding:7px 14px;font-size:0.63rem;border:1px solid var(--border);border-radius:3px;cursor:pointer;background:none;color:var(--muted);transition:all 0.2s;}
+.gym-tab.active{background:var(--g);border-color:var(--g);color:#000;font-weight:700;}
+.pr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:14px;}
+.pr-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:12px;}
+.pr-exercise{font-size:0.65rem;color:var(--muted);margin-bottom:4px;}
+.pr-value{font-family:var(--font-d);font-size:1.2rem;font-weight:700;color:var(--g);}
+.pr-unit{font-size:0.62rem;color:var(--muted);}
+
+/* ===== NEWS ===== */
+.news-filters{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
+.news-filter{padding:6px 14px;font-size:0.62rem;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:none;color:var(--muted);transition:all 0.2s;}
+.news-filter.active{border-color:var(--g);color:var(--g);background:#00ff8810;}
+.news-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:8px;cursor:pointer;transition:border-color 0.2s;}
+.news-card:hover{border-color:#2a2a2a;}
+.news-cat{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.news-title{font-size:0.82rem;line-height:1.5;margin-bottom:6px;}
+.news-meta{font-size:0.62rem;color:var(--muted);}
+.news-loading{text-align:center;padding:40px;color:var(--muted);font-size:0.75rem;}
+
+/* ===== MOTIVATION ===== */
+.mot-hero{background:linear-gradient(135deg,#0a0800,#0a0a0a);border:1px solid #ffcc0020;border-radius:6px;padding:28px;margin-bottom:20px;text-align:center;position:relative;overflow:hidden;}
+.mot-quote{font-family:var(--font-b);font-size:1.6rem;font-style:italic;line-height:1.5;color:var(--y);margin-bottom:10px;}
+.mot-author{font-size:0.68rem;color:var(--muted);}
+.mot-btn{margin-top:16px;}
+.gamification{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:18px;margin-top:16px;}
+.gam-title{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--y);margin-bottom:14px;}
+.achievement{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #141414;}
+.achievement:last-child{border-bottom:none;}
+.ach-icon{font-size:1.5rem;width:36px;text-align:center;flex-shrink:0;}
+.ach-info{flex:1;}
+.ach-name{font-size:0.78rem;font-weight:700;margin-bottom:2px;}
+.ach-desc{font-size:0.65rem;color:var(--muted);}
+.ach-status{font-size:0.62rem;padding:3px 8px;border-radius:10px;}
+.ach-done{background:#00ff8815;color:var(--g);border:1px solid #00ff8830;}
+.ach-locked{background:var(--surface2);color:var(--muted);border:1px solid var(--border);}
+.beast-mode{background:linear-gradient(135deg,#1a0a00,#0a0a0a);border:2px solid var(--o);border-radius:6px;padding:20px;margin-top:16px;text-align:center;cursor:pointer;transition:all 0.3s;}
+.beast-mode:hover{border-color:#ff8800aa;box-shadow:0 0 30px #ff880015;}
+.beast-title{font-family:var(--font-d);font-size:1.2rem;font-weight:800;color:var(--o);margin-bottom:4px;}
+.beast-sub{font-size:0.7rem;color:var(--muted);}
+.beast-mode.active{animation:beastPulse 1s infinite alternate;}
+@keyframes beastPulse{from{border-color:var(--o);box-shadow:0 0 20px #ff880020}to{border-color:#ff4400;box-shadow:0 0 40px #ff440030}}
+
+/* WHATSAPP */
+.wa-section{background:linear-gradient(135deg,#0a1208,#0a0a0a);border:1px solid #25d36620;border-radius:6px;padding:22px;margin-bottom:16px;}
+.wa-title{font-family:var(--font-d);font-size:1rem;font-weight:700;color:#25d366;margin-bottom:6px;}
+.wa-sub{font-size:0.72rem;color:var(--muted);margin-bottom:16px;line-height:1.6;}
+.wa-preview{background:#0d1f13;border:1px solid #25d36620;border-radius:4px;padding:14px;font-size:0.73rem;line-height:1.8;color:#cccccc;font-family:monospace;white-space:pre-wrap;margin-bottom:14px;}
+.wa-steps{display:grid;gap:8px;}
+.wa-step{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:12px;}
+.wa-step-num{font-family:var(--font-d);font-size:1rem;font-weight:700;color:#25d366;flex-shrink:0;width:24px;}
+.wa-step-text{font-size:0.75rem;line-height:1.6;}
+.wa-step-text strong{color:var(--text);}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
+
+.mt16{margin-top:16px;} .mt24{margin-top:24px;} .mb8{margin-bottom:8px;}
+.separator{height:1px;background:var(--border);margin:20px 0;}
+.tag-badge{display:inline-block;font-size:0.58rem;padding:2px 8px;border-radius:2px;margin-right:4px;margin-bottom:4px;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">JOEL<span>OS</span><sub>v2</sub></div>
+  <div class="header-center">
+    <div class="xp-wrap">
+      <div class="level-pill" id="level-display">LVL 1</div>
+      <div class="xp-bar-bg"><div class="xp-bar-fill" id="xp-fill" style="width:0%"></div></div>
+      <div style="font-size:0.6rem;color:var(--muted)" id="xp-display">0 XP</div>
+    </div>
+    <div class="streak-pill">🔥 <span class="streak-num" id="streak-display">0</span> días</div>
+  </div>
+  <div class="header-clock">
+    <div id="hdate"></div>
+    <div id="htime"></div>
+  </div>
+</div>
+
+<!-- MODE TOGGLE + TABS -->
+<div class="tabs-wrap">
+  <div style="display:flex;align-items:center;padding:8px 24px 0;gap:12px;border-bottom:1px solid var(--border);margin-bottom:-1px;">
+    <div class="mode-toggle">
+      <button class="mode-btn active" onclick="setMode('work')">⬡ NEGOCIOS</button>
+      <button class="mode-btn" onclick="setMode('life')">◌ VIDA</button>
+    </div>
+  </div>
+  <div class="tabs" id="tabs-container"></div>
+</div>
+
+<!-- ===================== WORK SECTIONS ===================== -->
+
+<!-- DASHBOARD -->
+<div id="tab-dashboard" class="section active">
+  <div class="greeting" id="greeting-text">Buenos días,<br><em>Joel.</em></div>
+  <div class="sys-active"><span class="pulse"></span>SISTEMA ACTIVO — MIAMI, FL — JOEL OS v2</div>
+  <div class="g4 mb8">
+    <div class="card"><div class="card-label">Tareas hoy</div><div class="card-value" id="s-tasks">0</div><div class="card-sub">pendientes</div></div>
+    <div class="card"><div class="card-label">Hábitos</div><div class="card-value" id="s-habits">0/5</div><div class="card-sub">completados hoy</div></div>
+    <div class="card"><div class="card-label">Balance mes</div><div class="card-value cg" id="s-balance">$0</div><div class="card-sub">neto</div></div>
+    <div class="card"><div class="card-label">Inglés streak</div><div class="card-value cy" id="s-eng">0</div><div class="card-sub">días seguidos</div></div>
+  </div>
+  <div class="separator"></div>
+  <div class="stitle mb8">Proyectos activos</div>
+  <div class="g2">
+    <div class="proj-card kaia" onclick="showTab('proyectos')">
+      <div class="proj-header"><div class="proj-name">KAIA</div><div class="proj-tag">Fashion</div></div>
+      <div class="proj-body">
+        <div class="proj-desc">Renta de vestidos de lujo en Miami. Modelo Airbnb para moda.</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:65%"></div></div>
+        <div class="prog-label"><span>Progreso</span><span>65%</span></div>
+        <div class="metrics-row">
+          <div class="metric-chip"><span>Rentas</span><strong>0</strong></div>
+          <div class="metric-chip"><span>Ingresos</span><strong>$0</strong></div>
+          <div class="metric-chip"><span>Inventario</span><strong>—</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card nh" onclick="showTab('proyectos')">
+      <div class="proj-header"><div class="proj-name">NEURAHASH</div><div class="proj-tag">Bitcoin</div></div>
+      <div class="proj-body">
+        <div class="proj-desc">Mining BTC Paraguay & Bolivia. Hosting para inversores.</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:45%"></div></div>
+        <div class="prog-label"><span>Progreso</span><span>45%</span></div>
+        <div class="metrics-row">
+          <div class="metric-chip"><span>Miners</span><strong>—</strong></div>
+          <div class="metric-chip"><span>Hashrate</span><strong>—</strong></div>
+          <div class="metric-chip"><span>Inversores</span><strong>0</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card re" onclick="showTab('proyectos')">
+      <div class="proj-header"><div class="proj-name">REAL ESTATE</div><div class="proj-tag">MLS</div></div>
+      <div class="proj-body">
+        <div class="proj-desc">MLS → Facebook Marketplace. 2 rentals cerradas.</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:20%"></div></div>
+        <div class="prog-label"><span>Progreso</span><span>20%</span></div>
+        <div class="metrics-row">
+          <div class="metric-chip"><span>Rentals</span><strong>2</strong></div>
+          <div class="metric-chip"><span>Leads</span><strong>0</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card beb" onclick="showTab('proyectos')">
+      <div class="proj-header"><div class="proj-name">H2O+</div><div class="proj-tag">Bebida</div></div>
+      <div class="proj-body">
+        <div class="proj-desc">Agua con cafeína. Paraguay → USA. FDA, marca, producción.</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:5%"></div></div>
+        <div class="prog-label"><span>Progreso</span><span>5%</span></div>
+        <div class="metrics-row">
+          <div class="metric-chip"><span>Fase</span><strong>Idea</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="separator"></div>
+  <div class="stitle mb8">Tareas de hoy</div>
+  <div id="dashboard-tasks"></div>
+</div>
+
+<!-- PROYECTOS -->
+<div id="tab-proyectos" class="section">
+  <div class="stitle">Proyectos</div>
+  <div class="ssub">Detalle, métricas y próximos pasos de cada venture.</div>
+
+  <div class="proj-card kaia" style="margin-bottom:14px">
+    <div class="proj-header"><div><div class="proj-name">KAIA</div><div style="font-size:0.68rem;color:#ff336670;margin-top:3px">Renta vestidos de lujo · Miami</div></div><div class="proj-tag">Fashion</div></div>
+    <div class="proj-body">
+      <div class="proj-desc">Modelo Airbnb para vestidos de diseñador. Dos lados del mercado: mujeres que rentan para eventos + propietarias que ganan dinero. Miami = millones de eventos.</div>
+      <div class="metrics-row">
+        <div class="metric-chip"><span>Rentas totales</span><strong id="kaia-rentals">0</strong></div>
+        <div class="metric-chip"><span>Ingresos</span><strong id="kaia-income">$0</strong></div>
+        <div class="metric-chip"><span>Inventario</span><strong>Actualizar</strong></div>
+        <div class="metric-chip"><span>Instagram</span><strong>@kaia</strong></div>
+      </div>
+      <div class="separator"></div>
+      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--r);margin-bottom:10px">Próximos pasos</div>
+      <div class="road-item"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">Activar Meta Ads + Google Ads</div><div class="road-item-desc">$300-500 de prueba. Mujeres 22-40 Miami. 3 creativos.</div></div><div class="road-status s-now">Ahora</div></div>
+      <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Contenido UGC TikTok / Reels</div><div class="road-item-desc">Proceso real: elegí → llegó → evento → devolviste.</div></div><div class="road-status s-now">Ahora</div></div>
+      <div class="road-item"><div class="road-num">03</div><div class="road-content"><div class="road-item-title">20 event planners Miami / semana</div><div class="road-item-desc">Comisión por cliente referido.</div></div><div class="road-status s-next">Siguiente</div></div>
+    </div>
+  </div>
+
+  <div class="proj-card nh" style="margin-bottom:14px">
+    <div class="proj-header"><div><div class="proj-name">NEURAHASH</div><div style="font-size:0.68rem;color:#00ff8870;margin-top:3px">Bitcoin Mining · Paraguay & Bolivia</div></div><div class="proj-tag">Energy/Crypto</div></div>
+    <div class="proj-body">
+      <div class="proj-desc">Hosting de miners para inversores. Energía barata y limpia de Paraguay. Visión: data center, phone farm, GPU farm, AI infrastructure.</div>
+      <div class="metrics-row">
+        <div class="metric-chip"><span>Miners activos</span><strong>—</strong></div>
+        <div class="metric-chip"><span>BTC/mes</span><strong>—</strong></div>
+        <div class="metric-chip"><span>Inversores</span><strong>0</strong></div>
+        <div class="metric-chip"><span>$/kWh</span><strong>~$0.05</strong></div>
+      </div>
+      <div class="separator"></div>
+      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--g);margin-bottom:10px">Próximos pasos</div>
+      <div class="road-item"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">Landing + calculadora ROI</div><div class="road-item-desc">Pricing claro. $/kWh. Setup fee. Modelos aceptados.</div></div><div class="road-status s-now">Ahora</div></div>
+      <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Primer inversor externo onboarded</div><div class="road-item-desc">Contrato + SLA + dashboard real time.</div></div><div class="road-status s-now">Ahora</div></div>
+      <div class="road-item"><div class="road-num">03</div><div class="road-content"><div class="road-item-title">Phone farm + GPU farm</div><div class="road-item-desc">Más servicios sobre la misma infraestructura.</div></div><div class="road-status s-later">Visión</div></div>
+    </div>
+  </div>
+
+  <div class="proj-card re" style="margin-bottom:14px">
+    <div class="proj-header"><div><div class="proj-name">REAL ESTATE</div><div style="font-size:0.68rem;color:#4488ff70;margin-top:3px">MLS → Rentals · Miami-Dade</div></div><div class="proj-tag">Real Estate</div></div>
+    <div class="proj-body">
+      <div class="proj-desc">Acceso MLS. Identifico propiedades, subo a Facebook Marketplace, recibo leads, muestro y cierro. 2 rentals done. Escalar con sistema.</div>
+      <div class="metrics-row">
+        <div class="metric-chip"><span>Rentals cerradas</span><strong>2</strong></div>
+        <div class="metric-chip"><span>Leads activos</span><strong>0</strong></div>
+        <div class="metric-chip"><span>Listings activos</span><strong>0</strong></div>
+      </div>
+      <div class="separator"></div>
+      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--b);margin-bottom:10px">Próximos pasos</div>
+      <div class="road-item"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">5-10 listings / semana</div><div class="road-item-desc">Templates de descripción por tipo. Proceso batch.</div></div><div class="road-status s-now">Ahora</div></div>
+      <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Instagram de listings Miami</div><div class="road-item-desc">"Apartamentos disponibles esta semana."</div></div><div class="road-status s-next">Siguiente</div></div>
+    </div>
+  </div>
+
+  <div class="proj-card beb">
+    <div class="proj-header"><div><div class="proj-name">H2O+</div><div style="font-size:0.68rem;color:#ffcc0070;margin-top:3px">Agua con cafeína · Paraguay → USA</div></div><div class="proj-tag">CPG</div></div>
+    <div class="proj-body">
+      <div class="proj-desc">Agua con cafeína en lata. Paraguay como origen y diferencial. Lanzar en PY para validar, luego USA con FDA.</div>
+      <div class="road-item" style="margin-top:12px"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">100 latas en Paraguay — validar</div><div class="road-item-desc">Co-manufacturer local. 3 sabores. Precio y packaging.</div></div><div class="road-status s-next">Primero</div></div>
+      <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Marca + diseño de lata</div><div class="road-item-desc">El diseño es el 50% del producto en bebidas.</div></div><div class="road-status s-next">Siguiente</div></div>
+      <div class="road-item"><div class="road-num">03</div><div class="road-content"><div class="road-item-title">FDA GRAS + food lawyer USA</div><div class="road-item-desc">Cafeína en agua = GRAS si está en rango correcto.</div></div><div class="road-status s-later">USA</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAREAS -->
+<div id="tab-tareas" class="section">
+  <div class="stitle">Tareas</div>
+  <div class="ssub">Todo lo que tenés que hacer, por proyecto.</div>
+  <div class="input-row">
+    <input type="text" class="inp" id="task-input" placeholder="Nueva tarea..." onkeydown="if(event.key==='Enter')addTask()">
+    <select class="inp" id="task-project" style="flex:0 0 auto">
+      <option value="kaia">KAIA</option>
+      <option value="neurahash">NEURAHASH</option>
+      <option value="realestate">REAL ESTATE</option>
+      <option value="bebida">H2O+</option>
+      <option value="personal">PERSONAL</option>
+    </select>
+    <button class="btn btn-g" onclick="addTask()">+ Agregar</button>
+  </div>
+  <div id="tasks-container" style="margin-top:20px"></div>
+</div>
+
+<!-- HÁBITOS -->
+<div id="tab-habitos" class="section">
+  <div class="stitle">Hábitos diarios</div>
+  <div class="ssub">Consistencia > intensidad. Cada día suma.</div>
+  <div style="max-width:520px">
+    <div class="day-labels" id="day-labels"></div>
+    <div id="habits-container"></div>
+    <div class="input-row mt16">
+      <input type="text" class="inp" id="habit-input" placeholder="Nuevo hábito...">
+      <button class="btn btn-g" onclick="addHabit()">+ Agregar</button>
+    </div>
+  </div>
+</div>
+
+<!-- FINANZAS -->
+<div id="tab-finanzas" class="section">
+  <div class="stitle">Finanzas</div>
+  <div class="ssub">Sabé exactamente dónde está tu plata.</div>
+  <div class="g2">
+    <div>
+      <div class="card" style="margin-bottom:10px"><div class="card-label">Ingresos mes</div><div class="card-value cg" id="fin-in">$0.00</div></div>
+      <div class="card" style="margin-bottom:10px"><div class="card-label">Gastos mes</div><div class="card-value cr" id="fin-out">$0.00</div></div>
+      <div class="card"><div class="card-label">Balance neto</div><div class="card-value" id="fin-net">$0.00</div></div>
+    </div>
+    <div class="card"><div class="card-label" style="margin-bottom:12px">Por proyecto</div><div id="fin-by-proj"></div></div>
+  </div>
+  <div class="separator"></div>
+  <div class="stitle" style="font-size:0.95rem;margin-bottom:10px">Registrar movimiento</div>
+  <div class="fin-input-row">
+    <input type="text" class="inp" id="fin-desc" placeholder="Descripción...">
+    <select class="inp" id="fin-cat">
+      <option value="income-kaia">↑ Ingreso KAIA</option>
+      <option value="income-neurahash">↑ Ingreso NEURAHASH</option>
+      <option value="income-realestate">↑ Ingreso REAL ESTATE</option>
+      <option value="income-otro">↑ Ingreso Otro</option>
+      <option value="expense-kaia">↓ Gasto KAIA</option>
+      <option value="expense-neurahash">↓ Gasto NEURAHASH</option>
+      <option value="expense-realestate">↓ Gasto REAL ESTATE</option>
+      <option value="expense-personal">↓ Gasto Personal</option>
+      <option value="expense-otro">↓ Gasto Otro</option>
+    </select>
+    <input type="number" class="inp" id="fin-amount" placeholder="Monto $">
+    <button class="btn btn-g" onclick="addTransaction()">Registrar</button>
+  </div>
+  <div class="separator"></div>
+  <div id="transactions-list"></div>
+</div>
+
+<!-- IDEAS -->
+<div id="tab-ideas" class="section">
+  <div class="stitle">Ideas</div>
+  <div class="ssub">Capturá todo antes de que se pierda.</div>
+  <div class="input-row" style="margin-bottom:18px;align-items:flex-start">
+    <textarea class="inp" id="idea-input" placeholder="Escribí tu idea..." style="height:56px"></textarea>
+    <select class="inp" id="idea-project" style="flex:0 0 auto">
+      <option value="KAIA">KAIA</option><option value="NEURAHASH">NEURAHASH</option>
+      <option value="REAL ESTATE">REAL ESTATE</option><option value="H2O+">H2O+</option>
+      <option value="PERSONAL">PERSONAL</option><option value="GENERAL">GENERAL</option>
+    </select>
+    <button class="btn btn-g" onclick="addIdea()" style="height:56px">+ Guardar</button>
+  </div>
+  <div class="ideas-grid" id="ideas-container"></div>
+</div>
+
+<!-- ROADMAP -->
+<div id="tab-roadmap" class="section">
+  <div class="stitle">Roadmap 2025</div>
+  <div class="ssub">El plan grande. De dónde venís, a dónde vas.</div>
+  <div class="road-section">
+    <div class="road-section-title" style="color:var(--r)">KAIA</div>
+    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Primeros 10 clientes reales</div><div class="road-item-desc">Meta Ads + Google. Testimonials. Sistema de pagos y logística.</div></div><div class="road-status s-now">Ahora</div></div>
+    <div class="road-item"><div class="road-num">Q2</div><div class="road-content"><div class="road-item-title">100+ rentas/mes</div><div class="road-item-desc">Onboarding propietarias. Influencers Miami.</div></div><div class="road-status s-next">Siguiente</div></div>
+    <div class="road-item"><div class="road-num">Q3-Q4</div><div class="road-content"><div class="road-item-title">Marketplace bilateral</div><div class="road-item-desc">App o portal propietarias. Rating system. Otras ciudades FL.</div></div><div class="road-status s-later">Visión</div></div>
+  </div>
+  <div class="road-section">
+    <div class="road-section-title" style="color:var(--g)">NEURAHASH</div>
+    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Landing + primeros inversores</div><div class="road-item-desc">Calculadora ROI. 3-5 inversores. Contratos. Dashboard.</div></div><div class="road-status s-now">Ahora</div></div>
+    <div class="road-item"><div class="road-num">Q2-Q3</div><div class="road-content"><div class="road-item-title">20+ miners. Segundo farm.</div><div class="road-item-desc">Alianza con proveedor energía PY.</div></div><div class="road-status s-next">Siguiente</div></div>
+    <div class="road-item"><div class="road-num">2026</div><div class="road-content"><div class="road-item-title">Energía como servicio</div><div class="road-item-desc">Phone farm, GPU farm, AI. Data center regional.</div></div><div class="road-status s-later">Visión</div></div>
+  </div>
+  <div class="road-section">
+    <div class="road-section-title" style="color:var(--b)">REAL ESTATE</div>
+    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Sistema de publicación + 5 rentals</div><div class="road-item-desc">Templates. 10 listings/semana. CRM básico.</div></div><div class="road-status s-now">Ahora</div></div>
+    <div class="road-item"><div class="road-num">Q2-Q3</div><div class="road-content"><div class="road-item-title">Licencia FL + escalar</div><div class="road-item-desc">Comisiones más grandes. Audiencia propia.</div></div><div class="road-status s-later">Visión</div></div>
+  </div>
+  <div class="road-section">
+    <div class="road-section-title" style="color:var(--y)">H2O+</div>
+    <div class="road-item"><div class="road-num">Q2</div><div class="road-content"><div class="road-item-title">Prototipo Paraguay</div><div class="road-item-desc">100 latas. Co-manufacturer local. Feedback real.</div></div><div class="road-status s-next">Siguiente</div></div>
+    <div class="road-item"><div class="road-num">Q3-Q4</div><div class="road-content"><div class="road-item-title">Marca + FDA USA</div><div class="road-item-desc">Diseño. Food lawyer. Co-man Florida.</div></div><div class="road-status s-later">Visión</div></div>
+  </div>
+</div>
+
+<!-- ===================== LIFE SECTIONS ===================== -->
+
+<!-- INGLÉS -->
+<div id="tab-ingles" class="section">
+  <div class="stitle">Inglés</div>
+  <div class="ssub">Tu arma secreta. Una palabra, una frase, un quiz — cada día.</div>
+
+  <div class="eng-hero">
+    <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--b);margin-bottom:8px">PALABRA DEL DÍA</div>
+    <div class="eng-word" id="eng-word">Loading...</div>
+    <div class="eng-pron" id="eng-pron"></div>
+    <div class="eng-meaning" id="eng-meaning"></div>
+    <div class="eng-example" id="eng-example"></div>
+    <div class="eng-chips">
+      <div class="eng-chip active" onclick="setEngCat('business')">Business</div>
+      <div class="eng-chip" onclick="setEngCat('daily')">Daily Life</div>
+      <div class="eng-chip" onclick="setEngCat('advanced')">Advanced</div>
+    </div>
+    <button class="btn btn-g" style="margin-top:14px" onclick="loadWord()">Nueva palabra →</button>
+  </div>
+
+  <div class="stitle" style="font-size:1rem;margin-bottom:10px">Frases de negocios</div>
+  <div class="eng-phrases" id="eng-phrases-container"></div>
+
+  <div class="separator"></div>
+
+  <div class="stitle" style="font-size:1rem;margin-bottom:4px">Quiz diario</div>
+  <div class="ssub">Probá lo que aprendiste</div>
+  <div class="eng-quiz" id="eng-quiz">
+    <div class="eng-quiz-q" id="quiz-q">Cargando quiz...</div>
+    <div class="eng-quiz-opts" id="quiz-opts"></div>
+    <div class="eng-score" id="quiz-score"></div>
+  </div>
+
+  <div class="separator"></div>
+  <div class="stitle" style="font-size:1rem;margin-bottom:10px">Modo bilingüe</div>
+  <div class="card">
+    <div class="card-label" style="margin-bottom:10px">El sistema en inglés y español</div>
+    <div style="font-size:0.78rem;color:var(--muted);line-height:1.7;margin-bottom:14px">Cada elemento clave del sistema tiene su versión en inglés para que aprendas mientras usás JOEL OS.</div>
+    <div style="display:grid;gap:6px">
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Tareas</span><span style="color:var(--b)">Tasks</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Hábitos</span><span style="color:var(--b)">Habits</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Ingresos</span><span style="color:var(--b)">Revenue</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Inversores</span><span style="color:var(--b)">Investors</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Mercado</span><span style="color:var(--b)">Market</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:0.75rem"><span style="color:var(--muted)">Energía barata</span><span style="color:var(--b)">Cheap energy</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ESPIRITUALIDAD -->
+<div id="tab-espiritu" class="section">
+  <div class="stitle">Espiritualidad</div>
+  <div class="ssub">El trabajo interno es el trabajo más importante.</div>
+
+  <div class="spirit-hero">
+    <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--p);margin-bottom:10px">REFLEXIÓN DE HOY</div>
+    <div class="spirit-quote" id="spirit-quote">"La felicidad de tu vida depende de la calidad de tus pensamientos."</div>
+    <div class="spirit-author" id="spirit-author">— Marco Aurelio</div>
+    <button class="btn" style="margin-top:16px;border-color:#bf5fff30;color:var(--p)" onclick="newQuote()">Nueva reflexión →</button>
+  </div>
+
+  <div class="spirit-cards">
+    <div class="spirit-card">
+      <div class="spirit-card-icon">🧘</div>
+      <div class="spirit-card-title">Meditación</div>
+      <div class="spirit-card-text">10 minutos de silencio consciente. Observá tus pensamientos sin juzgarlos.</div>
+    </div>
+    <div class="spirit-card">
+      <div class="spirit-card-icon">✍️</div>
+      <div class="spirit-card-title">Journaling</div>
+      <div class="spirit-card-text">3 cosas que agradecés hoy. 1 cosa que podés mejorar.</div>
+    </div>
+    <div class="spirit-card">
+      <div class="spirit-card-icon">🌅</div>
+      <div class="spirit-card-title">Rutina mañana</div>
+      <div class="spirit-card-text">Sin teléfono los primeros 30 min. Agua, luz natural, intención del día.</div>
+    </div>
+    <div class="spirit-card">
+      <div class="spirit-card-icon">⚡</div>
+      <div class="spirit-card-title">Ley de atracción</div>
+      <div class="spirit-card-text">Visualizá tu versión de éxito cada mañana. Sé específico.</div>
+    </div>
+    <div class="spirit-card">
+      <div class="spirit-card-icon">📖</div>
+      <div class="spirit-card-title">Estoicismo</div>
+      <div class="spirit-card-text">Controlás tu respuesta, no los eventos. Dicotomía del control.</div>
+    </div>
+    <div class="spirit-card">
+      <div class="spirit-card-icon">🙏</div>
+      <div class="spirit-card-title">Gratitud</div>
+      <div class="spirit-card-text">Tenés 27 años, vivís en Miami, tenés 4 proyectos. Eso ya es mucho.</div>
+    </div>
+  </div>
+
+  <div class="spirit-practice">
+    <div class="spirit-practice-title">Práctica de hoy</div>
+    <div class="practice-item" onclick="togglePractice(this)"><div class="practice-dot"></div><div class="practice-text">Meditación 10 minutos</div><div class="practice-time">10 min</div></div>
+    <div class="practice-item" onclick="togglePractice(this)"><div class="practice-dot"></div><div class="practice-text">Escribir 3 agradecimientos</div><div class="practice-time">5 min</div></div>
+    <div class="practice-item" onclick="togglePractice(this)"><div class="practice-dot"></div><div class="practice-text">Visualización de metas</div><div class="practice-time">5 min</div></div>
+    <div class="practice-item" onclick="togglePractice(this)"><div class="practice-dot"></div><div class="practice-text">Leer 15 minutos</div><div class="practice-time">15 min</div></div>
+    <div class="practice-item" onclick="togglePractice(this)"><div class="practice-dot"></div><div class="practice-text">Sin redes sociales primera hora</div><div class="practice-time">60 min</div></div>
+  </div>
+</div>
+
+<!-- GYM -->
+<div id="tab-gym" class="section">
+  <div class="stitle">Gym</div>
+  <div class="ssub">Tu cuerpo es el primer proyecto que tenés que construir.</div>
+
+  <div class="gym-tabs">
+    <button class="gym-tab active" onclick="setGymDay('lunes',this)">Lunes</button>
+    <button class="gym-tab" onclick="setGymDay('martes',this)">Martes</button>
+    <button class="gym-tab" onclick="setGymDay('miercoles',this)">Miércoles</button>
+    <button class="gym-tab" onclick="setGymDay('jueves',this)">Jueves</button>
+    <button class="gym-tab" onclick="setGymDay('viernes',this)">Viernes</button>
+    <button class="gym-tab" onclick="setGymDay('sabado',this)">Sábado</button>
+    <button class="gym-tab" onclick="setGymDay('domingo',this)">Domingo</button>
+  </div>
+
+  <div class="gym-hero">
+    <div class="gym-day-title" id="gym-day-title">Pecho + Tríceps</div>
+    <div class="gym-day-sub" id="gym-day-sub">Lunes — Empujé superior</div>
+    <div id="gym-exercises"></div>
+  </div>
+
+  <div class="separator"></div>
+  <div class="stitle" style="font-size:1rem;margin-bottom:6px">Personal Records (PR)</div>
+  <div class="pr-grid">
+    <div class="pr-card"><div class="pr-exercise">Bench Press</div><div class="pr-value" id="pr-bench">—</div><div class="pr-unit">kg</div></div>
+    <div class="pr-card"><div class="pr-exercise">Squat</div><div class="pr-value" id="pr-squat">—</div><div class="pr-unit">kg</div></div>
+    <div class="pr-card"><div class="pr-exercise">Deadlift</div><div class="pr-value" id="pr-dead">—</div><div class="pr-unit">kg</div></div>
+    <div class="pr-card"><div class="pr-exercise">Peso corporal</div><div class="pr-value" id="pr-weight">—</div><div class="pr-unit">kg</div></div>
+  </div>
+  <div class="input-row mt16">
+    <select class="inp" id="pr-exercise" style="flex:0 0 auto">
+      <option value="bench">Bench Press</option>
+      <option value="squat">Squat</option>
+      <option value="dead">Deadlift</option>
+      <option value="weight">Peso corporal</option>
+    </select>
+    <input type="number" class="inp" id="pr-value" placeholder="kg">
+    <button class="btn btn-g" onclick="updatePR()">Actualizar PR</button>
+  </div>
+</div>
+
+<!-- MOTIVACIÓN -->
+<div id="tab-motivacion" class="section">
+  <div class="stitle">Motivación</div>
+  <div class="ssub">Combustible para los días difíciles.</div>
+
+  <div class="mot-hero">
+    <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--y);margin-bottom:12px">FRASE DE HOY</div>
+    <div class="mot-quote" id="mot-quote">"El éxito no es final, el fracaso no es fatal. Lo que cuenta es el coraje de continuar."</div>
+    <div class="mot-author" id="mot-author">— Winston Churchill</div>
+    <button class="btn btn-g mot-btn" onclick="newMotivation()">Nueva frase →</button>
+  </div>
+
+  <div class="beast-mode" id="beast-btn" onclick="toggleBeastMode()">
+    <div class="beast-title">🔥 MODO BESTIA</div>
+    <div class="beast-sub" id="beast-sub">Activá cuando necesitás máximo enfoque. Sin excusas.</div>
+  </div>
+
+  <div class="gamification">
+    <div class="gam-title">LOGROS</div>
+    <div class="achievement">
+      <div class="ach-icon">🚀</div>
+      <div class="ach-info"><div class="ach-name">Primer día</div><div class="ach-desc">Abriste JOEL OS por primera vez</div></div>
+      <div class="ach-status ach-done">✓ Logrado</div>
+    </div>
+    <div class="achievement">
+      <div class="ach-icon">🔥</div>
+      <div class="ach-info"><div class="ach-name">7 días seguidos</div><div class="ach-desc">Racha de hábitos de 7 días</div></div>
+      <div class="ach-status ach-locked" id="ach-7d">🔒 Bloqueado</div>
+    </div>
+    <div class="achievement">
+      <div class="ach-icon">💰</div>
+      <div class="ach-info"><div class="ach-name">Primer ingreso</div><div class="ach-desc">Registrá tu primer ingreso en Finanzas</div></div>
+      <div class="ach-status ach-locked" id="ach-income">🔒 Bloqueado</div>
+    </div>
+    <div class="achievement">
+      <div class="ach-icon">📚</div>
+      <div class="ach-info"><div class="ach-name">Políglota</div><div class="ach-desc">Completá 30 días de inglés seguidos</div></div>
+      <div class="ach-status ach-locked">🔒 Bloqueado</div>
+    </div>
+    <div class="achievement">
+      <div class="ach-icon">⚡</div>
+      <div class="ach-info"><div class="ach-name">Emprendedor</div><div class="ach-desc">Cerrá tu primera venta de KAIA</div></div>
+      <div class="ach-status ach-locked">🔒 Bloqueado</div>
+    </div>
+    <div class="achievement">
+      <div class="ach-icon">🌎</div>
+      <div class="ach-info"><div class="ach-name">Paraguayo en Miami</div><div class="ach-desc">27 años. 4 proyectos. 1 sistema. Sos esto.</div></div>
+      <div class="ach-status ach-done">✓ Logrado</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHATSAPP -->
+<div id="tab-whatsapp" class="section">
+  <div class="stitle">WhatsApp Integration</div>
+  <div class="ssub">Recibí tu resumen diario y controlá JOEL OS desde WhatsApp.</div>
+
+  <div class="wa-section">
+    <div class="wa-title">📱 Resumen diario automático</div>
+    <div class="wa-sub">Cada mañana a las 8AM podés recibir esto en tu WhatsApp. Así arrancás el día con todo claro.</div>
+    <div class="wa-preview" id="wa-preview">Generando tu resumen...</div>
+    <button class="btn btn-g" onclick="openWhatsApp()">Enviarme este resumen ahora →</button>
+  </div>
+
+  <div class="separator"></div>
+  <div class="stitle" style="font-size:1rem;margin-bottom:6px">Cómo automatizarlo (paso a paso)</div>
+  <div class="wa-steps">
+    <div class="wa-step"><div class="wa-step-num">1</div><div class="wa-step-text">Creá una cuenta gratis en <strong>make.com</strong> (antes Integromat). Es la herramienta de automatización más poderosa.</div></div>
+    <div class="wa-step"><div class="wa-step-num">2</div><div class="wa-step-text">Conectá <strong>WhatsApp Business</strong> a Make. Necesitás un número de WhatsApp Business (puede ser el tuyo).</div></div>
+    <div class="wa-step"><div class="wa-step-num">3</div><div class="wa-step-text">Creamos un <strong>webhook</strong> que lee tus datos de JOEL OS y arma el mensaje automático cada mañana.</div></div>
+    <div class="wa-step"><div class="wa-step-num">4</div><div class="wa-step-text">Listo. Cada día a las 8AM te llega tu briefing: tareas, hábitos, métricas, frase del día.</div></div>
+  </div>
+
+  <div class="separator"></div>
+  <div class="stitle" style="font-size:1rem;margin-bottom:6px">Generador de mensajes</div>
+  <div class="card">
+    <div class="card-label" style="margin-bottom:10px">Crear mensaje personalizado</div>
+    <div class="input-row">
+      <select class="inp" id="wa-type">
+        <option value="daily">Resumen diario</option>
+        <option value="kaia">Update KAIA</option>
+        <option value="neurahash">Update NeuraHash</option>
+        <option value="motivation">Motivación</option>
+      </select>
+      <button class="btn btn-g" onclick="generateWAMessage()">Generar →</button>
+    </div>
+    <div class="wa-preview" id="wa-custom" style="margin-top:12px;display:none"></div>
+    <button class="btn btn-g" id="wa-send-btn" style="margin-top:8px;display:none" onclick="sendCustomWA()">Enviar por WhatsApp →</button>
+  </div>
+</div>
+
+<!-- NOTICIAS -->
+<div id="tab-noticias" class="section">
+  <div class="stitle">Noticias & Info</div>
+  <div class="ssub">Bitcoin, negocios, Miami, política — todo lo que te importa.</div>
+  <div class="news-filters">
+    <button class="news-filter active" onclick="setNewsFilter('all',this)">Todo</button>
+    <button class="news-filter" onclick="setNewsFilter('crypto',this)">₿ Crypto</button>
+    <button class="news-filter" onclick="setNewsFilter('business',this)">Negocios</button>
+    <button class="news-filter" onclick="setNewsFilter('miami',this)">Miami</button>
+    <button class="news-filter" onclick="setNewsFilter('politics',this)">Política</button>
+  </div>
+  <div id="news-container"></div>
+</div>
+
+<!-- ASISTENTE IA -->
+<div id="tab-ai" class="section">
+  <div class="stitle">Asistente IA</div>
+  <div class="ssub">Tu estratega personal. Preguntá lo que sea.</div>
+  <div class="ai-area">
+    <div class="ai-messages" id="ai-messages">
+      <div class="ai-msg assistant">
+        <div class="ai-msg-label">JOEL OS — Asistente</div>
+        Hola Joel 👋 Soy tu asistente integrado. Conozco tus 4 proyectos, tus hábitos y tus metas. ¿En qué te ayudo hoy? Podés preguntarme sobre estrategia de KAIA, NeuraHash, Real Estate, H2O+, inglés, gym, finanzas — lo que sea.
+      </div>
+    </div>
+    <div class="ai-input-row">
+      <textarea id="ai-input" class="inp" placeholder="Preguntá sobre cualquier proyecto, decisión o idea..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"></textarea>
+      <button class="btn btn-g" onclick="sendAI()" style="height:48px;padding:0 18px">→</button>
+    </div>
+    <div class="ai-hint">Enter para enviar · Shift+Enter para nueva línea</div>
+  </div>
+</div>
+
+<script>
+// ========================
+// STATE
+// ========================
+const SK = 'joelos_v2';
+let S = {
+  tasks:[], habits:[
+    {id:1,name:'Gym / Entrenamiento 💪',log:{}},
+    {id:2,name:'Meditación 🧘',log:{}},
+    {id:3,name:'Lectura 20min 📖',log:{}},
+    {id:4,name:'Inglés diario 🇺🇸',log:{}},
+    {id:5,name:'Comida limpia 🥗',log:{}},
+  ],
+  transactions:[], ideas:[],
+  prs:{bench:'—',squat:'—',dead:'—',weight:'—'},
+  engCat:'business', engStreak:0, gymDone:{},
+  xp:0, streak:0, beastMode:false,
+  nextId:200,
+};
+
+function load(){try{const d=localStorage.getItem(SK);if(d)S={...S,...JSON.parse(d)};}catch(e){}}
+function save(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
+
+// ========================
+// TABS & MODE
+// ========================
+const WORK_TABS=[
+  {id:'dashboard',label:'⬡ Dashboard'},
+  {id:'proyectos',label:'◈ Proyectos'},
+  {id:'tareas',label:'◻ Tareas'},
+  {id:'habitos',label:'◌ Hábitos'},
+  {id:'finanzas',label:'◎ Finanzas'},
+  {id:'ideas',label:'◇ Ideas'},
+  {id:'roadmap',label:'→ Roadmap'},
+  {id:'whatsapp',label:'📱 WhatsApp'},
+  {id:'ai',label:'✦ IA'},
+];
+const LIFE_TABS=[
+  {id:'ingles',label:'🇺🇸 Inglés'},
+  {id:'espiritu',label:'✦ Espiritu'},
+  {id:'gym',label:'💪 Gym'},
+  {id:'motivacion',label:'🔥 Motivación'},
+  {id:'noticias',label:'📰 Noticias'},
+  {id:'ai',label:'✦ IA'},
+];
+let currentMode='work';
+let currentTab='dashboard';
+
+function setMode(mode){
+  currentMode=mode;
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderTabs();
+  const firstTab = mode==='work'?'dashboard':'ingles';
+  showTab(firstTab);
+}
+
+function renderTabs(){
+  const tabs=currentMode==='work'?WORK_TABS:LIFE_TABS;
+  const container=document.getElementById('tabs-container');
+  container.innerHTML=tabs.map(t=>`<button class="tab${currentMode==='life'?' life-tab':''}" onclick="showTab('${t.id}')">${t.label}</button>`).join('');
+}
+
+function showTab(id){
+  currentTab=id;
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('tab-'+id);
+  if(el)el.classList.add('active');
+  // highlight tab
+  const tabs=currentMode==='work'?WORK_TABS:LIFE_TABS;
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    t.classList.remove('active');
+    if(tabs[i]&&tabs[i].id===id)t.classList.add('active');
+  });
+  render();
+}
+
+// ========================
+// CLOCK & GREETING
+// ========================
+function updateClock(){
+  const now=new Date();
+  const days=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  document.getElementById('hdate').textContent=`${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+  document.getElementById('htime').textContent=now.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const h=now.getHours();
+  const g=h<12?'Buenos días':h<19?'Buenas tardes':'Buenas noches';
+  const el=document.getElementById('greeting-text');
+  if(el)el.innerHTML=`${g},<br><em>Joel.</em>`;
+}
+setInterval(updateClock,1000);
+updateClock();
+
+// ========================
+// XP & GAMIFICATION
+// ========================
+function addXP(amount){
+  S.xp=(S.xp||0)+amount;
+  save();
+  updateXPDisplay();
+}
+function updateXPDisplay(){
+  const xp=S.xp||0;
+  const level=Math.floor(xp/100)+1;
+  const progress=(xp%100);
+  document.getElementById('level-display').textContent=`LVL ${level}`;
+  document.getElementById('xp-fill').style.width=progress+'%';
+  document.getElementById('xp-display').textContent=xp+' XP';
+  document.getElementById('streak-display').textContent=S.streak||0;
+}
+
+// ========================
+// TASKS
+// ========================
+function addTask(){
+  const inp=document.getElementById('task-input');
+  const proj=document.getElementById('task-project').value;
+  if(!inp.value.trim())return;
+  S.tasks.push({id:S.nextId++,text:inp.value.trim(),project:proj,done:false});
+  inp.value='';
+  addXP(5);
+  save();renderTasks();updateStats();
+}
+function toggleTask(id){
+  const t=S.tasks.find(t=>t.id===id);
+  if(t){t.done=!t.done;if(t.done)addXP(10);save();renderTasks();updateStats();}
+}
+function renderTasks(){
+  const c=document.getElementById('tasks-container');
+  if(!c)return;
+  const colors={kaia:'var(--r)',neurahash:'var(--g)',realestate:'var(--b)',bebida:'var(--y)',personal:'#888'};
+  const labels={kaia:'KAIA',neurahash:'NEURAHASH',realestate:'REAL ESTATE',bebida:'H2O+',personal:'PERSONAL'};
+  const projs=['kaia','neurahash','realestate','bebida','personal'];
+  let html='';
+  projs.forEach(p=>{
+    const tasks=S.tasks.filter(t=>t.project===p);
+    if(!tasks.length)return;
+    html+=`<div class="task-area"><div class="task-area-title" style="color:${colors[p]}">${labels[p]}</div>`;
+    tasks.forEach(t=>{
+      html+=`<div class="task-item${t.done?' done':''}" onclick="toggleTask(${t.id})"><div class="task-check"></div><div class="task-text">${t.text}</div><div class="task-tag" style="background:${colors[p]}15;color:${colors[p]};border:1px solid ${colors[p]}25">${labels[p]}</div></div>`;
+    });
+    html+='</div>';
+  });
+  if(!html)html='<div style="color:var(--muted);font-size:0.75rem;padding:16px 0">No hay tareas. Agregá tu primera.</div>';
+  c.innerHTML=html;
+  // dashboard preview
+  const dp=document.getElementById('dashboard-tasks');
+  if(dp){
+    const pending=S.tasks.filter(t=>!t.done).slice(0,5);
+    if(!pending.length){dp.innerHTML='<div style="color:var(--muted);font-size:0.75rem">Sin tareas pendientes. 🎉</div>';return;}
+    dp.innerHTML=pending.map(t=>`<div class="task-item" onclick="toggleTask(${t.id});render()"><div class="task-check"></div><div class="task-text">${t.text}</div><div class="task-tag" style="background:${colors[t.project]}15;color:${colors[t.project]};border:1px solid ${colors[t.project]}25">${t.project.toUpperCase()}</div></div>`).join('');
+  }
+}
+
+// ========================
+// HABITS
+// ========================
+function todayKey(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function getLast7(){const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`);}return days;}
+
+function toggleHabit(hid,dk){
+  const h=S.habits.find(h=>h.id===hid);
+  if(!h)return;
+  if(!h.log)h.log={};
+  h.log[dk]=!h.log[dk];
+  if(h.log[dk])addXP(15);
+  updateStreak();
+  save();renderHabits();updateStats();
+}
+function updateStreak(){
+  const today=todayKey();
+  const allDone=S.habits.every(h=>h.log&&h.log[today]);
+  if(allDone){S.streak=(S.streak||0)+1;}
+  updateXPDisplay();
+}
+function addHabit(){
+  const inp=document.getElementById('habit-input');
+  if(!inp.value.trim())return;
+  S.habits.push({id:S.nextId++,name:inp.value.trim(),log:{}});
+  inp.value='';save();renderHabits();
+}
+function renderHabits(){
+  const labels=document.getElementById('day-labels');
+  const c=document.getElementById('habits-container');
+  if(!c)return;
+  const days=getLast7();
+  const dayNames=['Do','Lu','Ma','Mi','Ju','Vi','Sá'];
+  if(labels){labels.innerHTML=days.map(d=>{const dow=new Date(d+'T12:00:00').getDay();return`<div class="day-label">${dayNames[dow]}<br><span style="font-size:0.5rem">${d.slice(8)}</span></div>`}).join('');}
+  c.innerHTML=S.habits.map(h=>{
+    const doneCount=days.filter(d=>h.log&&h.log[d]).length;
+    return`<div class="hab-row"><div class="hab-name"><strong>${h.name}</strong><span>${doneCount}/7 esta semana</span></div><div class="hab-dots">${days.map(d=>`<div class="hab-dot${h.log&&h.log[d]?' done':''}" onclick="toggleHabit(${h.id},'${d}')" title="${d}">✓</div>`).join('')}</div></div>`;
+  }).join('');
+}
+
+// ========================
+// FINANCES
+// ========================
+function addTransaction(){
+  const desc=document.getElementById('fin-desc').value.trim();
+  const cat=document.getElementById('fin-cat').value;
+  const amount=parseFloat(document.getElementById('fin-amount').value);
+  if(!desc||isNaN(amount)||amount<=0)return;
+  const[type,project]=cat.split('-');
+  S.transactions.push({id:S.nextId++,desc,type,project,amount,date:Date.now()});
+  document.getElementById('fin-desc').value='';
+  document.getElementById('fin-amount').value='';
+  if(type==='income'){addXP(20);document.getElementById('ach-income').className='ach-status ach-done';document.getElementById('ach-income').textContent='✓ Logrado';}
+  save();renderFinances();
+}
+function renderFinances(){
+  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const net=inc-exp;
+  document.getElementById('fin-in').textContent='$'+inc.toFixed(2);
+  document.getElementById('fin-out').textContent='$'+exp.toFixed(2);
+  const ne=document.getElementById('fin-net');
+  ne.textContent=(net>=0?'+':'')+'$'+net.toFixed(2);
+  ne.className='card-value '+(net>=0?'cg':'cr');
+  const projs=['kaia','neurahash','realestate','personal','otro'];
+  const pNames={kaia:'KAIA',neurahash:'NEURAHASH',realestate:'REAL ESTATE',personal:'Personal',otro:'Otro'};
+  const pColors={kaia:'var(--r)',neurahash:'var(--g)',realestate:'var(--b)',personal:'#888',otro:'#666'};
+  let ph='';
+  projs.forEach(p=>{
+    const pi=S.transactions.filter(t=>t.type==='income'&&t.project===p).reduce((s,t)=>s+t.amount,0);
+    const pe=S.transactions.filter(t=>t.type==='expense'&&t.project===p).reduce((s,t)=>s+t.amount,0);
+    if(!pi&&!pe)return;
+    const pn=pi-pe;
+    ph+=`<div class="fin-row"><div style="color:${pColors[p]};font-size:0.68rem">${pNames[p]}</div><div class="fin-amount ${pn>=0?'cg':'cr'}">${pn>=0?'+':''}$${pn.toFixed(0)}</div></div>`;
+  });
+  document.getElementById('fin-by-proj').innerHTML=ph||'<div style="color:var(--muted);font-size:0.7rem">Sin movimientos</div>';
+  const tl=document.getElementById('transactions-list');
+  if(!tl)return;
+  if(!S.transactions.length){tl.innerHTML='<div style="color:var(--muted);font-size:0.75rem;padding:12px 0">Sin movimientos.</div>';return;}
+  tl.innerHTML=[...S.transactions].reverse().map(t=>{
+    const date=new Date(t.date);
+    return`<div class="fin-row"><div><div>${t.desc}</div><div class="fin-label">${t.project?.toUpperCase()} · ${date.toLocaleDateString('es')}</div></div><div class="fin-amount ${t.type==='income'?'cg':'cr'}">${t.type==='income'?'+':'-'}$${t.amount.toFixed(2)}</div></div>`;
+  }).join('');
+  updateStats();
+}
+
+// ========================
+// IDEAS
+// ========================
+function addIdea(){
+  const text=document.getElementById('idea-input').value.trim();
+  const proj=document.getElementById('idea-project').value;
+  if(!text)return;
+  S.ideas.push({id:S.nextId++,text,project:proj,date:Date.now()});
+  document.getElementById('idea-input').value='';
+  addXP(5);save();renderIdeas();
+}
+function deleteIdea(id){S.ideas=S.ideas.filter(i=>i.id!==id);save();renderIdeas();}
+function renderIdeas(){
+  const c=document.getElementById('ideas-container');
+  if(!c)return;
+  const pc={KAIA:'var(--r)',NEURAHASH:'var(--g)','REAL ESTATE':'var(--b)','H2O+':'var(--y)',PERSONAL:'#888',GENERAL:'#666'};
+  if(!S.ideas.length){c.innerHTML='<div style="color:var(--muted);font-size:0.75rem;grid-column:1/-1">Capturá tu primera idea.</div>';return;}
+  c.innerHTML=[...S.ideas].reverse().map(i=>`<div class="idea-card"><div class="idea-proj" style="color:${pc[i.project]||'#888'}">${i.project}</div><div class="idea-text">${i.text}</div><button class="idea-del" onclick="deleteIdea(${i.id})">✕</button></div>`).join('');
+}
+
+// ========================
+// STATS
+// ========================
+function updateStats(){
+  const pending=S.tasks.filter(t=>!t.done).length;
+  document.getElementById('s-tasks').textContent=pending;
+  const today=todayKey();
+  const doneH=S.habits.filter(h=>h.log&&h.log[today]).length;
+  document.getElementById('s-habits').textContent=`${doneH}/${S.habits.length}`;
+  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const net=inc-exp;
+  const sb=document.getElementById('s-balance');
+  sb.textContent=(net>=0?'+':'')+'$'+net.toFixed(0);
+  sb.className='card-value '+(net>=0?'cg':'cr');
+  document.getElementById('s-eng').textContent=S.engStreak||0;
+}
+
+// ========================
+// ENGLISH
+// ========================
+const ENG_DATA = {
+  business:[
+    {word:'Revenue',pron:'/ˈrɛv.ən.juː/',meaning:'Ingresos totales que genera un negocio antes de descontar gastos.',example:'<strong>"Our revenue this month increased 20%"</strong> — Nuestros ingresos este mes subieron 20%.'},
+    {word:'Leverage',pron:'/ˈlev.ər.ɪdʒ/',meaning:'Usar algo (recursos, contactos, datos) para maximizar resultados.',example:'<strong>"We can leverage our Miami network"</strong> — Podemos aprovechar nuestra red en Miami.'},
+    {word:'Scalable',pron:'/ˈskeɪ.lə.bəl/',meaning:'Un negocio que puede crecer sin aumentar costos proporcionalmente.',example:'<strong>"NeuraHash is a scalable business model"</strong> — NeuraHash es un modelo escalable.'},
+    {word:'Pitch',pron:'/pɪtʃ/',meaning:'Presentación corta y convincente de tu negocio para inversores.',example:'<strong>"I need to pitch NeuraHash to investors"</strong> — Necesito presentar NeuraHash a inversores.'},
+    {word:'Cashflow',pron:'/ˈkæʃ.floʊ/',meaning:'El flujo de dinero que entra y sale de tu negocio.',example:'<strong>"Positive cashflow keeps the business alive"</strong> — El cashflow positivo mantiene vivo el negocio.'},
+    {word:'ROI',pron:'/ɑːr.oʊ.aɪ/',meaning:'Return on Investment — Retorno sobre la inversión. Qué ganás por lo que invertís.',example:'<strong>"The ROI on mining is strong in Paraguay"</strong> — El ROI del mining es fuerte en Paraguay.'},
+    {word:'Disruptive',pron:'/dɪˈsrʌp.tɪv/',meaning:'Que cambia radicalmente una industria o mercado existente.',example:'<strong>"KAIA is a disruptive fashion model"</strong> — KAIA es un modelo de moda disruptivo.'},
+  ],
+  daily:[
+    {word:'Grind',pron:'/ɡraɪnd/',meaning:'Trabajar duro y de forma consistente hacia una meta.',example:'<strong>"The grind never stops"</strong> — El esfuerzo nunca para.'},
+    {word:'Hustle',pron:'/ˈhʌs.əl/',meaning:'Trabajar con mucha energía y urgencia para lograr algo.',example:'<strong>"You have to hustle every day"</strong> — Tenés que moverte todos los días.'},
+    {word:'Mindset',pron:'/ˈmaɪnd.sɛt/',meaning:'La forma en que pensás y ves el mundo. Tu mentalidad.',example:'<strong>"A growth mindset changes everything"</strong> — Una mentalidad de crecimiento lo cambia todo.'},
+    {word:'Consistency',pron:'/kənˈsɪs.tən.si/',meaning:'Hacer algo de forma regular y sostenida en el tiempo.',example:'<strong>"Consistency beats motivation every time"</strong> — La consistencia gana a la motivación siempre.'},
+    {word:'Breakthrough',pron:'/ˈbreɪk.θruː/',meaning:'Un gran avance o logro después de mucho esfuerzo.',example:'<strong>"Your breakthrough is coming"</strong> — Tu gran avance está llegando.'},
+  ],
+  advanced:[
+    {word:'Arbitrage',pron:'/ˈɑːr.bɪ.trɑːʒ/',meaning:'Aprovechar diferencias de precio en distintos mercados para ganar dinero.',example:'<strong>"Energy arbitrage is at the core of NeuraHash"</strong> — El arbitraje de energía es el núcleo de NeuraHash.'},
+    {word:'Venture',pron:'/ˈven.tʃər/',meaning:'Un negocio o proyecto nuevo con cierto nivel de riesgo.',example:'<strong>"Each of my ventures has a different model"</strong> — Cada uno de mis ventures tiene un modelo distinto.'},
+    {word:'Equity',pron:'/ˈek.wɪ.ti/',meaning:'La participación o propiedad que tenés en un negocio.',example:'<strong>"I want to keep 80% equity in KAIA"</strong> — Quiero mantener el 80% de KAIA.'},
+  ]
+};
+
+const PHRASES=[
+  {en:"Let's get this done.",es:"Hagamos que esto suceda."},
+  {en:"I'll follow up with you.",es:"Te hago un seguimiento."},
+  {en:"Can we schedule a call?",es:"¿Podemos agendar una llamada?"},
+  {en:"I'm working on a deal.",es:"Estoy cerrando un trato."},
+  {en:"What's your budget?",es:"¿Cuál es tu presupuesto?"},
+  {en:"We need to scale this.",es:"Necesitamos escalar esto."},
+  {en:"I'll send you the details.",es:"Te mando los detalles."},
+];
+
+let currentWordIdx={business:0,daily:0,advanced:0};
+const QUIZ=[
+  {q:"¿Cómo se dice 'ingresos' en inglés?",opts:["Revenue","Refund","Request","Report"],correct:0},
+  {q:"¿Qué significa 'scalable'?",opts:["Costoso","Escalable","Riesgoso","Lento"],correct:1},
+  {q:"¿Cómo se dice 'inversor' en inglés?",opts:["Inventor","Investor","Innovator","Inspector"],correct:1},
+  {q:"¿Qué significa 'leverage'?",opts:["Levantar","Apalancar/aprovechar","Vender","Comprar"],correct:1},
+  {q:"¿Cómo se dice 'flujo de caja'?",opts:["Money flow","Cash flow","Fund flow","Pay flow"],correct:1},
+  {q:"¿Qué significa 'pitch'?",opts:["Campo de fútbol","Tono musical","Presentación de negocio","Precio"],correct:2},
+];
+let quizIdx=Math.floor(Math.random()*QUIZ.length);
+let quizAnswered=false;
+
+function setEngCat(cat){
+  S.engCat=cat;
+  document.querySelectorAll('.eng-chip').forEach(c=>c.classList.remove('active'));
+  event.target.classList.add('active');
+  loadWord();
+}
+function loadWord(){
+  const cat=S.engCat||'business';
+  const words=ENG_DATA[cat];
+  const idx=Math.floor(Math.random()*words.length);
+  const w=words[idx];
+  document.getElementById('eng-word').textContent=w.word;
+  document.getElementById('eng-pron').textContent=w.pron;
+  document.getElementById('eng-meaning').textContent=w.meaning;
+  document.getElementById('eng-example').innerHTML=w.example;
+  S.engStreak=(S.engStreak||0)+1;
+  addXP(10);save();updateStats();
+}
+function renderPhrases(){
+  const c=document.getElementById('eng-phrases-container');
+  if(!c)return;
+  const shuffled=[...PHRASES].sort(()=>Math.random()-0.5).slice(0,4);
+  c.innerHTML=shuffled.map(p=>`<div class="eng-phrase"><div class="en">${p.en}</div><div class="es">${p.es}</div></div>`).join('');
+}
+function renderQuiz(){
+  const c=document.getElementById('eng-quiz');
+  if(!c)return;
+  const q=QUIZ[quizIdx];
+  document.getElementById('quiz-q').textContent=q.q;
+  document.getElementById('quiz-opts').innerHTML=q.opts.map((o,i)=>`<div class="eng-quiz-opt" onclick="answerQuiz(${i})">${o}</div>`).join('');
+  document.getElementById('quiz-score').textContent='';
+  quizAnswered=false;
+}
+function answerQuiz(idx){
+  if(quizAnswered)return;
+  quizAnswered=true;
+  const q=QUIZ[quizIdx];
+  const opts=document.querySelectorAll('.eng-quiz-opt');
+  opts[q.correct].classList.add('correct');
+  if(idx!==q.correct)opts[idx].classList.add('wrong');
+  const correct=idx===q.correct;
+  document.getElementById('quiz-score').textContent=correct?'✓ Correcto! +15 XP':'✗ Incorrecto. La respuesta correcta está marcada.';
+  if(correct)addXP(15);
+  setTimeout(()=>{quizIdx=(quizIdx+1)%QUIZ.length;renderQuiz();},2000);
+}
+
+// ========================
+// SPIRITUALITY
+// ========================
+const QUOTES=[
+  {q:"La felicidad de tu vida depende de la calidad de tus pensamientos.",a:"Marco Aurelio"},
+  {q:"No busques que los eventos sean como quieres. Desea que los eventos sean como son.",a:"Epicteto"},
+  {q:"El universo no te da lo que pedís con tus pensamientos, te da lo que sos.",a:"Ley de Atracción"},
+  {q:"Cada mañana nacemos de nuevo. Lo que hacemos hoy es lo que más importa.",a:"Buda"},
+  {q:"La disciplina es elegir entre lo que querés ahora y lo que querés más.",a:"Abraham Lincoln"},
+  {q:"Tu única obligación en cualquier tiempo es ser verdadero contigo mismo.",a:"Richard Bach"},
+  {q:"El hombre que mueve montañas comienza cargando pequeñas piedras.",a:"Confucio"},
+  {q:"La mente es todo. En lo que piensas, te conviertes.",a:"Buda"},
+  {q:"No tengas miedo de renunciar a lo bueno para ir por lo grandioso.",a:"John D. Rockefeller"},
+  {q:"Soy el arquitecto de mi vida. La construyo y la vivo como yo elija.",a:"Afirmación de poder"},
+];
+function newQuote(){
+  const q=QUOTES[Math.floor(Math.random()*QUOTES.length)];
+  document.getElementById('spirit-quote').textContent='"'+q.q+'"';
+  document.getElementById('spirit-author').textContent='— '+q.a;
+}
+function togglePractice(el){el.classList.toggle('done');if(el.classList.contains('done'))addXP(10);}
+
+// ========================
+// GYM
+// ========================
+const GYM_ROUTINES={
+  lunes:{title:'Pecho + Tríceps',sub:'Lunes — Push superior',exercises:[
+    {name:'Press de banca',detail:'4 series × 8-10 reps',id:'e1'},
+    {name:'Press inclinado mancuernas',detail:'3 series × 10-12 reps',id:'e2'},
+    {name:'Aperturas en cable',detail:'3 series × 12-15 reps',id:'e3'},
+    {name:'Press francés',detail:'3 series × 10-12 reps',id:'e4'},
+    {name:'Extensiones en polea',detail:'3 series × 12-15 reps',id:'e5'},
+  ]},
+  martes:{title:'Espalda + Bíceps',sub:'Martes — Pull superior',exercises:[
+    {name:'Dominadas',detail:'4 series × máximo reps',id:'e6'},
+    {name:'Remo con barra',detail:'4 series × 8-10 reps',id:'e7'},
+    {name:'Jalón al pecho',detail:'3 series × 10-12 reps',id:'e8'},
+    {name:'Curl con barra',detail:'3 series × 10-12 reps',id:'e9'},
+    {name:'Curl martillo',detail:'3 series × 12 reps',id:'e10'},
+  ]},
+  miercoles:{title:'Piernas',sub:'Miércoles — Lower body',exercises:[
+    {name:'Sentadilla',detail:'4 series × 8-10 reps',id:'e11'},
+    {name:'Prensa de piernas',detail:'4 series × 10-12 reps',id:'e12'},
+    {name:'Extensiones de cuádriceps',detail:'3 series × 12-15 reps',id:'e13'},
+    {name:'Curl femoral',detail:'3 series × 12 reps',id:'e14'},
+    {name:'Pantorrillas de pie',detail:'4 series × 15-20 reps',id:'e15'},
+  ]},
+  jueves:{title:'Hombros + Core',sub:'Jueves — Shoulders & Core',exercises:[
+    {name:'Press militar',detail:'4 series × 8-10 reps',id:'e16'},
+    {name:'Elevaciones laterales',detail:'4 series × 12-15 reps',id:'e17'},
+    {name:'Face pulls',detail:'3 series × 15 reps',id:'e18'},
+    {name:'Plancha',detail:'3 × 60 segundos',id:'e19'},
+    {name:'Abdominales en polea',detail:'3 series × 15 reps',id:'e20'},
+  ]},
+  viernes:{title:'Full body / Fuerza',sub:'Viernes — Compound movements',exercises:[
+    {name:'Peso muerto',detail:'4 series × 5-6 reps pesado',id:'e21'},
+    {name:'Sentadilla búlgara',detail:'3 series × 10 reps',id:'e22'},
+    {name:'Press banca agarre cerrado',detail:'3 series × 8-10 reps',id:'e23'},
+    {name:'Remo con mancuerna',detail:'3 series × 10-12 reps',id:'e24'},
+  ]},
+  sabado:{title:'Cardio + Movilidad',sub:'Sábado — Active recovery',exercises:[
+    {name:'HIIT 20 minutos',detail:'20 seg on / 10 seg off × 8 rondas',id:'e25'},
+    {name:'Caminata 30 minutos',detail:'Ritmo moderado, al aire libre',id:'e26'},
+    {name:'Stretching full body',detail:'15 minutos de elongación',id:'e27'},
+  ]},
+  domingo:{title:'Descanso activo',sub:'Domingo — Rest & recover',exercises:[
+    {name:'Caminar o nadar',detail:'Actividad ligera, sin intensidad',id:'e28'},
+    {name:'Meditación 10 min',detail:'Visualización de la semana que viene',id:'e29'},
+    {name:'Preparar comidas',detail:'Meal prep para la semana',id:'e30'},
+  ]},
+};
+
+function setGymDay(day,el){
+  document.querySelectorAll('.gym-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderGym(day);
+}
+function renderGym(day){
+  const r=GYM_ROUTINES[day];
+  if(!r)return;
+  document.getElementById('gym-day-title').textContent=r.title;
+  document.getElementById('gym-day-sub').textContent=r.sub;
+  const c=document.getElementById('gym-exercises');
+  if(!c)return;
+  c.innerHTML=r.exercises.map((e,i)=>{
+    const done=S.gymDone&&S.gymDone[e.id];
+    return`<div class="exercise-item${done?' done':''}" id="ex-${e.id}">
+      <div class="exercise-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="exercise-info"><div class="exercise-name">${e.name}</div><div class="exercise-detail">${e.detail}</div></div>
+      <div class="exercise-done" onclick="toggleExercise('${e.id}')"></div>
+    </div>`;
+  }).join('');
+}
+function toggleExercise(id){
+  if(!S.gymDone)S.gymDone={};
+  S.gymDone[id]=!S.gymDone[id];
+  if(S.gymDone[id])addXP(8);
+  save();
+  const el=document.getElementById('ex-'+id);
+  if(el)el.classList.toggle('done',S.gymDone[id]);
+}
+function updatePR(){
+  const ex=document.getElementById('pr-exercise').value;
+  const val=document.getElementById('pr-value').value;
+  if(!val)return;
+  S.prs[ex]=val;
+  save();
+  document.getElementById('pr-'+ex).textContent=val;
+  addXP(20);
+  document.getElementById('pr-value').value='';
+}
+
+// ========================
+// MOTIVATION
+// ========================
+const MOTIVATIONS=[
+  {q:"El éxito no es final, el fracaso no es fatal. Lo que cuenta es el coraje de continuar.",a:"Winston Churchill"},
+  {q:"No te detengas cuando estés cansado. Detenete cuando hayas terminado.",a:"Marilyn Monroe"},
+  {q:"Tu futuro es creado por lo que hacés hoy, no mañana.",a:"Robert Kiyosaki"},
+  {q:"Los ganadores nunca se rinden y los que se rinden nunca ganan.",a:"Vince Lombardi"},
+  {q:"Un paraguayo en Miami construyendo un imperio. Eso ya es épico.",a:"JOEL OS"},
+  {q:"El sacrificio de hoy es el éxito de mañana.",a:"Anónimo"},
+  {q:"Trabajá en silencio. Deja que el éxito haga el ruido.",a:"Frank Ocean"},
+  {q:"No tenés que ser grande para empezar, pero tenés que empezar para ser grande.",a:"Zig Ziglar"},
+  {q:"La diferencia entre ordinario y extraordinario es ese pequeño 'extra'.",a:"Jimmy Johnson"},
+];
+function newMotivation(){
+  const m=MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)];
+  document.getElementById('mot-quote').textContent='"'+m.q+'"';
+  document.getElementById('mot-author').textContent='— '+m.a;
+  addXP(5);
+}
+let beastActive=false;
+function toggleBeastMode(){
+  beastActive=!beastActive;
+  const btn=document.getElementById('beast-btn');
+  const sub=document.getElementById('beast-sub');
+  if(beastActive){
+    btn.classList.add('active');
+    sub.textContent='🔥 MODO BESTIA ACTIVO. Cerrá todo. Apagá el teléfono. EJECUTÁ.';
+    addXP(25);
+  } else {
+    btn.classList.remove('active');
+    sub.textContent='Activá cuando necesitás máximo enfoque. Sin excusas.';
+  }
+}
+
+// ========================
+// NEWS (Static curated)
+// ========================
+const NEWS=[
+  {cat:'crypto',color:'var(--y)',title:'Bitcoin supera resistencia clave — ¿Qué significa para miners como NeuraHash?',meta:'Crypto · Relevante para tu negocio',filter:'crypto'},
+  {cat:'business',color:'var(--g)',title:'El modelo de economía circular en moda crece 40% en USA — oportunidad para KAIA',meta:'Business · Fashion rental market',filter:'business'},
+  {cat:'miami',color:'var(--b)',title:'Miami sigue siendo el hub #1 de crypto y fintech en América',meta:'Miami · Tu mercado',filter:'miami'},
+  {cat:'crypto',color:'var(--y)',title:'Paraguay: uno de los 5 países con energía más barata para Bitcoin mining en 2025',meta:'Crypto · Ventaja competitiva',filter:'crypto'},
+  {cat:'business',color:'var(--g)',title:'El mercado de renta de ropa en USA crecerá a $2.5B en 2026',meta:'Business · KAIA market size',filter:'business'},
+  {cat:'miami',color:'var(--b)',title:'Miami tiene el mayor crecimiento de eventos corporativos del país — +23%',meta:'Miami · Oportunidad KAIA',filter:'miami'},
+  {cat:'politics',color:'var(--p)',title:'USA y Paraguay fortalecen acuerdos de energía renovable',meta:'Política · Relevante para NeuraHash',filter:'politics'},
+  {cat:'business',color:'var(--g)',title:'Airbnb reporta crecimiento del 35% — los modelos marketplace siguen dominando',meta:'Business · Validación del modelo KAIA',filter:'business'},
+  {cat:'crypto',color:'var(--y)',title:'El halving de Bitcoin ya impacta la rentabilidad — quiénes ganan y quiénes pierden',meta:'Crypto · Mining analysis',filter:'crypto'},
+  {cat:'miami',color:'var(--b)',title:'Real estate en Miami: demanda de alquileres sube 18% — oportunidad de mercado',meta:'Miami · Tu negocio RE',filter:'miami'},
+];
+let newsFilter='all';
+function setNewsFilter(f,el){
+  newsFilter=f;
+  document.querySelectorAll('.news-filter').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderNews();
+}
+function renderNews(){
+  const c=document.getElementById('news-container');
+  if(!c)return;
+  const filtered=newsFilter==='all'?NEWS:NEWS.filter(n=>n.filter===newsFilter);
+  c.innerHTML=filtered.map(n=>`<div class="news-card"><div class="news-cat" style="color:${n.color}">${n.cat.toUpperCase()}</div><div class="news-title">${n.title}</div><div class="news-meta">${n.meta}</div></div>`).join('');
+}
+
+// ========================
+// WHATSAPP
+// ========================
+function generateDailyResume(){
+  const today=todayKey();
+  const doneH=S.habits.filter(h=>h.log&&h.log[today]).length;
+  const pending=S.tasks.filter(t=>!t.done).length;
+  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const q=MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)];
+  return `🟢 *JOEL OS — Briefing del día*
+📅 ${new Date().toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'})}
+
+*📊 TUS NÚMEROS:*
+• Tareas pendientes: ${pending}
+• Hábitos completados: ${doneH}/${S.habits.length}
+• Balance del mes: $${(inc-exp).toFixed(0)}
+
+*🚀 PROYECTOS — FOCO DE HOY:*
+• KAIA: Activar Meta Ads y crear contenido
+• NeuraHash: Avanzar landing + inversores
+• Real Estate: Subir listings nuevos
+
+*💡 FRASE DEL DÍA:*
+"${q.q}"
+— ${q.a}
+
+*🇺🇸 INGLÉS DEL DÍA:*
+Revenue = Ingresos
+"Let's increase our revenue this quarter"
+
+🔥 Streak: ${S.streak||0} días
+⚡ XP Total: ${S.xp||0}
+
+_Ejecutá. No hay otro camino._`;
+}
+function renderWAPreview(){
+  const c=document.getElementById('wa-preview');
+  if(c)c.textContent=generateDailyResume();
+}
+function openWhatsApp(){
+  const msg=encodeURIComponent(generateDailyResume());
+  window.open(`https://wa.me/?text=${msg}`,'_blank');
+}
+function generateWAMessage(){
+  const type=document.getElementById('wa-type').value;
+  let msg='';
+  if(type==='daily')msg=generateDailyResume();
+  else if(type==='kaia')msg=`🔴 *KAIA Update*\n\n📌 Estado: En fase de marketing\n✅ Próximos pasos:\n• Activar Meta Ads ($300-500)\n• Crear contenido UGC para TikTok\n• Contactar 20 event planners esta semana\n\n💄 *Let's grow KAIA!*`;
+  else if(type==='neurahash')msg=`🟢 *NeuraHash Update*\n\n⚡ Mining activo en PY + BO\n📌 Próximos pasos:\n• Finalizar landing page\n• Onboard primer inversor externo\n• Crear calculadora ROI\n\n₿ *Energy is the business.*`;
+  else if(type==='motivation')msg=`🔥 *Mensaje para Joel*\n\n"${MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)].q}"\n\nTenés 27 años. Vivís en Miami. Tenés 4 proyectos activos. Sos un emprendedor real.\n\n*Ejecutá hoy. 🚀*`;
+  const c=document.getElementById('wa-custom');
+  const btn=document.getElementById('wa-send-btn');
+  c.textContent=msg;c.style.display='block';btn.style.display='inline-block';
+  btn.onclick=()=>{window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,'_blank');};
+}
+
+// ========================
+// AI CHAT
+// ========================
+const AI_SYSTEM=`Sos el asistente personal de Joel Gonzalez, 27 años, paraguayo viviendo en Miami hace 4 años.
+
+Sus proyectos:
+1. KAIA: Renta vestidos lujo Miami. Modelo Airbnb. Página lista, necesita marketing, ads, primeros clientes.
+2. NeuraHash: Bitcoin mining Paraguay y Bolivia. Hosting para inversores. Energía barata y limpia. Construyendo página.
+3. Real Estate: Acceso MLS. Facebook Marketplace. 2 rentals cerradas. Quiere escalar.
+4. H2O+: Agua con cafeína en lata. Paraguay como origen. Todo por construir: FDA, marca, manufactura.
+
+Hábitos a desarrollar: gym, meditación, lectura, inglés, comida limpia.
+Está aprendiendo inglés activamente.
+Visión: sistema de vida y negocios sólido. Ser su mejor versión.
+
+Respondé siempre en español. Sé directo, estratégico, honesto. No uses fluff. Como un socio senior que lo conoce bien. Máximo 180 palabras salvo que pidan más detalle.`;
+
+async function sendAI(){
+  const input=document.getElementById('ai-input');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  const msgs=document.getElementById('ai-messages');
+  msgs.innerHTML+=`<div class="ai-msg user"><div class="ai-msg-label">VOS</div>${text}</div>`;
+  const lid='l'+Date.now();
+  msgs.innerHTML+=`<div class="ai-msg assistant" id="${lid}"><div class="ai-msg-label">JOEL OS</div><span class="loading-dots"></span></div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+  try{
+    const allMsgs=[];
+    document.querySelectorAll('.ai-msg').forEach(m=>{
+      if(m.id===lid)return;
+      const role=m.classList.contains('user')?'user':'assistant';
+      const label=m.querySelector('.ai-msg-label');
+      const content=label?m.innerHTML.replace(label.outerHTML,'').trim():m.textContent.trim();
+      if(content)allMsgs.push({role,content});
+    });
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:AI_SYSTEM,messages:allMsgs})});
+    const data=await res.json();
+    const reply=data.content?.map(c=>c.text||'').join('')||'Error al responder.';
+    document.getElementById(lid).innerHTML=`<div class="ai-msg-label">JOEL OS</div>${reply.replace(/\n/g,'<br>')}`;
+  }catch(e){document.getElementById(lid).innerHTML=`<div class="ai-msg-label">JOEL OS</div>Error de conexión.`;}
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+// ========================
+// RENDER
+// ========================
+function render(){
+  renderTasks();renderHabits();renderFinances();renderIdeas();renderNews();
+  updateStats();updateXPDisplay();
+  loadWord();renderPhrases();renderQuiz();renderWAPreview();
+  renderGym('lunes');
+  if(S.prs){
+    ['bench','squat','dead','weight'].forEach(k=>{const el=document.getElementById('pr-'+k);if(el)el.textContent=S.prs[k]||'—';});
+  }
+}
+
+// ========================
+// INIT
+// ========================
+load();
+renderTabs();
+render();
+
+if("serviceWorker"in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("/sw.js").catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
