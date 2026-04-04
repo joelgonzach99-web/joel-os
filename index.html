@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JOEL OS v3 + FIREBASE</title>
+<title>JOEL OS v3 + FIREBASE + FIREBASE</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#00ff88">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -398,6 +397,8 @@ textarea.inp{resize:none;}
   console.log('Firebase connected!');
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
 <!-- HEADER -->
@@ -921,6 +922,18 @@ textarea.inp{resize:none;}
 
 <script>
 const SK='joelos_v3';
+
+  // ===== FIREBASE CONFIG =====
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqMxit2twAFYJYbNydZonS3NUAytwGZnc",
+    authDomain: "joelos-4f58b.firebaseapp.com",
+    databaseURL: "https://joelos-4f58b-default-rtdb.firebaseio.com",
+    projectId: "joelos-4f58b",
+    storageBucket: "joelos-4f58b.firebasestorage.app",
+    messagingSenderId: "54601199398",
+    appId: "1:54601199398:web:967dc8e30af49027261be7"
+  };
+
 let S={
   tasks:[],
   habits:[
@@ -1284,7 +1297,65 @@ function render(){
   if(S.prs){['bench','squat','dead','weight'].forEach(k=>{const el=document.getElementById('pr-'+k);if(el)el.textContent=S.prs[k]||'\u2014';});}
 }
 
+
+  // ===== FIREBASE INIT =====
+  let db = null;
+  let FB_USER = 'joel';
+
+  function initFirebase(){
+    try {
+      if(!firebase.apps.length){
+        firebase.initializeApp(firebaseConfig);
+      }
+      db = firebase.database();
+      setSyncStatus('syncing');
+      // Load from Firebase
+      db.ref('users/' + FB_USER).once('value').then(snap => {
+        const data = snap.val();
+        if(data){
+          S = {...S, ...data};
+          render();
+        }
+        setSyncStatus('synced');
+        // Listen for real-time changes
+        db.ref('users/' + FB_USER).on('value', snap => {
+          const d = snap.val();
+          if(d){ S = {...S, ...d}; render(); }
+          setSyncStatus('synced');
+        });
+      }).catch(e => {
+        console.log('Firebase error:', e);
+        setSyncStatus('local');
+      });
+    } catch(e) {
+      console.log('Firebase init error:', e);
+      setSyncStatus('local');
+    }
+  }
+
+  // Override save to also sync Firebase
+  const _save = save;
+  function save(){
+    try { localStorage.setItem(SK, JSON.stringify(S)); } catch(e){}
+    if(db){
+      setSyncStatus('syncing');
+      db.ref('users/' + FB_USER).set(S).then(()=>{
+        setSyncStatus('synced');
+      }).catch(()=>{ setSyncStatus('local'); });
+    }
+  }
+
+  function setSyncStatus(status){
+    const dot = document.getElementById('sync-dot');
+    const label = document.getElementById('sync-label');
+    if(!dot || !label) return;
+    dot.className = 'sync-dot ' + status;
+    const labels = {synced:'Sincronizado', syncing:'Sincronizando...', local:'Local', errored:'Local'};
+    label.textContent = labels[status] || 'Local';
+  }
+
 load();renderTabs();render();
+initFirebase();
 window._joelOSLoaded = true;
 document.addEventListener('firebase-ready', function(){
   setSyncStatus('synced');
