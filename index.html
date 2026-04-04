@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JOEL OS v3</title>
+<title>JOEL OS v3 + FIREBASE</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#00ff88">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -315,6 +316,88 @@ textarea.inp{resize:none;}
 .mt16{margin-top:16px;}.mt24{margin-top:24px;}.mb8{margin-bottom:8px;}
 .separator{height:1px;background:var(--border);margin:20px 0;}
 </style>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqMxit2twAFYJYbNydZonS3NUAytwGZnc",
+    authDomain: "joelos-4f58b.firebaseapp.com",
+    databaseURL: "https://joelos-4f58b-default-rtdb.firebaseio.com",
+    projectId: "joelos-4f58b",
+    storageBucket: "joelos-4f58b.firebasestorage.app",
+    messagingSenderId: "54601199398",
+    appId: "1:54601199398:web:967dc8e30af49027261be7",
+    measurementId: "G-03YQVY36XR"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  window._fbDb = db;
+  window._fbRef = ref;
+  window._fbSet = set;
+  window._fbOnValue = onValue;
+  window._fbReady = true;
+  document.dispatchEvent(new Event('firebase-ready'));
+</script>
+
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDqMxit2twAFYJYbNydZonS3NUAytwGZnc",
+    authDomain: "joelos-4f58b.firebaseapp.com",
+    databaseURL: "https://joelos-4f58b-default-rtdb.firebaseio.com",
+    projectId: "joelos-4f58b",
+    storageBucket: "joelos-4f58b.firebasestorage.app",
+    messagingSenderId: "54601199398",
+    appId: "1:54601199398:web:967dc8e30af49027261be7",
+    measurementId: "G-03YQVY36XR"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  
+  window._fbDB = db;
+  window._fbRef = ref;
+  window._fbSet = set;
+  window._fbOnValue = onValue;
+  window._fbReady = true;
+  
+  // Listen for real-time changes
+  const stateRef = ref(db, 'joel/state');
+  onValue(stateRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const cloudData = snapshot.val();
+      // Merge with local state
+      const current = JSON.parse(localStorage.getItem('joelos_v3') || '{}');
+      const merged = {...current, ...cloudData};
+      localStorage.setItem('joelos_v3', JSON.stringify(merged));
+      // Update UI
+      if (window._joelOSLoaded) {
+        Object.assign(S, cloudData);
+        render();
+        setSyncStatus('synced');
+      }
+    }
+  });
+  
+  window._fbSave = function(data) {
+    const stateRef = ref(db, 'joel/state');
+    set(stateRef, data)
+      .then(() => setSyncStatus('synced'))
+      .catch(() => setSyncStatus('error'));
+  };
+  
+  document.dispatchEvent(new Event('firebase-ready'));
+  console.log('Firebase connected!');
+</script>
+
 </head>
 <body>
 <!-- HEADER -->
@@ -854,7 +937,22 @@ let S={
   metrics:{kaia:{rentals:0,clients:0,income:0},nh:{miners:0,investors:0,btc:0},re:{rentals:2,leads:0,listings:0}},
 };
 function load(){try{const d=localStorage.getItem(SK);if(d)S={...S,...JSON.parse(d)};}catch(e){}}
-function save(){try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}}
+function save(){
+  try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}
+  syncToFirebase();
+}
+let fbSyncTimeout=null;
+function syncToFirebase(){
+  if(!window._fbReady||!window._fbDb)return;
+  const dot=document.getElementById('sync-dot');const lbl=document.getElementById('sync-label');
+  if(dot)dot.className='sync-dot syncing';if(lbl)lbl.textContent='Sincronizando...';
+  clearTimeout(fbSyncTimeout);
+  fbSyncTimeout=setTimeout(()=>{
+    window._fbSet(window._fbRef(window._fbDb,'joel/state'),S)
+      .then(()=>{if(dot)dot.className='sync-dot synced';if(lbl)lbl.textContent='Sincronizado';})
+      .catch(()=>{if(dot)dot.className='sync-dot local';if(lbl)lbl.textContent='Local';});
+  },1000);
+}
 
 const WORK_TABS=[
   {id:'dashboard',label:'\u29e1 Dashboard'},{id:'proyectos',label:'\u25c8 Proyectos'},
@@ -1187,6 +1285,36 @@ function render(){
 }
 
 load();renderTabs();render();
+window._joelOSLoaded = true;
+document.addEventListener('firebase-ready', function(){
+  setSyncStatus('synced');
+  const fst = document.getElementById('firebase-status-text');
+  const sst = document.getElementById('sync-status-text');
+  if(fst) fst.textContent = 'Conectado ✓';
+  if(fst) fst.style.color = 'var(--g)';
+  if(sst) sst.textContent = 'Activo en tiempo real ✓';
+  if(sst) sst.style.color = 'var(--g)';
+});
+
+// Firebase real-time sync
+document.addEventListener('firebase-ready', ()=>{
+  const dot=document.getElementById('sync-dot');const lbl=document.getElementById('sync-label');
+  if(dot)dot.className='sync-dot synced';if(lbl)lbl.textContent='Firebase activo';
+  document.getElementById('firebase-status-text').textContent='Conectado';
+  document.getElementById('sync-status-text').textContent='Activo - sync en tiempo real';
+  // Listen for changes from other devices
+  window._fbOnValue(window._fbRef(window._fbDb,'joel/state'),(snapshot)=>{
+    if(snapshot.exists()){
+      const data=snapshot.val();
+      // Only update if data is newer (avoid loops)
+      if(JSON.stringify(data)!==JSON.stringify(S)){
+        S={...S,...data};
+        try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}
+        render();
+      }
+    }
+  });
+});
 
 if("serviceWorker"in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("/sw.js").catch(()=>{});});}
 </script>
