@@ -1709,6 +1709,15 @@ function render() {
 
 // ---- INIT ----
 load();
+
+// AUTO-FIX: si engStreak es un número imposible (>365), resetear
+if ((S.engStreak || 0) > 365) {
+  S.engStreak = 0;
+  S.engLastDate = '';
+  S.xp = 0;
+  save();
+}
+
 renderTabs();
 render();
 window._joelOSLoaded = true;
