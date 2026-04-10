@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JOEL OS v3 + FIREBASE + FIREBASE</title>
+<title>JOEL OS v3</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#00ff88">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -72,7 +72,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-ui);min-heigh
 .greeting em{font-family:var(--font-b);font-style:italic;color:var(--g);}
 .sys-active{font-size:0.65rem;color:var(--muted);margin-bottom:28px;letter-spacing:0.06em;}
 .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block;margin-right:5px;animation:pulse 2s infinite;}
-/* PROJECT CARDS */
 .proj-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;background:var(--surface);transition:transform 0.2s,border-color 0.2s;cursor:pointer;}
 .proj-card:hover{transform:translateY(-2px);}
 .proj-header{padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;}
@@ -99,12 +98,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-ui);min-heigh
 .beb{border-color:#ffcc0020;}.beb:hover{border-color:var(--y);}
 .beb .proj-name{color:var(--y);}.beb .proj-tag{background:#ffcc0012;color:var(--y);border:1px solid #ffcc0025;}
 .beb .prog-fill{background:var(--y);}
-/* TASKS */
 .task-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid #161616;cursor:pointer;transition:opacity 0.2s;}
 .task-item:hover{opacity:0.8;}
 .task-check{width:15px;height:15px;border:1px solid var(--border);border-radius:2px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
 .task-item.done .task-check{background:var(--g);border-color:var(--g);}
-.task-item.done .task-check::after{content:"check";content:"\2713";font-size:9px;color:#000;}
+.task-item.done .task-check::after{content:"\2713";font-size:9px;color:#000;}
 .task-item.done .task-text{text-decoration:line-through;color:var(--muted);}
 .task-text{font-size:0.78rem;line-height:1.5;flex:1;}
 .task-tag{font-size:0.58rem;padding:2px 7px;border-radius:2px;flex-shrink:0;}
@@ -120,7 +118,7 @@ textarea.inp{resize:none;}
 .btn:hover{background:#222;border-color:#333;}
 .btn-g{background:var(--g);border-color:var(--g);color:#000;font-weight:700;}
 .btn-g:hover{background:#00dd77;border-color:#00dd77;}
-/* HABITS */
+.btn-r{background:var(--r);border-color:var(--r);color:#fff;font-weight:700;}
 .hab-row{margin-bottom:20px;}
 .hab-name{font-size:0.7rem;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
 .hab-name strong{color:var(--text);}
@@ -131,21 +129,18 @@ textarea.inp{resize:none;}
 .hab-dot:hover{border-color:#444;}
 .day-labels{display:flex;gap:4px;margin-bottom:6px;}
 .day-label{width:32px;text-align:center;font-size:0.55rem;color:var(--muted);}
-/* FINANCES */
 .fin-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-size:0.78rem;}
 .fin-row:last-child{border-bottom:none;}
 .fin-label{color:var(--muted);font-size:0.68rem;}
 .fin-amount{font-family:var(--font-d);font-size:1rem;font-weight:700;}
 .fin-input-row{display:grid;grid-template-columns:1fr 1fr auto auto;gap:7px;margin-top:14px;}
 @media(max-width:600px){.fin-input-row{grid-template-columns:1fr 1fr;}}
-/* IDEAS */
 .ideas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
 .idea-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:14px;position:relative;}
 .idea-proj{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
 .idea-text{font-size:0.78rem;line-height:1.6;}
 .idea-del{position:absolute;top:10px;right:10px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.75rem;}
 .idea-del:hover{color:var(--r);}
-/* ROAD */
 .road-item{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid #141414;}
 .road-num{font-size:0.62rem;color:var(--muted);width:22px;flex-shrink:0;padding-top:2px;}
 .road-content{flex:1;}
@@ -157,7 +152,6 @@ textarea.inp{resize:none;}
 .s-later{background:#ffffff06;color:var(--muted);border:1px solid var(--border);}
 .road-section{margin-bottom:30px;}
 .road-section-title{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid var(--border);}
-/* AI */
 .ai-area{max-width:680px;}
 .ai-messages{min-height:300px;max-height:420px;overflow-y:auto;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:18px;margin-bottom:10px;display:flex;flex-direction:column;gap:12px;}
 .ai-msg{font-size:0.78rem;line-height:1.7;max-width:88%;}
@@ -169,7 +163,6 @@ textarea.inp{resize:none;}
 .ai-hint{font-size:0.6rem;color:var(--muted);margin-top:6px;}
 .loading-dots::after{content:"...";animation:dots 1.2s steps(3,end) infinite;}
 @keyframes dots{0%,100%{content:"."}33%{content:".."}66%{content:"..."}}
-/* ENGLISH */
 .eng-hero{background:linear-gradient(135deg,#0a0a1a,#0d0d0d);border:1px solid #4488ff25;border-radius:6px;padding:28px;margin-bottom:20px;position:relative;overflow:hidden;}
 .eng-hero::before{content:"EN";position:absolute;right:20px;top:10px;font-family:var(--font-d);font-size:5rem;font-weight:800;color:#4488ff08;pointer-events:none;}
 .eng-word{font-family:var(--font-d);font-size:2.2rem;font-weight:800;color:var(--b);margin-bottom:4px;}
@@ -192,7 +185,6 @@ textarea.inp{resize:none;}
 .eng-quiz-opt.correct{background:#00ff8815;border-color:var(--g);color:var(--g);}
 .eng-quiz-opt.wrong{background:#ff336615;border-color:var(--r);color:var(--r);}
 .eng-score{font-size:0.7rem;color:var(--muted);margin-top:10px;}
-/* SPIRITUALITY */
 .spirit-hero{background:linear-gradient(135deg,#0d0a1a,#0a0a0a);border:1px solid #bf5fff20;border-radius:6px;padding:28px;margin-bottom:20px;position:relative;overflow:hidden;}
 .spirit-hero::before{content:"\2736";position:absolute;right:24px;top:16px;font-size:4rem;color:#bf5fff08;}
 .spirit-quote{font-family:var(--font-b);font-size:1.4rem;font-style:italic;line-height:1.6;color:var(--p);margin-bottom:8px;}
@@ -211,7 +203,6 @@ textarea.inp{resize:none;}
 .practice-item.done .practice-dot{background:var(--p);border-color:var(--p);}
 .practice-text{font-size:0.78rem;flex:1;}
 .practice-time{font-size:0.62rem;color:var(--muted);}
-/* GYM */
 .gym-hero{background:linear-gradient(135deg,#0a1208,#0a0a0a);border:1px solid #00ff8820;border-radius:6px;padding:24px;margin-bottom:20px;}
 .gym-day-title{font-family:var(--font-d);font-size:1.4rem;font-weight:700;color:var(--g);margin-bottom:4px;}
 .gym-day-sub{font-size:0.7rem;color:var(--muted);margin-bottom:18px;}
@@ -232,7 +223,6 @@ textarea.inp{resize:none;}
 .pr-exercise{font-size:0.65rem;color:var(--muted);margin-bottom:4px;}
 .pr-value{font-family:var(--font-d);font-size:1.2rem;font-weight:700;color:var(--g);}
 .pr-unit{font-size:0.62rem;color:var(--muted);}
-/* NEWS */
 .news-filters{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;}
 .news-filter{padding:6px 14px;font-size:0.62rem;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:none;color:var(--muted);transition:all 0.2s;}
 .news-filter.active{border-color:var(--g);color:var(--g);background:#00ff8810;}
@@ -241,7 +231,6 @@ textarea.inp{resize:none;}
 .news-cat{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
 .news-title{font-size:0.82rem;line-height:1.5;margin-bottom:6px;}
 .news-meta{font-size:0.62rem;color:var(--muted);}
-/* MOTIVATION */
 .mot-hero{background:linear-gradient(135deg,#0a0800,#0a0a0a);border:1px solid #ffcc0020;border-radius:6px;padding:28px;margin-bottom:20px;text-align:center;position:relative;overflow:hidden;}
 .mot-quote{font-family:var(--font-b);font-size:1.6rem;font-style:italic;line-height:1.5;color:var(--y);margin-bottom:10px;}
 .mot-author{font-size:0.68rem;color:var(--muted);}
@@ -263,7 +252,6 @@ textarea.inp{resize:none;}
 .beast-sub{font-size:0.7rem;color:var(--muted);}
 .beast-mode.active{animation:beastPulse 1s infinite alternate;}
 @keyframes beastPulse{from{border-color:var(--o);box-shadow:0 0 20px #ff880020}to{border-color:#ff4400;box-shadow:0 0 40px #ff440030}}
-/* WHATSAPP */
 .wa-section{background:linear-gradient(135deg,#0a1208,#0a0a0a);border:1px solid #25d36620;border-radius:6px;padding:22px;margin-bottom:16px;}
 .wa-title{font-family:var(--font-d);font-size:1rem;font-weight:700;color:#25d366;margin-bottom:6px;}
 .wa-sub{font-size:0.72rem;color:var(--muted);margin-bottom:16px;line-height:1.6;}
@@ -273,13 +261,12 @@ textarea.inp{resize:none;}
 .wa-step-num{font-family:var(--font-d);font-size:1rem;font-weight:700;color:#25d366;flex-shrink:0;width:24px;}
 .wa-step-text{font-size:0.75rem;line-height:1.6;}
 .wa-step-text strong{color:var(--text);}
-/* ===== V3 NEW ===== */
 .analytics-hero{background:linear-gradient(135deg,#0a0f0a,#080808);border:1px solid #00ff8815;border-radius:6px;padding:22px;margin-bottom:20px;}
 .analytics-title{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--g);margin-bottom:16px;}
 .insight-item{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #141414;}
 .insight-item:last-child{border-bottom:none;}
 .insight-icon{font-size:1.2rem;flex-shrink:0;width:28px;}
-.insight-body{flex:1;}
+.insight-body{flex:1;min-width:0;}
 .insight-title{font-size:0.8rem;font-weight:700;margin-bottom:3px;}
 .insight-desc{font-size:0.7rem;color:var(--muted);line-height:1.6;}
 .insight-badge{font-size:0.58rem;padding:3px 8px;border-radius:10px;flex-shrink:0;height:fit-content;white-space:nowrap;}
@@ -309,6 +296,16 @@ textarea.inp{resize:none;}
 .setup-step-v3 strong{color:var(--text);}
 .status-row-v3{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.75rem;}
 .status-row-v3:last-child{border-bottom:none;}
+/* FOCUS MODE */
+.focus-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;flex-direction:column;align-items:center;justify-content:center;}
+.focus-overlay.active{display:flex;}
+.focus-timer{font-family:var(--font-d);font-size:6rem;font-weight:800;color:var(--g);letter-spacing:-0.04em;margin-bottom:8px;}
+.focus-label{font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:40px;}
+.focus-task{font-size:1rem;color:var(--text);margin-bottom:40px;text-align:center;max-width:400px;line-height:1.6;}
+.focus-btns{display:flex;gap:12px;}
+.focus-ring{position:absolute;width:280px;height:280px;border-radius:50%;}
+.focus-ring-bg{border:2px solid #1a1a1a;}
+.focus-ring-progress{border:2px solid transparent;border-top-color:var(--g);transition:transform 0.5s linear;}
 ::-webkit-scrollbar{width:3px;height:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px;}
@@ -316,91 +313,66 @@ textarea.inp{resize:none;}
 .separator{height:1px;background:var(--border);margin:20px 0;}
 </style>
 
-<!-- Firebase SDK -->
+<!-- Firebase SDK — única instancia, módulos ESM -->
 <script type="module">
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
   import { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
-  const firebaseConfig = {
+  const app = initializeApp({
     apiKey: "AIzaSyDqMxit2twAFYJYbNydZonS3NUAytwGZnc",
     authDomain: "joelos-4f58b.firebaseapp.com",
     databaseURL: "https://joelos-4f58b-default-rtdb.firebaseio.com",
     projectId: "joelos-4f58b",
     storageBucket: "joelos-4f58b.firebasestorage.app",
     messagingSenderId: "54601199398",
-    appId: "1:54601199398:web:967dc8e30af49027261be7",
-    measurementId: "G-03YQVY36XR"
-  };
+    appId: "1:54601199398:web:967dc8e30af49027261be7"
+  });
 
-  const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
-  window._fbDb = db;
-  window._fbRef = ref;
-  window._fbSet = set;
-  window._fbOnValue = onValue;
-  window._fbReady = true;
-  document.dispatchEvent(new Event('firebase-ready'));
-</script>
+  const STATE_REF = ref(db, 'users/joel');
 
+  // Exponer al scope global
+  window._fb = { db, ref, set, onValue, stateRef: STATE_REF };
 
-<!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-  import { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDqMxit2twAFYJYbNydZonS3NUAytwGZnc",
-    authDomain: "joelos-4f58b.firebaseapp.com",
-    databaseURL: "https://joelos-4f58b-default-rtdb.firebaseio.com",
-    projectId: "joelos-4f58b",
-    storageBucket: "joelos-4f58b.firebasestorage.app",
-    messagingSenderId: "54601199398",
-    appId: "1:54601199398:web:967dc8e30af49027261be7",
-    measurementId: "G-03YQVY36XR"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  
-  window._fbDB = db;
-  window._fbRef = ref;
-  window._fbSet = set;
-  window._fbOnValue = onValue;
-  window._fbReady = true;
-  
-  // Listen for real-time changes
-  const stateRef = ref(db, 'joel/state');
-  onValue(stateRef, (snapshot) => {
-    if (snapshot.exists()) {
-      const cloudData = snapshot.val();
-      // Merge with local state
-      const current = JSON.parse(localStorage.getItem('joelos_v3') || '{}');
-      const merged = {...current, ...cloudData};
-      localStorage.setItem('joelos_v3', JSON.stringify(merged));
-      // Update UI
-      if (window._joelOSLoaded) {
-        Object.assign(S, cloudData);
+  // Escuchar cambios en tiempo real
+  onValue(STATE_REF, (snap) => {
+    if (!snap.exists()) return;
+    const cloud = snap.val();
+    if (window._joelOSLoaded) {
+      const localStr = JSON.stringify(S);
+      const cloudStr = JSON.stringify(cloud);
+      if (localStr !== cloudStr) {
+        Object.assign(S, cloud);
+        try { localStorage.setItem(SK, JSON.stringify(S)); } catch(e) {}
         render();
-        setSyncStatus('synced');
       }
     }
+    setSyncStatus('synced');
+  }, (err) => {
+    console.warn('Firebase error:', err);
+    setSyncStatus('local');
   });
-  
-  window._fbSave = function(data) {
-    const stateRef = ref(db, 'joel/state');
-    set(stateRef, data)
-      .then(() => setSyncStatus('synced'))
-      .catch(() => setSyncStatus('error'));
-  };
-  
-  document.dispatchEvent(new Event('firebase-ready'));
-  console.log('Firebase connected!');
-</script>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+  window._fbReady = true;
+  document.dispatchEvent(new CustomEvent('firebase-ready'));
+</script>
 </head>
 <body>
+
+<!-- FOCUS MODE OVERLAY -->
+<div class="focus-overlay" id="focus-overlay">
+  <div class="focus-ring focus-ring-bg"></div>
+  <div class="focus-ring focus-ring-progress" id="focus-ring"></div>
+  <div class="focus-timer" id="focus-timer">25:00</div>
+  <div class="focus-label" id="focus-label">POMODORO — ENFOQUE</div>
+  <div class="focus-task" id="focus-task">Sin tarea seleccionada</div>
+  <div class="focus-btns">
+    <button class="btn btn-g" id="focus-play-btn" onclick="focusToggle()">▶ Iniciar</button>
+    <button class="btn" onclick="focusReset()">↺ Reset</button>
+    <button class="btn btn-r" onclick="focusClose()">✕ Cerrar</button>
+  </div>
+</div>
+
 <!-- HEADER -->
 <div class="header">
   <div class="logo">JOEL<span>OS</span><sub>v3</sub></div>
@@ -410,10 +382,11 @@ textarea.inp{resize:none;}
       <div class="xp-bar-bg"><div class="xp-bar-fill" id="xp-fill" style="width:0%"></div></div>
       <div style="font-size:0.6rem;color:var(--muted)" id="xp-display">0 XP</div>
     </div>
-    <div class="streak-pill">&#128293; <span class="streak-num" id="streak-display">0</span> dias</div>
+    <div class="streak-pill">🔥 <span id="streak-display">0</span> dias</div>
   </div>
   <div class="header-right">
-    <div class="sync-badge"><div class="sync-dot" id="sync-dot"></div><span id="sync-label">Local</span></div>
+    <button class="btn" onclick="openFocus()" style="font-size:0.6rem;padding:5px 10px;">⏱ Focus</button>
+    <div class="sync-badge"><div class="sync-dot local" id="sync-dot"></div><span id="sync-label">Local</span></div>
     <div class="header-clock"><div id="hdate"></div><div id="htime"></div></div>
   </div>
 </div>
@@ -421,8 +394,8 @@ textarea.inp{resize:none;}
 <div class="tabs-wrap">
   <div class="tabs-mode-row">
     <div class="mode-toggle">
-      <button class="mode-btn active" onclick="setMode('work')">&#11043; NEGOCIOS</button>
-      <button class="mode-btn" onclick="setMode('life')">&#9676; VIDA</button>
+      <button class="mode-btn active" onclick="setMode('work',this)">◆ NEGOCIOS</button>
+      <button class="mode-btn" onclick="setMode('life',this)">○ VIDA</button>
     </div>
   </div>
   <div class="tabs" id="tabs-container"></div>
@@ -431,25 +404,22 @@ textarea.inp{resize:none;}
 <!-- DASHBOARD -->
 <div id="tab-dashboard" class="section active">
   <div class="greeting" id="greeting-text">Buenos dias,<br><em>Joel.</em></div>
-  <div class="sys-active"><span class="pulse-dot"></span>SISTEMA ACTIVO &mdash; MIAMI, FL &mdash; JOEL OS v3</div>
+  <div class="sys-active"><span class="pulse-dot"></span>SISTEMA ACTIVO — MIAMI, FL — JOEL OS v3</div>
   <div class="g4 mb8">
     <div class="card"><div class="card-label">Tareas hoy</div><div class="card-value" id="s-tasks">0</div><div class="card-sub">pendientes</div></div>
     <div class="card"><div class="card-label">Habitos</div><div class="card-value" id="s-habits">0/5</div><div class="card-sub">completados hoy</div></div>
-    <div class="card"><div class="card-label">Balance mes</div><div class="card-value cg" id="s-balance">$0</div><div class="card-sub">neto</div></div>
+    <div class="card"><div class="card-label">Balance mes</div><div class="card-value cg" id="s-balance">+$0</div><div class="card-sub">neto</div></div>
     <div class="card"><div class="card-label">Ingles streak</div><div class="card-value cy" id="s-eng">0</div><div class="card-sub">dias seguidos</div></div>
   </div>
   <div class="separator"></div>
-  <!-- V3: ANALYTICS ENGINE -->
   <div class="analytics-hero">
-    <div class="analytics-title">&#9889; MOTOR DE ANALISIS &mdash; JOEL OS ENGINE</div>
-    <div id="insights-container"><div class="insight-item"><div class="insight-icon">&#128202;</div><div class="insight-body"><div class="insight-title">Cargando analisis...</div><div class="insight-desc">El motor lee tus datos en tiempo real.</div></div></div></div>
+    <div class="analytics-title">⚡ MOTOR DE ANALISIS — JOEL OS ENGINE</div>
+    <div id="insights-container"><div class="insight-item"><div class="insight-icon">📊</div><div class="insight-body"><div class="insight-title">Cargando analisis...</div><div class="insight-desc">El motor lee tus datos en tiempo real.</div></div></div></div>
   </div>
-  <!-- V3: METRICS GRID -->
   <div class="stitle mb8">Metricas de la semana</div>
   <div class="metrics-grid-v3" id="metrics-grid-v3"></div>
-  <!-- V3: CHARTS -->
   <div class="g2" style="margin-bottom:20px">
-    <div class="chart-wrap"><div class="chart-title">Habitos &mdash; ultimos 7 dias</div><div class="bar-chart" id="habit-chart"></div></div>
+    <div class="chart-wrap"><div class="chart-title">Habitos — ultimos 7 dias</div><div class="bar-chart" id="habit-chart"></div></div>
     <div class="chart-wrap"><div class="chart-title">Finanzas este mes</div><div class="bar-chart" id="finance-chart"></div></div>
   </div>
   <div class="separator"></div>
@@ -484,7 +454,7 @@ textarea.inp{resize:none;}
     <div class="proj-card re" onclick="showTab('proyectos')">
       <div class="proj-header"><div class="proj-name">REAL ESTATE</div><div class="proj-tag">MLS</div></div>
       <div class="proj-body">
-        <div class="proj-desc">MLS &#8594; Facebook Marketplace. 2 rentals cerradas.</div>
+        <div class="proj-desc">MLS → Facebook Marketplace. 2 rentals cerradas.</div>
         <div class="prog-bar"><div class="prog-fill" style="width:20%"></div></div>
         <div class="prog-label"><span>Progreso</span><span>20%</span></div>
         <div class="metrics-row">
@@ -497,7 +467,7 @@ textarea.inp{resize:none;}
     <div class="proj-card beb" onclick="showTab('proyectos')">
       <div class="proj-header"><div class="proj-name">H2O+</div><div class="proj-tag">Bebida</div></div>
       <div class="proj-body">
-        <div class="proj-desc">Agua con cafeina. Paraguay &#8594; USA. FDA, marca, produccion.</div>
+        <div class="proj-desc">Agua con cafeina. Paraguay → USA. FDA, marca, produccion.</div>
         <div class="prog-bar"><div class="prog-fill" style="width:5%"></div></div>
         <div class="prog-label"><span>Progreso</span><span>5%</span></div>
         <div class="metrics-row"><div class="metric-chip"><span>Fase</span><strong>Idea</strong></div></div>
@@ -512,16 +482,15 @@ textarea.inp{resize:none;}
 <!-- PROYECTOS -->
 <div id="tab-proyectos" class="section">
   <div class="stitle">Proyectos</div>
-  <div class="ssub">Detalle, metricas y proximos pasos. Actualizalos aca.</div>
+  <div class="ssub">Detalle, metricas y proximos pasos.</div>
   <div class="proj-card kaia" style="margin-bottom:14px">
-    <div class="proj-header"><div><div class="proj-name">KAIA</div><div style="font-size:0.68rem;color:#ff336670;margin-top:3px">Renta vestidos de lujo &middot; Miami</div></div><div class="proj-tag">Fashion</div></div>
+    <div class="proj-header"><div><div class="proj-name">KAIA</div><div style="font-size:0.68rem;color:#ff336670;margin-top:3px">Renta vestidos de lujo · Miami</div></div><div class="proj-tag">Fashion</div></div>
     <div class="proj-body">
-      <div class="proj-desc">Modelo Airbnb para vestidos de disenador. Dos lados del mercado: mujeres que rentan para eventos + propietarias que ganan dinero. Miami = millones de eventos.</div>
+      <div class="proj-desc">Modelo Airbnb para vestidos de disenador. Dos lados del mercado: mujeres que rentan para eventos + propietarias que ganan dinero.</div>
       <div class="metrics-row">
         <div class="metric-chip"><span>Rentas totales</span><strong id="kaia-rentals">0</strong></div>
         <div class="metric-chip"><span>Ingresos</span><strong id="kaia-income">$0</strong></div>
         <div class="metric-chip"><span>Clientes</span><strong id="kaia-clients">0</strong></div>
-        <div class="metric-chip"><span>Instagram</span><strong>@kaia</strong></div>
       </div>
       <div class="separator"></div>
       <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--r);margin-bottom:8px">Actualizar metricas KAIA</div>
@@ -533,14 +502,14 @@ textarea.inp{resize:none;}
       <div class="separator"></div>
       <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--r);margin-bottom:10px">Proximos pasos</div>
       <div class="road-item"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">Activar Meta Ads + Google Ads</div><div class="road-item-desc">$300-500 de prueba. Mujeres 22-40 Miami. 3 creativos.</div></div><div class="road-status s-now">Ahora</div></div>
-      <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Contenido UGC TikTok / Reels</div><div class="road-item-desc">Proceso real: elegi &#8594; llego &#8594; evento &#8594; devolviste.</div></div><div class="road-status s-now">Ahora</div></div>
+      <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Contenido UGC TikTok / Reels</div><div class="road-item-desc">Proceso real: elegi → llego → evento → devolviste.</div></div><div class="road-status s-now">Ahora</div></div>
       <div class="road-item"><div class="road-num">03</div><div class="road-content"><div class="road-item-title">20 event planners Miami / semana</div><div class="road-item-desc">Comision por cliente referido.</div></div><div class="road-status s-next">Siguiente</div></div>
     </div>
   </div>
   <div class="proj-card nh" style="margin-bottom:14px">
-    <div class="proj-header"><div><div class="proj-name">NEURAHASH</div><div style="font-size:0.68rem;color:#00ff8870;margin-top:3px">Bitcoin Mining &middot; Paraguay & Bolivia</div></div><div class="proj-tag">Energy/Crypto</div></div>
+    <div class="proj-header"><div><div class="proj-name">NEURAHASH</div><div style="font-size:0.68rem;color:#00ff8870;margin-top:3px">Bitcoin Mining · Paraguay & Bolivia</div></div><div class="proj-tag">Energy/Crypto</div></div>
     <div class="proj-body">
-      <div class="proj-desc">Hosting de miners para inversores. Energia barata y limpia de Paraguay. Vision: data center, phone farm, GPU farm, AI infrastructure.</div>
+      <div class="proj-desc">Hosting de miners para inversores. Energia barata y limpia de Paraguay.</div>
       <div class="metrics-row">
         <div class="metric-chip"><span>Miners activos</span><strong id="nh-miners">0</strong></div>
         <div class="metric-chip"><span>BTC/mes</span><strong id="nh-btc">0</strong></div>
@@ -555,16 +524,14 @@ textarea.inp{resize:none;}
         <input type="number" class="inp" id="nh-btc-inp" placeholder="BTC/mes" onchange="updateProjMetric('nh','btc',this.value)">
       </div>
       <div class="separator"></div>
-      <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--g);margin-bottom:10px">Proximos pasos</div>
       <div class="road-item"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">Landing + calculadora ROI</div><div class="road-item-desc">Pricing claro. $/kWh. Setup fee. Modelos aceptados.</div></div><div class="road-status s-now">Ahora</div></div>
       <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Primer inversor externo onboarded</div><div class="road-item-desc">Contrato + SLA + dashboard real time.</div></div><div class="road-status s-now">Ahora</div></div>
-      <div class="road-item"><div class="road-num">03</div><div class="road-content"><div class="road-item-title">Phone farm + GPU farm</div><div class="road-item-desc">Mas servicios sobre la misma infraestructura.</div></div><div class="road-status s-later">Vision</div></div>
     </div>
   </div>
   <div class="proj-card re" style="margin-bottom:14px">
-    <div class="proj-header"><div><div class="proj-name">REAL ESTATE</div><div style="font-size:0.68rem;color:#4488ff70;margin-top:3px">MLS &#8594; Rentals &middot; Miami-Dade</div></div><div class="proj-tag">Real Estate</div></div>
+    <div class="proj-header"><div><div class="proj-name">REAL ESTATE</div><div style="font-size:0.68rem;color:#4488ff70;margin-top:3px">MLS → Rentals · Miami-Dade</div></div><div class="proj-tag">Real Estate</div></div>
     <div class="proj-body">
-      <div class="proj-desc">Acceso MLS. Identifico propiedades, subo a Facebook Marketplace, recibo leads, muestro y cierro. 2 rentals done. Escalar con sistema.</div>
+      <div class="proj-desc">Acceso MLS. Identifico propiedades, subo a Facebook Marketplace, recibo leads, cierro. 2 rentals done.</div>
       <div class="metrics-row">
         <div class="metric-chip"><span>Rentals cerradas</span><strong id="re-rentals">2</strong></div>
         <div class="metric-chip"><span>Leads activos</span><strong id="re-leads">0</strong></div>
@@ -577,18 +544,13 @@ textarea.inp{resize:none;}
         <input type="number" class="inp" id="re-leads-inp" placeholder="Leads activos" onchange="updateProjMetric('re','leads',this.value)">
         <input type="number" class="inp" id="re-listings-inp" placeholder="Listings activos" onchange="updateProjMetric('re','listings',this.value)">
       </div>
-      <div class="separator"></div>
-      <div class="road-item"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">5-10 listings / semana</div><div class="road-item-desc">Templates de descripcion por tipo. Proceso batch.</div></div><div class="road-status s-now">Ahora</div></div>
-      <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Instagram de listings Miami</div><div class="road-item-desc">"Apartamentos disponibles esta semana."</div></div><div class="road-status s-next">Siguiente</div></div>
     </div>
   </div>
   <div class="proj-card beb">
-    <div class="proj-header"><div><div class="proj-name">H2O+</div><div style="font-size:0.68rem;color:#ffcc0070;margin-top:3px">Agua con cafeina &middot; Paraguay &#8594; USA</div></div><div class="proj-tag">CPG</div></div>
+    <div class="proj-header"><div><div class="proj-name">H2O+</div><div style="font-size:0.68rem;color:#ffcc0070;margin-top:3px">Agua con cafeina · Paraguay → USA</div></div><div class="proj-tag">CPG</div></div>
     <div class="proj-body">
-      <div class="proj-desc">Agua con cafeina en lata. Paraguay como origen y diferencial. Lanzar en PY para validar, luego USA con FDA.</div>
-      <div class="road-item" style="margin-top:12px"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">100 latas en Paraguay &mdash; validar</div><div class="road-item-desc">Co-manufacturer local. 3 sabores. Precio y packaging.</div></div><div class="road-status s-next">Primero</div></div>
-      <div class="road-item"><div class="road-num">02</div><div class="road-content"><div class="road-item-title">Marca + diseno de lata</div><div class="road-item-desc">El diseno es el 50% del producto en bebidas.</div></div><div class="road-status s-next">Siguiente</div></div>
-      <div class="road-item"><div class="road-num">03</div><div class="road-content"><div class="road-item-title">FDA GRAS + food lawyer USA</div><div class="road-item-desc">Cafeina en agua = GRAS si esta en rango correcto.</div></div><div class="road-status s-later">USA</div></div>
+      <div class="proj-desc">Agua con cafeina en lata. Paraguay como origen y diferencial.</div>
+      <div class="road-item" style="margin-top:12px"><div class="road-num">01</div><div class="road-content"><div class="road-item-title">100 latas en Paraguay — validar</div><div class="road-item-desc">Co-manufacturer local. 3 sabores.</div></div><div class="road-status s-next">Primero</div></div>
     </div>
   </div>
 </div>
@@ -639,11 +601,11 @@ textarea.inp{resize:none;}
   <div class="fin-input-row">
     <input type="text" class="inp" id="fin-desc" placeholder="Descripcion...">
     <select class="inp" id="fin-cat">
-      <option value="income-kaia">&#8593; Ingreso KAIA</option><option value="income-neurahash">&#8593; Ingreso NEURAHASH</option>
-      <option value="income-realestate">&#8593; Ingreso REAL ESTATE</option><option value="income-otro">&#8593; Ingreso Otro</option>
-      <option value="expense-kaia">&#8595; Gasto KAIA</option><option value="expense-neurahash">&#8595; Gasto NEURAHASH</option>
-      <option value="expense-realestate">&#8595; Gasto REAL ESTATE</option><option value="expense-personal">&#8595; Gasto Personal</option>
-      <option value="expense-otro">&#8595; Gasto Otro</option>
+      <option value="income-kaia">↑ Ingreso KAIA</option><option value="income-neurahash">↑ Ingreso NEURAHASH</option>
+      <option value="income-realestate">↑ Ingreso REAL ESTATE</option><option value="income-otro">↑ Ingreso Otro</option>
+      <option value="expense-kaia">↓ Gasto KAIA</option><option value="expense-neurahash">↓ Gasto NEURAHASH</option>
+      <option value="expense-realestate">↓ Gasto REAL ESTATE</option><option value="expense-personal">↓ Gasto Personal</option>
+      <option value="expense-otro">↓ Gasto Otro</option>
     </select>
     <input type="number" class="inp" id="fin-amount" placeholder="Monto $">
     <button class="btn btn-g" onclick="addTransaction()">Registrar</button>
@@ -671,28 +633,28 @@ textarea.inp{resize:none;}
 <!-- ROADMAP -->
 <div id="tab-roadmap" class="section">
   <div class="stitle">Roadmap 2025</div>
-  <div class="ssub">El plan grande. De donde venis, a donde vas.</div>
+  <div class="ssub">El plan grande.</div>
   <div class="road-section">
     <div class="road-section-title" style="color:var(--r)">KAIA</div>
-    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Primeros 10 clientes reales</div><div class="road-item-desc">Meta Ads + Google. Testimonials. Sistema de pagos y logistica.</div></div><div class="road-status s-now">Ahora</div></div>
+    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Primeros 10 clientes reales</div><div class="road-item-desc">Meta Ads + Google. Testimonials.</div></div><div class="road-status s-now">Ahora</div></div>
     <div class="road-item"><div class="road-num">Q2</div><div class="road-content"><div class="road-item-title">100+ rentas/mes</div><div class="road-item-desc">Onboarding propietarias. Influencers Miami.</div></div><div class="road-status s-next">Siguiente</div></div>
-    <div class="road-item"><div class="road-num">Q3-Q4</div><div class="road-content"><div class="road-item-title">Marketplace bilateral</div><div class="road-item-desc">App o portal propietarias. Rating system. Otras ciudades FL.</div></div><div class="road-status s-later">Vision</div></div>
+    <div class="road-item"><div class="road-num">Q3-Q4</div><div class="road-content"><div class="road-item-title">Marketplace bilateral</div><div class="road-item-desc">App o portal. Rating system. Otras ciudades FL.</div></div><div class="road-status s-later">Vision</div></div>
   </div>
   <div class="road-section">
     <div class="road-section-title" style="color:var(--g)">NEURAHASH</div>
-    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Landing + primeros inversores</div><div class="road-item-desc">Calculadora ROI. 3-5 inversores. Contratos. Dashboard.</div></div><div class="road-status s-now">Ahora</div></div>
-    <div class="road-item"><div class="road-num">Q2-Q3</div><div class="road-content"><div class="road-item-title">20+ miners. Segundo farm.</div><div class="road-item-desc">Alianza con proveedor energia PY.</div></div><div class="road-status s-next">Siguiente</div></div>
+    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Landing + primeros inversores</div><div class="road-item-desc">Calculadora ROI. 3-5 inversores. Contratos.</div></div><div class="road-status s-now">Ahora</div></div>
+    <div class="road-item"><div class="road-num">Q2-Q3</div><div class="road-content"><div class="road-item-title">20+ miners. Segundo farm.</div></div><div class="road-status s-next">Siguiente</div></div>
     <div class="road-item"><div class="road-num">2026</div><div class="road-content"><div class="road-item-title">Energia como servicio</div><div class="road-item-desc">Phone farm, GPU farm, AI. Data center regional.</div></div><div class="road-status s-later">Vision</div></div>
   </div>
   <div class="road-section">
     <div class="road-section-title" style="color:var(--b)">REAL ESTATE</div>
-    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Sistema de publicacion + 5 rentals</div><div class="road-item-desc">Templates. 10 listings/semana. CRM basico.</div></div><div class="road-status s-now">Ahora</div></div>
-    <div class="road-item"><div class="road-num">Q2-Q3</div><div class="road-content"><div class="road-item-title">Licencia FL + escalar</div><div class="road-item-desc">Comisiones mas grandes. Audiencia propia.</div></div><div class="road-status s-later">Vision</div></div>
+    <div class="road-item"><div class="road-num">Q1</div><div class="road-content"><div class="road-item-title">Sistema + 5 rentals</div><div class="road-item-desc">Templates. 10 listings/semana.</div></div><div class="road-status s-now">Ahora</div></div>
+    <div class="road-item"><div class="road-num">Q2-Q3</div><div class="road-content"><div class="road-item-title">Licencia FL + escalar</div></div><div class="road-status s-later">Vision</div></div>
   </div>
   <div class="road-section">
     <div class="road-section-title" style="color:var(--y)">H2O+</div>
-    <div class="road-item"><div class="road-num">Q2</div><div class="road-content"><div class="road-item-title">Prototipo Paraguay</div><div class="road-item-desc">100 latas. Co-manufacturer local. Feedback real.</div></div><div class="road-status s-next">Siguiente</div></div>
-    <div class="road-item"><div class="road-num">Q3-Q4</div><div class="road-content"><div class="road-item-title">Marca + FDA USA</div><div class="road-item-desc">Diseno. Food lawyer. Co-man Florida.</div></div><div class="road-status s-later">Vision</div></div>
+    <div class="road-item"><div class="road-num">Q2</div><div class="road-content"><div class="road-item-title">Prototipo Paraguay</div><div class="road-item-desc">100 latas. Co-manufacturer local.</div></div><div class="road-status s-next">Siguiente</div></div>
+    <div class="road-item"><div class="road-num">Q3-Q4</div><div class="road-content"><div class="road-item-title">Marca + FDA USA</div></div><div class="road-status s-later">Vision</div></div>
   </div>
 </div>
 
@@ -701,23 +663,14 @@ textarea.inp{resize:none;}
   <div class="stitle">WhatsApp Integration</div>
   <div class="ssub">Recibi tu resumen diario y controla JOEL OS desde WhatsApp.</div>
   <div class="wa-section">
-    <div class="wa-title">&#128241; Resumen diario automatico</div>
-    <div class="wa-sub">Cada manana a las 8AM podes recibir esto en tu WhatsApp. Asi arancas el dia con todo claro.</div>
+    <div class="wa-title">📱 Resumen diario automatico</div>
+    <div class="wa-sub">Tu briefing personal directo al WhatsApp.</div>
     <div class="wa-preview" id="wa-preview">Generando tu resumen...</div>
-    <button class="btn btn-g" onclick="openWhatsApp()">Enviarme este resumen ahora &#8594;</button>
-  </div>
-  <div class="separator"></div>
-  <div class="stitle" style="font-size:1rem;margin-bottom:6px">Como automatizarlo (paso a paso)</div>
-  <div class="wa-steps">
-    <div class="wa-step"><div class="wa-step-num">1</div><div class="wa-step-text">Crea una cuenta gratis en <strong>make.com</strong>. Es la herramienta de automatizacion mas poderosa.</div></div>
-    <div class="wa-step"><div class="wa-step-num">2</div><div class="wa-step-text">Conecta <strong>WhatsApp Business</strong> a Make. Necesitas un numero de WhatsApp Business.</div></div>
-    <div class="wa-step"><div class="wa-step-num">3</div><div class="wa-step-text">Creamos un <strong>webhook</strong> que lee tus datos de JOEL OS y arma el mensaje automatico cada manana.</div></div>
-    <div class="wa-step"><div class="wa-step-num">4</div><div class="wa-step-text">Listo. Cada dia a las 8AM te llega tu briefing: tareas, habitos, metricas, frase del dia.</div></div>
+    <button class="btn btn-g" onclick="openWhatsApp()">Enviarme este resumen ahora →</button>
   </div>
   <div class="separator"></div>
   <div class="stitle" style="font-size:1rem;margin-bottom:6px">Generador de mensajes</div>
   <div class="card">
-    <div class="card-label" style="margin-bottom:10px">Crear mensaje personalizado</div>
     <div class="input-row">
       <select class="inp" id="wa-type">
         <option value="daily">Resumen diario</option>
@@ -725,17 +678,17 @@ textarea.inp{resize:none;}
         <option value="neurahash">Update NeuraHash</option>
         <option value="motivation">Motivacion</option>
       </select>
-      <button class="btn btn-g" onclick="generateWAMessage()">Generar &#8594;</button>
+      <button class="btn btn-g" onclick="generateWAMessage()">Generar →</button>
     </div>
     <div class="wa-preview" id="wa-custom" style="margin-top:12px;display:none"></div>
-    <button class="btn btn-g" id="wa-send-btn" style="margin-top:8px;display:none" onclick="sendCustomWA()">Enviar por WhatsApp &#8594;</button>
+    <button class="btn btn-g" id="wa-send-btn" style="margin-top:8px;display:none" onclick="sendCustomWA()">Enviar por WhatsApp →</button>
   </div>
 </div>
 
 <!-- INGLÉS -->
 <div id="tab-ingles" class="section">
   <div class="stitle">Ingles</div>
-  <div class="ssub">Tu arma secreta. Una palabra, una frase, un quiz &mdash; cada dia.</div>
+  <div class="ssub">Una palabra, una frase, un quiz — cada dia.</div>
   <div class="eng-hero">
     <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--b);margin-bottom:8px">PALABRA DEL DIA</div>
     <div class="eng-word" id="eng-word">Loading...</div>
@@ -743,54 +696,40 @@ textarea.inp{resize:none;}
     <div class="eng-meaning" id="eng-meaning"></div>
     <div class="eng-example" id="eng-example"></div>
     <div class="eng-chips">
-      <div class="eng-chip active" onclick="setEngCat('business')">Business</div>
-      <div class="eng-chip" onclick="setEngCat('daily')">Daily Life</div>
-      <div class="eng-chip" onclick="setEngCat('advanced')">Advanced</div>
+      <div class="eng-chip active" id="chip-business" onclick="setEngCat('business',this)">Business</div>
+      <div class="eng-chip" id="chip-daily" onclick="setEngCat('daily',this)">Daily Life</div>
+      <div class="eng-chip" id="chip-advanced" onclick="setEngCat('advanced',this)">Advanced</div>
     </div>
-    <button class="btn btn-g" style="margin-top:14px" onclick="loadWord()">Nueva palabra &#8594;</button>
+    <button class="btn btn-g" style="margin-top:14px" onclick="loadNewWord()">Nueva palabra →</button>
   </div>
   <div class="stitle" style="font-size:1rem;margin-bottom:10px">Frases de negocios</div>
   <div class="eng-phrases" id="eng-phrases-container"></div>
   <div class="separator"></div>
   <div class="stitle" style="font-size:1rem;margin-bottom:4px">Quiz diario</div>
-  <div class="ssub">Proba lo que aprendiste</div>
   <div class="eng-quiz" id="eng-quiz">
     <div class="eng-quiz-q" id="quiz-q">Cargando quiz...</div>
     <div class="eng-quiz-opts" id="quiz-opts"></div>
     <div class="eng-score" id="quiz-score"></div>
-  </div>
-  <div class="separator"></div>
-  <div class="stitle" style="font-size:1rem;margin-bottom:10px">Modo bilingue</div>
-  <div class="card">
-    <div class="card-label" style="margin-bottom:10px">El sistema en ingles y espanol</div>
-    <div style="display:grid;gap:6px">
-      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Tareas</span><span style="color:var(--b)">Tasks</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Habitos</span><span style="color:var(--b)">Habits</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Ingresos</span><span style="color:var(--b)">Revenue</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Inversores</span><span style="color:var(--b)">Investors</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.75rem"><span style="color:var(--muted)">Mercado</span><span style="color:var(--b)">Market</span></div>
-      <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:0.75rem"><span style="color:var(--muted)">Energia barata</span><span style="color:var(--b)">Cheap energy</span></div>
-    </div>
   </div>
 </div>
 
 <!-- ESPIRITUALIDAD -->
 <div id="tab-espiritu" class="section">
   <div class="stitle">Espiritualidad</div>
-  <div class="ssub">El trabajo interno es el trabajo mas importante.</div>
+  <div class="ssub">El trabajo interno es el mas importante.</div>
   <div class="spirit-hero">
     <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--p);margin-bottom:10px">REFLEXION DE HOY</div>
     <div class="spirit-quote" id="spirit-quote">"La felicidad de tu vida depende de la calidad de tus pensamientos."</div>
-    <div class="spirit-author" id="spirit-author">&mdash; Marco Aurelio</div>
-    <button class="btn" style="margin-top:16px;border-color:#bf5fff30;color:var(--p)" onclick="newQuote()">Nueva reflexion &#8594;</button>
+    <div class="spirit-author" id="spirit-author">— Marco Aurelio</div>
+    <button class="btn" style="margin-top:16px;border-color:#bf5fff30;color:var(--p)" onclick="newQuote()">Nueva reflexion →</button>
   </div>
   <div class="spirit-cards">
-    <div class="spirit-card"><div class="spirit-card-icon">&#129495;</div><div class="spirit-card-title">Meditacion</div><div class="spirit-card-text">10 minutos de silencio consciente. Observa tus pensamientos sin juzgarlos.</div></div>
-    <div class="spirit-card"><div class="spirit-card-icon">&#9999;&#65039;</div><div class="spirit-card-title">Journaling</div><div class="spirit-card-text">3 cosas que agradeces hoy. 1 cosa que podes mejorar.</div></div>
-    <div class="spirit-card"><div class="spirit-card-icon">&#127749;</div><div class="spirit-card-title">Rutina manana</div><div class="spirit-card-text">Sin telefono los primeros 30 min. Agua, luz natural, intencion del dia.</div></div>
-    <div class="spirit-card"><div class="spirit-card-icon">&#9889;</div><div class="spirit-card-title">Ley de atraccion</div><div class="spirit-card-text">Visualiza tu version de exito cada manana. Se especifico.</div></div>
-    <div class="spirit-card"><div class="spirit-card-icon">&#128214;</div><div class="spirit-card-title">Estoicismo</div><div class="spirit-card-text">Controlas tu respuesta, no los eventos. Dicotomia del control.</div></div>
-    <div class="spirit-card"><div class="spirit-card-icon">&#128591;</div><div class="spirit-card-title">Gratitud</div><div class="spirit-card-text">Tenes 27 anos, vivis en Miami, tenes 4 proyectos. Eso ya es mucho.</div></div>
+    <div class="spirit-card"><div class="spirit-card-icon">🧘</div><div class="spirit-card-title">Meditacion</div><div class="spirit-card-text">10 minutos de silencio consciente.</div></div>
+    <div class="spirit-card"><div class="spirit-card-icon">✏️</div><div class="spirit-card-title">Journaling</div><div class="spirit-card-text">3 cosas que agradeces hoy.</div></div>
+    <div class="spirit-card"><div class="spirit-card-icon">🌅</div><div class="spirit-card-title">Rutina manana</div><div class="spirit-card-text">Sin telefono los primeros 30 min.</div></div>
+    <div class="spirit-card"><div class="spirit-card-icon">⚡</div><div class="spirit-card-title">Ley de atraccion</div><div class="spirit-card-text">Visualiza tu version de exito cada manana.</div></div>
+    <div class="spirit-card"><div class="spirit-card-icon">📖</div><div class="spirit-card-title">Estoicismo</div><div class="spirit-card-text">Controlas tu respuesta, no los eventos.</div></div>
+    <div class="spirit-card"><div class="spirit-card-icon">🙏</div><div class="spirit-card-title">Gratitud</div><div class="spirit-card-text">Tenes 27 anos, vivis en Miami, tenes 4 proyectos.</div></div>
   </div>
   <div class="spirit-practice">
     <div class="spirit-practice-title">Practica de hoy</div>
@@ -817,16 +756,16 @@ textarea.inp{resize:none;}
   </div>
   <div class="gym-hero">
     <div class="gym-day-title" id="gym-day-title">Pecho + Triceps</div>
-    <div class="gym-day-sub" id="gym-day-sub">Lunes &mdash; Empuje superior</div>
+    <div class="gym-day-sub" id="gym-day-sub">Lunes — Empuje superior</div>
     <div id="gym-exercises"></div>
   </div>
   <div class="separator"></div>
   <div class="stitle" style="font-size:1rem;margin-bottom:6px">Personal Records (PR)</div>
   <div class="pr-grid">
-    <div class="pr-card"><div class="pr-exercise">Bench Press</div><div class="pr-value" id="pr-bench">&mdash;</div><div class="pr-unit">kg</div></div>
-    <div class="pr-card"><div class="pr-exercise">Squat</div><div class="pr-value" id="pr-squat">&mdash;</div><div class="pr-unit">kg</div></div>
-    <div class="pr-card"><div class="pr-exercise">Deadlift</div><div class="pr-value" id="pr-dead">&mdash;</div><div class="pr-unit">kg</div></div>
-    <div class="pr-card"><div class="pr-exercise">Peso corporal</div><div class="pr-value" id="pr-weight">&mdash;</div><div class="pr-unit">kg</div></div>
+    <div class="pr-card"><div class="pr-exercise">Bench Press</div><div class="pr-value" id="pr-bench">—</div><div class="pr-unit">kg</div></div>
+    <div class="pr-card"><div class="pr-exercise">Squat</div><div class="pr-value" id="pr-squat">—</div><div class="pr-unit">kg</div></div>
+    <div class="pr-card"><div class="pr-exercise">Deadlift</div><div class="pr-value" id="pr-dead">—</div><div class="pr-unit">kg</div></div>
+    <div class="pr-card"><div class="pr-exercise">Peso corporal</div><div class="pr-value" id="pr-weight">—</div><div class="pr-unit">kg</div></div>
   </div>
   <div class="input-row mt16">
     <select class="inp" id="pr-exercise" style="flex:0 0 auto">
@@ -844,32 +783,31 @@ textarea.inp{resize:none;}
   <div class="ssub">Combustible para los dias dificiles.</div>
   <div class="mot-hero">
     <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--y);margin-bottom:12px">FRASE DE HOY</div>
-    <div class="mot-quote" id="mot-quote">"El exito no es final, el fracaso no es fatal. Lo que cuenta es el coraje de continuar."</div>
-    <div class="mot-author" id="mot-author">&mdash; Winston Churchill</div>
-    <button class="btn btn-g mot-btn" onclick="newMotivation()">Nueva frase &#8594;</button>
+    <div class="mot-quote" id="mot-quote">"El exito no es final, el fracaso no es fatal."</div>
+    <div class="mot-author" id="mot-author">— Winston Churchill</div>
+    <button class="btn btn-g mot-btn" onclick="newMotivation()">Nueva frase →</button>
   </div>
   <div class="beast-mode" id="beast-btn" onclick="toggleBeastMode()">
-    <div class="beast-title">&#128293; MODO BESTIA</div>
+    <div class="beast-title">🔥 MODO BESTIA</div>
     <div class="beast-sub" id="beast-sub">Activa cuando necesitas maximo enfoque. Sin excusas.</div>
   </div>
   <div class="gamification">
     <div class="gam-title">LOGROS</div>
-    <div class="achievement"><div class="ach-icon">&#128640;</div><div class="ach-info"><div class="ach-name">Primer dia</div><div class="ach-desc">Abriste JOEL OS por primera vez</div></div><div class="ach-status ach-done">&#10003; Logrado</div></div>
-    <div class="achievement"><div class="ach-icon">&#128293;</div><div class="ach-info"><div class="ach-name">7 dias seguidos</div><div class="ach-desc">Racha de habitos de 7 dias</div></div><div class="ach-status ach-locked" id="ach-7d">&#128274; Bloqueado</div></div>
-    <div class="achievement"><div class="ach-icon">&#128176;</div><div class="ach-info"><div class="ach-name">Primer ingreso</div><div class="ach-desc">Registra tu primer ingreso en Finanzas</div></div><div class="ach-status ach-locked" id="ach-income">&#128274; Bloqueado</div></div>
-    <div class="achievement"><div class="ach-icon">&#128218;</div><div class="ach-info"><div class="ach-name">Poliglota</div><div class="ach-desc">Completa 30 dias de ingles seguidos</div></div><div class="ach-status ach-locked">&#128274; Bloqueado</div></div>
-    <div class="achievement"><div class="ach-icon">&#128153;</div><div class="ach-info"><div class="ach-name">Primera renta KAIA</div><div class="ach-desc">Cierra tu primera renta de KAIA</div></div><div class="ach-status ach-locked" id="ach-kaia">&#128274; Bloqueado</div></div>
-    <div class="achievement"><div class="ach-icon">&#127758;</div><div class="ach-info"><div class="ach-name">Paraguayo en Miami</div><div class="ach-desc">27 anos. 4 proyectos. 1 sistema. Sos esto.</div></div><div class="ach-status ach-done">&#10003; Logrado</div></div>
+    <div class="achievement"><div class="ach-icon">🚀</div><div class="ach-info"><div class="ach-name">Primer dia</div><div class="ach-desc">Abriste JOEL OS por primera vez</div></div><div class="ach-status ach-done">✓ Logrado</div></div>
+    <div class="achievement"><div class="ach-icon">🔥</div><div class="ach-info"><div class="ach-name">7 dias seguidos</div><div class="ach-desc">Racha de habitos de 7 dias</div></div><div class="ach-status ach-locked" id="ach-7d">🔒 Bloqueado</div></div>
+    <div class="achievement"><div class="ach-icon">💰</div><div class="ach-info"><div class="ach-name">Primer ingreso</div><div class="ach-desc">Registra tu primer ingreso en Finanzas</div></div><div class="ach-status ach-locked" id="ach-income">🔒 Bloqueado</div></div>
+    <div class="achievement"><div class="ach-icon">💙</div><div class="ach-info"><div class="ach-name">Primera renta KAIA</div><div class="ach-desc">Cierra tu primera renta de KAIA</div></div><div class="ach-status ach-locked" id="ach-kaia">🔒 Bloqueado</div></div>
+    <div class="achievement"><div class="ach-icon">🌍</div><div class="ach-info"><div class="ach-name">Paraguayo en Miami</div><div class="ach-desc">27 anos. 4 proyectos. 1 sistema. Sos esto.</div></div><div class="ach-status ach-done">✓ Logrado</div></div>
   </div>
 </div>
 
 <!-- NOTICIAS -->
 <div id="tab-noticias" class="section">
   <div class="stitle">Noticias & Info</div>
-  <div class="ssub">Bitcoin, negocios, Miami, politica &mdash; todo lo que te importa.</div>
+  <div class="ssub">Bitcoin, negocios, Miami — todo lo que te importa.</div>
   <div class="news-filters">
     <button class="news-filter active" onclick="setNewsFilter('all',this)">Todo</button>
-    <button class="news-filter" onclick="setNewsFilter('crypto',this)">&#8383; Crypto</button>
+    <button class="news-filter" onclick="setNewsFilter('crypto',this)">₿ Crypto</button>
     <button class="news-filter" onclick="setNewsFilter('business',this)">Negocios</button>
     <button class="news-filter" onclick="setNewsFilter('miami',this)">Miami</button>
     <button class="news-filter" onclick="setNewsFilter('politics',this)">Politica</button>
@@ -884,510 +822,905 @@ textarea.inp{resize:none;}
   <div class="ai-area">
     <div class="ai-messages" id="ai-messages">
       <div class="ai-msg assistant">
-        <div class="ai-msg-label">JOEL OS &mdash; Asistente</div>
-        Hola Joel &#128075; Soy tu asistente integrado v3. Conozco tus 4 proyectos, tus habitos, tus metricas y tus metas. En que te ayudo hoy?
+        <div class="ai-msg-label">JOEL OS — Asistente</div>
+        Hola Joel 👋 Soy tu asistente integrado v3. Conozco tus 4 proyectos, tus habitos, tus metricas y tus metas. En que te ayudo hoy?
       </div>
     </div>
     <div class="ai-input-row">
       <textarea id="ai-input" class="inp" placeholder="Pregunta sobre cualquier proyecto, decision o idea..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"></textarea>
-      <button class="btn btn-g" onclick="sendAI()" style="height:48px;padding:0 18px">&#8594;</button>
+      <button class="btn btn-g" onclick="sendAI()" style="height:48px;padding:0 18px">→</button>
     </div>
-    <div class="ai-hint">Enter para enviar &middot; Shift+Enter para nueva linea</div>
+    <div class="ai-hint">Enter para enviar · Shift+Enter para nueva linea</div>
   </div>
 </div>
 
-<!-- V3: SETUP -->
+<!-- SETUP -->
 <div id="tab-setup" class="section">
-  <div class="stitle">&#9881;&#65039; Configuracion & Sync</div>
-  <div class="ssub">Conecta Firebase para guardar todo en la nube y sincronizar entre dispositivos.</div>
-  <div class="setup-hero-v3">
-    <div class="setup-hero-title-v3">&#128293; Activar sincronizacion en la nube (gratis, 15 min)</div>
-    <div style="font-size:0.72rem;color:var(--muted);margin-bottom:16px;line-height:1.7">Con Firebase, todo lo que cargas &mdash; tareas, habitos, finanzas, metricas &mdash; se guarda automaticamente y se ve igual en tu iPhone y tu compu en tiempo real.</div>
-    <div class="setup-step-v3"><div class="setup-step-num-v3">1</div><div>Entra a <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> con tu Google</div></div>
-    <div class="setup-step-v3"><div class="setup-step-num-v3">2</div><div>Click en <strong>"Create a project"</strong> &rarr; Nombre: <strong>joel-os</strong> &rarr; Continuar</div></div>
-    <div class="setup-step-v3"><div class="setup-step-num-v3">3</div><div>En el menu izquierdo &rarr; <strong>"Realtime Database"</strong> &rarr; <strong>"Create Database"</strong> &rarr; Region US &rarr; <strong>Modo test</strong></div></div>
-    <div class="setup-step-v3"><div class="setup-step-num-v3">4</div><div>En &#9881;&#65039; Project Settings &rarr; <strong>"Add app"</strong> &rarr; Web &rarr; Nombre: joel-os &rarr; <strong>Copias toda la config</strong></div></div>
-    <div class="setup-step-v3"><div class="setup-step-num-v3">5</div><div>GitHub &rarr; repo <strong>joel-os</strong> &rarr; archivo <strong>index.html</strong> &rarr; click &#9999;&#65039; editar &rarr; Buscas <strong>FIREBASE_CONFIG_HERE</strong> &rarr; Reemplazas con tu config</div></div>
-    <div class="setup-step-v3"><div class="setup-step-num-v3">6</div><div>Commit &rarr; Netlify se actualiza automatico &rarr; Sync activo en todos tus dispositivos! &#128640;</div></div>
-  </div>
+  <div class="stitle">⚙️ Configuracion & Sync</div>
+  <div class="ssub">Estado del sistema y configuracion.</div>
   <div class="card">
     <div class="card-label" style="margin-bottom:12px">Estado del sistema</div>
-    <div class="status-row-v3"><span>Firebase</span><span id="firebase-status-text" style="color:var(--y)">No configurado &mdash; seguir pasos de arriba</span></div>
-    <div class="status-row-v3"><span>Sync entre dispositivos</span><span id="sync-status-text" style="color:var(--y)">Inactivo &mdash; datos en local</span></div>
+    <div class="status-row-v3"><span>Firebase</span><span id="firebase-status-text" style="color:var(--y)">Conectando...</span></div>
+    <div class="status-row-v3"><span>Sync entre dispositivos</span><span id="sync-status-text" style="color:var(--y)">Verificando...</span></div>
     <div class="status-row-v3"><span>Version</span><span style="color:var(--g)">JOEL OS v3</span></div>
     <div class="status-row-v3"><span>URL</span><span style="color:var(--b)">joel-os.netlify.app</span></div>
-    <div style="margin-top:14px;font-size:0.72rem;color:var(--muted);line-height:1.7">Mientras configuras Firebase, todo funciona igual y los datos se guardan en tu navegador local. No perdes nada.</div>
+    <div class="status-row-v3"><span>Path Firebase</span><span style="color:var(--muted)">users/joel</span></div>
+  </div>
+  <div class="separator"></div>
+  <div class="stitle" style="font-size:1rem;margin-bottom:10px">Datos guardados</div>
+  <div class="card">
+    <div class="status-row-v3"><span>Tareas</span><span id="stat-tasks" style="color:var(--g)">0</span></div>
+    <div class="status-row-v3"><span>Habitos</span><span id="stat-habits" style="color:var(--g)">0</span></div>
+    <div class="status-row-v3"><span>Transacciones</span><span id="stat-trans" style="color:var(--g)">0</span></div>
+    <div class="status-row-v3"><span>Ideas</span><span id="stat-ideas" style="color:var(--g)">0</span></div>
+    <div class="status-row-v3"><span>XP Total</span><span id="stat-xp" style="color:var(--y)">0</span></div>
+    <div style="margin-top:16px">
+      <button class="btn" onclick="if(confirm('¿Resetear todos los datos? Esta accion no se puede deshacer.'))resetData()" style="border-color:var(--r);color:var(--r)">Reset completo</button>
+    </div>
   </div>
 </div>
 
 <script>
-const SK='joelos_v3';
+// ============================================================
+// JOEL OS v3 — CORE (limpio, sin duplicados)
+// ============================================================
+const SK = 'joelos_v3';
 
-  // ===== FIREBASE CONFIG =====
-  const firebaseConfig = {
-    apiKey: "AIzaSyDqMxit2twAFYJYbNydZonS3NUAytwGZnc",
-    authDomain: "joelos-4f58b.firebaseapp.com",
-    databaseURL: "https://joelos-4f58b-default-rtdb.firebaseio.com",
-    projectId: "joelos-4f58b",
-    storageBucket: "joelos-4f58b.firebasestorage.app",
-    messagingSenderId: "54601199398",
-    appId: "1:54601199398:web:967dc8e30af49027261be7"
-  };
-
-let S={
-  tasks:[],
-  habits:[
-    {id:1,name:'Gym / Entrenamiento \u{1F4AA}',log:{}},
-    {id:2,name:'Meditaci\u00f3n \u{1F9D8}',log:{}},
-    {id:3,name:'Lectura 20min \u{1F4D6}',log:{}},
-    {id:4,name:'Ingl\u00e9s diario \u{1F1FA}\u{1F1F8}',log:{}},
-    {id:5,name:'Comida limpia \u{1F957}',log:{}},
+let S = {
+  tasks: [],
+  habits: [
+    {id:1, name:'Gym / Entrenamiento 💪', log:{}},
+    {id:2, name:'Meditación 🧘', log:{}},
+    {id:3, name:'Lectura 20min 📖', log:{}},
+    {id:4, name:'Inglés diario 🇺🇸', log:{}},
+    {id:5, name:'Comida limpia 🥗', log:{}},
   ],
-  transactions:[],ideas:[],
-  prs:{bench:'--',squat:'--',dead:'--',weight:'--'},
-  engCat:'business',engStreak:0,gymDone:{},
-  xp:0,streak:0,beastMode:false,nextId:200,
-  metrics:{kaia:{rentals:0,clients:0,income:0},nh:{miners:0,investors:0,btc:0},re:{rentals:2,leads:0,listings:0}},
+  transactions: [], ideas: [],
+  prs: {bench:'—', squat:'—', dead:'—', weight:'—'},
+  engCat: 'business',
+  engStreak: 0,
+  engLastDate: '',   // <- FIX: controlar streak por día, no por click
+  gymDone: {},
+  xp: 0, streak: 0, beastMode: false, nextId: 200,
+  metrics: {
+    kaia: {rentals:0, clients:0, income:0},
+    nh: {miners:0, investors:0, btc:0},
+    re: {rentals:2, leads:0, listings:0}
+  },
 };
-function load(){try{const d=localStorage.getItem(SK);if(d)S={...S,...JSON.parse(d)};}catch(e){}}
-function save(){
-  try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}
-  syncToFirebase();
-}
-let fbSyncTimeout=null;
-function syncToFirebase(){
-  if(!window._fbReady||!window._fbDb)return;
-  const dot=document.getElementById('sync-dot');const lbl=document.getElementById('sync-label');
-  if(dot)dot.className='sync-dot syncing';if(lbl)lbl.textContent='Sincronizando...';
-  clearTimeout(fbSyncTimeout);
-  fbSyncTimeout=setTimeout(()=>{
-    window._fbSet(window._fbRef(window._fbDb,'joel/state'),S)
-      .then(()=>{if(dot)dot.className='sync-dot synced';if(lbl)lbl.textContent='Sincronizado';})
-      .catch(()=>{if(dot)dot.className='sync-dot local';if(lbl)lbl.textContent='Local';});
-  },1000);
+
+function load() {
+  try {
+    const d = localStorage.getItem(SK);
+    if (d) S = {...S, ...JSON.parse(d)};
+  } catch(e) {}
 }
 
-const WORK_TABS=[
-  {id:'dashboard',label:'\u29e1 Dashboard'},{id:'proyectos',label:'\u25c8 Proyectos'},
-  {id:'tareas',label:'\u25fb Tareas'},{id:'habitos',label:'\u25cc H\u00e1bitos'},
-  {id:'finanzas',label:'\u25ce Finanzas'},{id:'ideas',label:'\u25c7 Ideas'},
-  {id:'roadmap',label:'\u2192 Roadmap'},{id:'whatsapp',label:'\u{1F4F1} WhatsApp'},
-  {id:'ai',label:'\u2726 IA'},{id:'setup',label:'\u2699\ufe0f Setup'},
-];
-const LIFE_TABS=[
-  {id:'ingles',label:'\u{1F1FA}\u{1F1F8} Ingl\u00e9s'},{id:'espiritu',label:'\u2726 Esp\u00edritu'},
-  {id:'gym',label:'\u{1F4AA} Gym'},{id:'motivacion',label:'\u{1F525} Motivaci\u00f3n'},
-  {id:'noticias',label:'\u{1F4F0} Noticias'},{id:'ai',label:'\u2726 IA'},
-];
-let currentMode='work';
+// ---- FIREBASE SYNC ----
+let fbSaveTimer = null;
 
-function setMode(mode){
-  currentMode=mode;
-  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-  renderTabs();
-  showTab(mode==='work'?'dashboard':'ingles');
-}
-function renderTabs(){
-  const tabs=currentMode==='work'?WORK_TABS:LIFE_TABS;
-  document.getElementById('tabs-container').innerHTML=tabs.map(t=>`<button class="tab${currentMode==='life'?' life-tab':''}" onclick="showTab('${t.id}')">${t.label}</button>`).join('');
-}
-function showTab(id){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  const el=document.getElementById('tab-'+id);if(el)el.classList.add('active');
-  const tabs=currentMode==='work'?WORK_TABS:LIFE_TABS;
-  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.remove('active');if(tabs[i]&&tabs[i].id===id)t.classList.add('active');});
-  render();
-}
-
-function updateClock(){
-  const now=new Date();
-  const days=['Domingo','Lunes','Martes','Mi\u00e9rcoles','Jueves','Viernes','S\u00e1bado'];
-  const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  const hd=document.getElementById('hdate');const ht=document.getElementById('htime');
-  if(hd)hd.textContent=`${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
-  if(ht)ht.textContent=now.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  const h=now.getHours();const g=h<12?'Buenos d\u00edas':h<19?'Buenas tardes':'Buenas noches';
-  const ge=document.getElementById('greeting-text');if(ge)ge.innerHTML=`${g},<br><em>Joel.</em>`;
-}
-setInterval(updateClock,1000);updateClock();
-
-function addXP(amount){S.xp=(S.xp||0)+amount;save();updateXPDisplay();}
-function updateXPDisplay(){
-  const xp=S.xp||0;const level=Math.floor(xp/100)+1;const progress=xp%100;
-  document.getElementById('level-display').textContent=`LVL ${level}`;
-  document.getElementById('xp-fill').style.width=progress+'%';
-  document.getElementById('xp-display').textContent=xp+' XP';
-  document.getElementById('streak-display').textContent=S.streak||0;
-}
-
-function addTask(){
-  const inp=document.getElementById('task-input');const proj=document.getElementById('task-project').value;
-  if(!inp.value.trim())return;
-  S.tasks.push({id:S.nextId++,text:inp.value.trim(),project:proj,done:false});
-  inp.value='';addXP(5);save();renderTasks();updateStats();
-}
-function toggleTask(id){
-  const t=S.tasks.find(t=>t.id===id);
-  if(t){t.done=!t.done;if(t.done)addXP(10);save();renderTasks();updateStats();}
-}
-function renderTasks(){
-  const c=document.getElementById('tasks-container');if(!c)return;
-  const colors={kaia:'var(--r)',neurahash:'var(--g)',realestate:'var(--b)',bebida:'var(--y)',personal:'#888'};
-  const labels={kaia:'KAIA',neurahash:'NEURAHASH',realestate:'REAL ESTATE',bebida:'H2O+',personal:'PERSONAL'};
-  const projs=['kaia','neurahash','realestate','bebida','personal'];
-  let html='';
-  projs.forEach(p=>{
-    const tasks=S.tasks.filter(t=>t.project===p);if(!tasks.length)return;
-    html+=`<div class="task-area"><div class="task-area-title" style="color:${colors[p]}">${labels[p]}</div>`;
-    tasks.forEach(t=>{html+=`<div class="task-item${t.done?' done':''}" onclick="toggleTask(${t.id})"><div class="task-check"></div><div class="task-text">${t.text}</div><div class="task-tag" style="background:${colors[p]}15;color:${colors[p]};border:1px solid ${colors[p]}25">${labels[p]}</div></div>`;});
-    html+='</div>';
-  });
-  if(!html)html='<div style="color:var(--muted);font-size:0.75rem;padding:16px 0">No hay tareas. Agrega tu primera.</div>';
-  c.innerHTML=html;
-  const dp=document.getElementById('dashboard-tasks');
-  if(dp){
-    const pending=S.tasks.filter(t=>!t.done).slice(0,5);
-    if(!pending.length){dp.innerHTML='<div style="color:var(--muted);font-size:0.75rem">Sin tareas pendientes. \u{1F389}</div>';return;}
-    dp.innerHTML=pending.map(t=>`<div class="task-item" onclick="toggleTask(${t.id});render()"><div class="task-check"></div><div class="task-text">${t.text}</div><div class="task-tag" style="background:${colors[t.project]}15;color:${colors[t.project]};border:1px solid ${colors[t.project]}25">${t.project.toUpperCase()}</div></div>`).join('');
+function save() {
+  try { localStorage.setItem(SK, JSON.stringify(S)); } catch(e) {}
+  // Debounce Firebase save 800ms
+  if (window._fb) {
+    setSyncStatus('syncing');
+    clearTimeout(fbSaveTimer);
+    fbSaveTimer = setTimeout(() => {
+      window._fb.set(window._fb.stateRef, S)
+        .then(() => setSyncStatus('synced'))
+        .catch(() => setSyncStatus('local'));
+    }, 800);
   }
 }
 
-function todayKey(){const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
-function getLast7(){const days=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`);}return days;}
+function setSyncStatus(status) {
+  const dot = document.getElementById('sync-dot');
+  const lbl = document.getElementById('sync-label');
+  if (!dot || !lbl) return;
+  dot.className = 'sync-dot ' + status;
+  const map = {synced:'Firebase activo', syncing:'Sincronizando...', local:'Local'};
+  lbl.textContent = map[status] || 'Local';
+  // Actualizar setup tab
+  const fst = document.getElementById('firebase-status-text');
+  const sst = document.getElementById('sync-status-text');
+  if (status === 'synced') {
+    if (fst) { fst.textContent = 'Conectado ✓'; fst.style.color = 'var(--g)'; }
+    if (sst) { sst.textContent = 'Activo en tiempo real ✓'; sst.style.color = 'var(--g)'; }
+  } else if (status === 'local') {
+    if (fst) { fst.textContent = 'Sin conexion'; fst.style.color = 'var(--r)'; }
+    if (sst) { sst.textContent = 'Solo local'; sst.style.color = 'var(--r)'; }
+  }
+}
 
-function toggleHabit(hid,dk){
-  const h=S.habits.find(h=>h.id===hid);if(!h)return;if(!h.log)h.log={};
-  h.log[dk]=!h.log[dk];if(h.log[dk])addXP(15);
-  const today=todayKey();const allDone=S.habits.every(h=>h.log&&h.log[today]);
-  if(allDone){S.streak=(S.streak||0)+1;if(S.streak>=7){const a=document.getElementById('ach-7d');if(a){a.className='ach-status ach-done';a.textContent='\u2713 Logrado';}}}
-  save();renderHabits();updateStats();
-}
-function addHabit(){const inp=document.getElementById('habit-input');if(!inp.value.trim())return;S.habits.push({id:S.nextId++,name:inp.value.trim(),log:{}});inp.value='';save();renderHabits();}
-function renderHabits(){
-  const labels=document.getElementById('day-labels');const c=document.getElementById('habits-container');if(!c)return;
-  const days=getLast7();const dayNames=['Do','Lu','Ma','Mi','Ju','Vi','S\u00e1'];
-  if(labels){labels.innerHTML=days.map(d=>{const dow=new Date(d+'T12:00:00').getDay();return`<div class="day-label">${dayNames[dow]}<br><span style="font-size:0.5rem">${d.slice(8)}</span></div>`;}).join('');}
-  c.innerHTML=S.habits.map(h=>{const doneCount=days.filter(d=>h.log&&h.log[d]).length;return`<div class="hab-row"><div class="hab-name"><strong>${h.name}</strong><span>${doneCount}/7 esta semana</span></div><div class="hab-dots">${days.map(d=>`<div class="hab-dot${h.log&&h.log[d]?' done':''}" onclick="toggleHabit(${h.id},'${d}')">\u2713</div>`).join('')}</div></div>`;}).join('');
-}
+document.addEventListener('firebase-ready', () => {
+  setSyncStatus('synced');
+});
 
-function addTransaction(){
-  const desc=document.getElementById('fin-desc').value.trim();const cat=document.getElementById('fin-cat').value;const amount=parseFloat(document.getElementById('fin-amount').value);
-  if(!desc||isNaN(amount)||amount<=0)return;const[type,project]=cat.split('-');
-  S.transactions.push({id:S.nextId++,desc,type,project,amount,date:Date.now()});
-  document.getElementById('fin-desc').value='';document.getElementById('fin-amount').value='';
-  if(type==='income'){addXP(20);const ai=document.getElementById('ach-income');if(ai){ai.className='ach-status ach-done';ai.textContent='\u2713 Logrado';}}
-  save();renderFinances();generateInsights();
+// ---- TABS ----
+const WORK_TABS = [
+  {id:'dashboard', label:'◆ Dashboard'},
+  {id:'proyectos', label:'◈ Proyectos'},
+  {id:'tareas', label:'□ Tareas'},
+  {id:'habitos', label:'◌ Hábitos'},
+  {id:'finanzas', label:'◎ Finanzas'},
+  {id:'ideas', label:'◇ Ideas'},
+  {id:'roadmap', label:'→ Roadmap'},
+  {id:'whatsapp', label:'📱 WhatsApp'},
+  {id:'ai', label:'✦ IA'},
+  {id:'setup', label:'⚙️ Setup'},
+];
+const LIFE_TABS = [
+  {id:'ingles', label:'🇺🇸 Inglés'},
+  {id:'espiritu', label:'✦ Espíritu'},
+  {id:'gym', label:'💪 Gym'},
+  {id:'motivacion', label:'🔥 Motivación'},
+  {id:'noticias', label:'📰 Noticias'},
+  {id:'ai', label:'✦ IA'},
+];
+let currentMode = 'work';
+
+function setMode(mode, btn) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTabs();
+  showTab(mode === 'work' ? 'dashboard' : 'ingles');
 }
-function renderFinances(){
-  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-  const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);const net=inc-exp;
-  document.getElementById('fin-in').textContent='$'+inc.toFixed(2);
-  document.getElementById('fin-out').textContent='$'+exp.toFixed(2);
-  const ne=document.getElementById('fin-net');ne.textContent=(net>=0?'+':'')+'$'+net.toFixed(2);ne.className='card-value '+(net>=0?'cg':'cr');
-  const projs=['kaia','neurahash','realestate','personal','otro'];
-  const pNames={kaia:'KAIA',neurahash:'NEURAHASH',realestate:'REAL ESTATE',personal:'Personal',otro:'Otro'};
-  const pColors={kaia:'var(--r)',neurahash:'var(--g)',realestate:'var(--b)',personal:'#888',otro:'#666'};
-  let ph='';
-  projs.forEach(p=>{
-    const pi=S.transactions.filter(t=>t.type==='income'&&t.project===p).reduce((s,t)=>s+t.amount,0);
-    const pe=S.transactions.filter(t=>t.type==='expense'&&t.project===p).reduce((s,t)=>s+t.amount,0);
-    if(!pi&&!pe)return;const pn=pi-pe;
-    ph+=`<div class="fin-row"><div style="color:${pColors[p]};font-size:0.68rem">${pNames[p]}</div><div class="fin-amount ${pn>=0?'cg':'cr'}">${pn>=0?'+':''}$${pn.toFixed(0)}</div></div>`;
+function renderTabs() {
+  const tabs = currentMode === 'work' ? WORK_TABS : LIFE_TABS;
+  document.getElementById('tabs-container').innerHTML = tabs.map(t =>
+    `<button class="tab${currentMode==='life'?' life-tab':''}" onclick="showTab('${t.id}')">${t.label}</button>`
+  ).join('');
+}
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('tab-' + id);
+  if (el) el.classList.add('active');
+  const tabs = currentMode === 'work' ? WORK_TABS : LIFE_TABS;
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.remove('active');
+    if (tabs[i] && tabs[i].id === id) t.classList.add('active');
   });
-  document.getElementById('fin-by-proj').innerHTML=ph||'<div style="color:var(--muted);font-size:0.7rem">Sin movimientos</div>';
-  const tl=document.getElementById('transactions-list');if(!tl)return;
-  if(!S.transactions.length){tl.innerHTML='<div style="color:var(--muted);font-size:0.75rem;padding:12px 0">Sin movimientos.</div>';return;}
-  tl.innerHTML=[...S.transactions].reverse().map(t=>{const date=new Date(t.date);return`<div class="fin-row"><div><div>${t.desc}</div><div class="fin-label">${t.project?.toUpperCase()} \u00b7 ${date.toLocaleDateString('es')}</div></div><div class="fin-amount ${t.type==='income'?'cg':'cr'}">${t.type==='income'?'+':'-'}$${t.amount.toFixed(2)}</div></div>`;}).join('');
+  renderCurrentTab(id);
+}
+function renderCurrentTab(id) {
+  if (id === 'dashboard') { updateStats(); generateInsights(); renderHabitChart(); renderFinanceChart(); renderMetricsGrid(); renderProjMetrics(); renderTasks(); }
+  else if (id === 'proyectos') renderProjMetrics();
+  else if (id === 'tareas') renderTasks();
+  else if (id === 'habitos') renderHabits();
+  else if (id === 'finanzas') renderFinances();
+  else if (id === 'ideas') renderIdeas();
+  else if (id === 'ingles') { renderPhrases(); renderQuiz(); }
+  else if (id === 'noticias') renderNews();
+  else if (id === 'whatsapp') renderWAPreview();
+  else if (id === 'gym') renderGym('lunes');
+  else if (id === 'setup') renderSetupStats();
+}
+
+// ---- CLOCK ----
+function updateClock() {
+  const now = new Date();
+  const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const hd = document.getElementById('hdate');
+  const ht = document.getElementById('htime');
+  if (hd) hd.textContent = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
+  if (ht) ht.textContent = now.toLocaleTimeString('es', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  const h = now.getHours();
+  const g = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
+  const ge = document.getElementById('greeting-text');
+  if (ge) ge.innerHTML = `${g},<br><em>Joel.</em>`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ---- XP / LEVEL ----
+function addXP(amount) {
+  S.xp = (S.xp || 0) + amount;
+  save();
+  updateXPDisplay();
+}
+function updateXPDisplay() {
+  const xp = S.xp || 0;
+  const level = Math.floor(xp / 100) + 1;
+  const progress = xp % 100;
+  const ld = document.getElementById('level-display');
+  const xf = document.getElementById('xp-fill');
+  const xd = document.getElementById('xp-display');
+  const sd = document.getElementById('streak-display');
+  if (ld) ld.textContent = `LVL ${level}`;
+  if (xf) xf.style.width = progress + '%';
+  if (xd) xd.textContent = xp + ' XP';
+  if (sd) sd.textContent = S.streak || 0;
+}
+
+// ---- TASKS ----
+function addTask() {
+  const inp = document.getElementById('task-input');
+  const proj = document.getElementById('task-project').value;
+  if (!inp.value.trim()) return;
+  S.tasks.push({id: S.nextId++, text: inp.value.trim(), project: proj, done: false});
+  inp.value = '';
+  addXP(5); save(); renderTasks(); updateStats();
+}
+function toggleTask(id) {
+  const t = S.tasks.find(t => t.id === id);
+  if (t) { t.done = !t.done; if (t.done) addXP(10); save(); renderTasks(); updateStats(); }
+}
+function renderTasks() {
+  const c = document.getElementById('tasks-container');
+  if (!c) return;
+  const colors = {kaia:'var(--r)', neurahash:'var(--g)', realestate:'var(--b)', bebida:'var(--y)', personal:'#888'};
+  const labels = {kaia:'KAIA', neurahash:'NEURAHASH', realestate:'REAL ESTATE', bebida:'H2O+', personal:'PERSONAL'};
+  const projs = ['kaia','neurahash','realestate','bebida','personal'];
+  let html = '';
+  projs.forEach(p => {
+    const tasks = S.tasks.filter(t => t.project === p);
+    if (!tasks.length) return;
+    html += `<div class="task-area"><div class="task-area-title" style="color:${colors[p]}">${labels[p]}</div>`;
+    tasks.forEach(t => {
+      html += `<div class="task-item${t.done?' done':''}" onclick="toggleTask(${t.id})"><div class="task-check"></div><div class="task-text">${t.text}</div><div class="task-tag" style="background:${colors[p]}15;color:${colors[p]};border:1px solid ${colors[p]}25">${labels[p]}</div></div>`;
+    });
+    html += '</div>';
+  });
+  if (!html) html = '<div style="color:var(--muted);font-size:0.75rem;padding:16px 0">No hay tareas. Agrega tu primera.</div>';
+  c.innerHTML = html;
+  // Dashboard tasks
+  const dp = document.getElementById('dashboard-tasks');
+  if (dp) {
+    const pending = S.tasks.filter(t => !t.done).slice(0, 5);
+    if (!pending.length) { dp.innerHTML = '<div style="color:var(--muted);font-size:0.75rem">Sin tareas pendientes. 🎉</div>'; return; }
+    dp.innerHTML = pending.map(t =>
+      `<div class="task-item" onclick="toggleTask(${t.id});renderCurrentTab('dashboard')"><div class="task-check"></div><div class="task-text">${t.text}</div><div class="task-tag" style="background:${colors[t.project]}15;color:${colors[t.project]};border:1px solid ${colors[t.project]}25">${t.project.toUpperCase()}</div></div>`
+    ).join('');
+  }
+}
+
+// ---- HABITS ----
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function getLast7() {
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    days.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`);
+  }
+  return days;
+}
+function toggleHabit(hid, dk) {
+  const h = S.habits.find(h => h.id === hid);
+  if (!h) return;
+  if (!h.log) h.log = {};
+  h.log[dk] = !h.log[dk];
+  if (h.log[dk]) addXP(15);
+  const today = todayKey();
+  const allDone = S.habits.every(h => h.log && h.log[today]);
+  if (allDone) {
+    S.streak = (S.streak || 0) + 1;
+    if (S.streak >= 7) { const a = document.getElementById('ach-7d'); if (a) { a.className = 'ach-status ach-done'; a.textContent = '✓ Logrado'; } }
+  }
+  save(); renderHabits(); updateStats();
+}
+function addHabit() {
+  const inp = document.getElementById('habit-input');
+  if (!inp.value.trim()) return;
+  S.habits.push({id: S.nextId++, name: inp.value.trim(), log: {}});
+  inp.value = ''; save(); renderHabits();
+}
+function renderHabits() {
+  const labels = document.getElementById('day-labels');
+  const c = document.getElementById('habits-container');
+  if (!c) return;
+  const days = getLast7();
+  const dayNames = ['Do','Lu','Ma','Mi','Ju','Vi','Sá'];
+  if (labels) {
+    labels.innerHTML = days.map(d => {
+      const dow = new Date(d + 'T12:00:00').getDay();
+      return `<div class="day-label">${dayNames[dow]}<br><span style="font-size:0.5rem">${d.slice(8)}</span></div>`;
+    }).join('');
+  }
+  c.innerHTML = S.habits.map(h => {
+    const doneCount = days.filter(d => h.log && h.log[d]).length;
+    return `<div class="hab-row"><div class="hab-name"><strong>${h.name}</strong><span>${doneCount}/7 esta semana</span></div><div class="hab-dots">${days.map(d => `<div class="hab-dot${h.log&&h.log[d]?' done':''}" onclick="toggleHabit(${h.id},'${d}')">✓</div>`).join('')}</div></div>`;
+  }).join('');
+}
+
+// ---- FINANCES ----
+function addTransaction() {
+  const desc = document.getElementById('fin-desc').value.trim();
+  const cat = document.getElementById('fin-cat').value;
+  const amount = parseFloat(document.getElementById('fin-amount').value);
+  if (!desc || isNaN(amount) || amount <= 0) return;
+  const [type, project] = cat.split('-');
+  S.transactions.push({id: S.nextId++, desc, type, project, amount, date: Date.now()});
+  document.getElementById('fin-desc').value = '';
+  document.getElementById('fin-amount').value = '';
+  if (type === 'income') {
+    addXP(20);
+    const ai = document.getElementById('ach-income');
+    if (ai) { ai.className = 'ach-status ach-done'; ai.textContent = '✓ Logrado'; }
+  }
+  save(); renderFinances(); generateInsights();
+}
+function renderFinances() {
+  const inc = S.transactions.filter(t => t.type === 'income').reduce((s,t) => s+t.amount, 0);
+  const exp = S.transactions.filter(t => t.type === 'expense').reduce((s,t) => s+t.amount, 0);
+  const net = inc - exp;
+  const fi = document.getElementById('fin-in'); if (fi) fi.textContent = '$' + inc.toFixed(2);
+  const fo = document.getElementById('fin-out'); if (fo) fo.textContent = '$' + exp.toFixed(2);
+  const ne = document.getElementById('fin-net');
+  if (ne) { ne.textContent = (net >= 0 ? '+' : '') + '$' + net.toFixed(2); ne.className = 'card-value ' + (net >= 0 ? 'cg' : 'cr'); }
+  const projs = ['kaia','neurahash','realestate','personal','otro'];
+  const pNames = {kaia:'KAIA', neurahash:'NEURAHASH', realestate:'REAL ESTATE', personal:'Personal', otro:'Otro'};
+  const pColors = {kaia:'var(--r)', neurahash:'var(--g)', realestate:'var(--b)', personal:'#888', otro:'#666'};
+  let ph = '';
+  projs.forEach(p => {
+    const pi = S.transactions.filter(t => t.type==='income' && t.project===p).reduce((s,t) => s+t.amount, 0);
+    const pe = S.transactions.filter(t => t.type==='expense' && t.project===p).reduce((s,t) => s+t.amount, 0);
+    if (!pi && !pe) return;
+    const pn = pi - pe;
+    ph += `<div class="fin-row"><div style="color:${pColors[p]};font-size:0.68rem">${pNames[p]}</div><div class="fin-amount ${pn>=0?'cg':'cr'}">${pn>=0?'+':''}$${pn.toFixed(0)}</div></div>`;
+  });
+  const fbp = document.getElementById('fin-by-proj');
+  if (fbp) fbp.innerHTML = ph || '<div style="color:var(--muted);font-size:0.7rem">Sin movimientos</div>';
+  const tl = document.getElementById('transactions-list');
+  if (!tl) return;
+  if (!S.transactions.length) { tl.innerHTML = '<div style="color:var(--muted);font-size:0.75rem;padding:12px 0">Sin movimientos.</div>'; return; }
+  tl.innerHTML = [...S.transactions].reverse().map(t => {
+    const date = new Date(t.date);
+    return `<div class="fin-row"><div><div>${t.desc}</div><div class="fin-label">${t.project?.toUpperCase()} · ${date.toLocaleDateString('es')}</div></div><div class="fin-amount ${t.type==='income'?'cg':'cr'}">${t.type==='income'?'+':'-'}$${t.amount.toFixed(2)}</div></div>`;
+  }).join('');
   updateStats();
 }
 
-function addIdea(){const text=document.getElementById('idea-input').value.trim();const proj=document.getElementById('idea-project').value;if(!text)return;S.ideas.push({id:S.nextId++,text,project:proj,date:Date.now()});document.getElementById('idea-input').value='';addXP(5);save();renderIdeas();}
-function deleteIdea(id){S.ideas=S.ideas.filter(i=>i.id!==id);save();renderIdeas();}
-function renderIdeas(){
-  const c=document.getElementById('ideas-container');if(!c)return;
-  const pc={KAIA:'var(--r)',NEURAHASH:'var(--g)','REAL ESTATE':'var(--b)','H2O+':'var(--y)',PERSONAL:'#888',GENERAL:'#666'};
-  if(!S.ideas.length){c.innerHTML='<div style="color:var(--muted);font-size:0.75rem;grid-column:1/-1">Captura tu primera idea.</div>';return;}
-  c.innerHTML=[...S.ideas].reverse().map(i=>`<div class="idea-card"><div class="idea-proj" style="color:${pc[i.project]||'#888'}">${i.project}</div><div class="idea-text">${i.text}</div><button class="idea-del" onclick="deleteIdea(${i.id})">&#10005;</button></div>`).join('');
+// ---- IDEAS ----
+function addIdea() {
+  const text = document.getElementById('idea-input').value.trim();
+  const proj = document.getElementById('idea-project').value;
+  if (!text) return;
+  S.ideas.push({id: S.nextId++, text, project: proj, date: Date.now()});
+  document.getElementById('idea-input').value = '';
+  addXP(5); save(); renderIdeas();
+}
+function deleteIdea(id) { S.ideas = S.ideas.filter(i => i.id !== id); save(); renderIdeas(); }
+function renderIdeas() {
+  const c = document.getElementById('ideas-container');
+  if (!c) return;
+  const pc = {KAIA:'var(--r)', NEURAHASH:'var(--g)', 'REAL ESTATE':'var(--b)', 'H2O+':'var(--y)', PERSONAL:'#888', GENERAL:'#666'};
+  if (!S.ideas.length) { c.innerHTML = '<div style="color:var(--muted);font-size:0.75rem;grid-column:1/-1">Captura tu primera idea.</div>'; return; }
+  c.innerHTML = [...S.ideas].reverse().map(i =>
+    `<div class="idea-card"><div class="idea-proj" style="color:${pc[i.project]||'#888'}">${i.project}</div><div class="idea-text">${i.text}</div><button class="idea-del" onclick="deleteIdea(${i.id})">✕</button></div>`
+  ).join('');
 }
 
-function updateStats(){
-  const pending=S.tasks.filter(t=>!t.done).length;document.getElementById('s-tasks').textContent=pending;
-  const today=todayKey();const doneH=S.habits.filter(h=>h.log&&h.log[today]).length;
-  document.getElementById('s-habits').textContent=`${doneH}/${S.habits.length}`;
-  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-  const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);const net=inc-exp;
-  const sb=document.getElementById('s-balance');sb.textContent=(net>=0?'+':'')+'$'+net.toFixed(0);sb.className='card-value '+(net>=0?'cg':'cr');
-  document.getElementById('s-eng').textContent=S.engStreak||0;
+// ---- STATS ----
+function updateStats() {
+  const pending = S.tasks.filter(t => !t.done).length;
+  const st = document.getElementById('s-tasks'); if (st) st.textContent = pending;
+  const today = todayKey();
+  const doneH = S.habits.filter(h => h.log && h.log[today]).length;
+  const sh = document.getElementById('s-habits'); if (sh) sh.textContent = `${doneH}/${S.habits.length}`;
+  const inc = S.transactions.filter(t => t.type === 'income').reduce((s,t) => s+t.amount, 0);
+  const exp = S.transactions.filter(t => t.type === 'expense').reduce((s,t) => s+t.amount, 0);
+  const net = inc - exp;
+  const sb = document.getElementById('s-balance');
+  if (sb) { sb.textContent = (net >= 0 ? '+' : '') + '$' + net.toFixed(0); sb.className = 'card-value ' + (net >= 0 ? 'cg' : 'cr'); }
+  const se = document.getElementById('s-eng'); if (se) se.textContent = S.engStreak || 0;
+  updateXPDisplay();
 }
 
-// ===== V3: PROJECT METRICS =====
-function updateProjMetric(proj,key,val){
-  if(!S.metrics)S.metrics={kaia:{rentals:0,clients:0,income:0},nh:{miners:0,investors:0,btc:0},re:{rentals:2,leads:0,listings:0}};
-  if(!S.metrics[proj])S.metrics[proj]={};
-  S.metrics[proj][key]=parseFloat(val)||0;
-  if(proj==='kaia'&&key==='rentals'&&(parseFloat(val)||0)>0){const a=document.getElementById('ach-kaia');if(a){a.className='ach-status ach-done';a.textContent='\u2713 Logrado';}}
-  save();renderProjMetrics();generateInsights();
+// ---- PROJECT METRICS ----
+function updateProjMetric(proj, key, val) {
+  if (!S.metrics) S.metrics = {kaia:{rentals:0,clients:0,income:0}, nh:{miners:0,investors:0,btc:0}, re:{rentals:2,leads:0,listings:0}};
+  if (!S.metrics[proj]) S.metrics[proj] = {};
+  S.metrics[proj][key] = parseFloat(val) || 0;
+  if (proj === 'kaia' && key === 'rentals' && (parseFloat(val)||0) > 0) {
+    const a = document.getElementById('ach-kaia'); if (a) { a.className = 'ach-status ach-done'; a.textContent = '✓ Logrado'; }
+  }
+  save(); renderProjMetrics(); generateInsights();
 }
-function renderProjMetrics(){
-  const m=S.metrics||{};
-  const setEl=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
-  if(m.kaia){setEl('kaia-rentals',m.kaia.rentals||0);setEl('kaia-income','$'+(m.kaia.income||0));setEl('kaia-clients',m.kaia.clients||0);setEl('dash-kaia-rentals',m.kaia.rentals||0);setEl('dash-kaia-income','$'+(m.kaia.income||0));setEl('dash-kaia-clients',m.kaia.clients||0);}
-  if(m.nh){setEl('nh-miners',m.nh.miners||0);setEl('nh-investors',m.nh.investors||0);setEl('nh-btc',m.nh.btc||0);setEl('dash-nh-miners',m.nh.miners||0);setEl('dash-nh-investors',m.nh.investors||0);setEl('dash-nh-btc',m.nh.btc||0);}
-  if(m.re){setEl('re-rentals',m.re.rentals||2);setEl('re-leads',m.re.leads||0);setEl('re-listings',m.re.listings||0);setEl('dash-re-rentals',m.re.rentals||2);setEl('dash-re-leads',m.re.leads||0);setEl('dash-re-listings',m.re.listings||0);}
-  // fill inputs
-  const fillInp=(id,val)=>{const el=document.getElementById(id);if(el&&!el.value&&val)el.value=val;};
-  if(m.kaia){fillInp('kaia-rentals-inp',m.kaia.rentals);fillInp('kaia-clients-inp',m.kaia.clients);fillInp('kaia-income-inp',m.kaia.income);}
-  if(m.nh){fillInp('nh-miners-inp',m.nh.miners);fillInp('nh-investors-inp',m.nh.investors);fillInp('nh-btc-inp',m.nh.btc);}
-  if(m.re){fillInp('re-rentals-inp',m.re.rentals);fillInp('re-leads-inp',m.re.leads);fillInp('re-listings-inp',m.re.listings);}
-}
-
-// ===== V3: ANALYTICS ENGINE =====
-function generateInsights(){
-  const c=document.getElementById('insights-container');if(!c)return;
-  const today=todayKey();
-  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-  const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);const net=inc-exp;
-  const pending=S.tasks.filter(t=>!t.done).length;
-  const doneH=S.habits.filter(h=>h.log&&h.log[today]).length;const totalH=S.habits.length;
-  const days=getLast7();const habW=days.reduce((sum,d)=>sum+S.habits.filter(h=>h.log&&h.log[d]).length,0);
-  const habitPct=totalH*7>0?Math.round(habW/(totalH*7)*100):0;
-  const m=S.metrics||{};
-  const ins=[];
-  if(doneH===totalH&&totalH>0)ins.push({i:'\u{1F3C6}',t:'100% de h\u00e1bitos completados hoy',d:'Sos el 1% de las personas que hace lo que dice. Racha activa.',c:'badge-g',b:'Excelente'});
-  else if(doneH>0)ins.push({i:'\u{1F4AA}',t:`${doneH}/${totalH} h\u00e1bitos hoy`,d:`Faltan ${totalH-doneH}. Cada uno suma XP y extiende tu racha.`,c:'badge-y',b:'En progreso'});
-  else ins.push({i:'\u26a1',t:'Sin h\u00e1bitos marcados hoy',d:'Empieza con el m\u00e1s f\u00e1cil. El primer check activa el momentum.',c:'badge-r',b:'Pendiente'});
-  if(net>0)ins.push({i:'\u{1F4B0}',t:`Balance positivo: +$${net.toFixed(0)}`,d:`$${inc.toFixed(0)} ingresos vs $${exp.toFixed(0)} gastos. Vas bien.`,c:'badge-g',b:'Positivo'});
-  else if(inc===0)ins.push({i:'\u{1F4CA}',t:'Sin ingresos registrados a\u00fan',d:'Registra tus movimientos en Finanzas para ver m\u00e9tricas reales.',c:'badge-b',b:'Acci\u00f3n'});
-  else ins.push({i:'\u26a0\ufe0f',t:`Gastos superan ingresos: -$${Math.abs(net).toFixed(0)}`,d:'Revisa qu\u00e9 gastos podes reducir o qu\u00e9 ingreso podes activar esta semana.',c:'badge-r',b:'Atenci\u00f3n'});
-  if(pending>7)ins.push({i:'\u{1F4CB}',t:`${pending} tareas acumuladas`,d:'Demasiadas tareas pueden paralizarte. Elige las 3 m\u00e1s importantes para hoy.',c:'badge-y',b:'Priorizar'});
-  else if(pending>0)ins.push({i:'\u2705',t:`${pending} tarea${pending>1?'s':''} pendiente${pending>1?'s':''}`,d:'Sistema manejable. Completa una y el momentum se activa solo.',c:'badge-b',b:'Enfocado'});
-  else if(S.tasks.length>0)ins.push({i:'\u{1F3AF}',t:'Todas las tareas completadas',d:'Excelente ejecuci\u00f3n. Qu\u00e9 nuevas metas agregas hoy?',c:'badge-g',b:'Limpio'});
-  ins.push({i:'\u{1F4C8}',t:`Consistencia: ${habitPct}% esta semana`,d:`${habW} de ${totalH*7} h\u00e1bitos posibles. Meta: superar el 80%.`,c:habitPct>=80?'badge-g':habitPct>=50?'badge-y':'badge-r',b:habitPct+'%'});
-  if((m.kaia?.rentals||0)===0)ins.push({i:'\u{1F457}',t:'KAIA: actualiza tus rentas',d:'Registra tus rentas reales en Proyectos para ver el progreso real.',c:'badge-y',b:'Actualizar'});
-  else ins.push({i:'\u{1F457}',t:`KAIA: ${m.kaia.rentals} renta${m.kaia.rentals>1?'s':''} registrada${m.kaia.rentals>1?'s':''}`,d:`Ingresos: $${m.kaia.income||0}. Clientes: ${m.kaia.clients||0}. Sigue creciendo.`,c:'badge-g',b:'Activo'});
-  if((m.nh?.investors||0)===0)ins.push({i:'\u26a1',t:'NeuraHash: sin inversores a\u00fan',d:'El primer inversor es el m\u00e1s dif\u00edcil y el m\u00e1s importante. Enf\u00f3cate en eso hoy.',c:'badge-y',b:'Prioritario'});
-  else ins.push({i:'\u26a1',t:`NeuraHash: ${m.nh.investors} inversor${m.nh.investors>1?'es':''} activo${m.nh.investors>1?'s':''}`,d:`${m.nh.miners||0} miners activos. Sigue construyendo la infraestructura.`,c:'badge-g',b:'Activo'});
-  c.innerHTML=ins.map(i=>`<div class="insight-item"><div class="insight-icon">${i.i}</div><div class="insight-body"><div class="insight-title">${i.t}</div><div class="insight-desc">${i.d}</div></div><div class="insight-badge ${i.c}">${i.b}</div></div>`).join('');
+function renderProjMetrics() {
+  const m = S.metrics || {};
+  const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  if (m.kaia) {
+    setEl('kaia-rentals', m.kaia.rentals||0); setEl('kaia-income', '$'+(m.kaia.income||0)); setEl('kaia-clients', m.kaia.clients||0);
+    setEl('dash-kaia-rentals', m.kaia.rentals||0); setEl('dash-kaia-income', '$'+(m.kaia.income||0)); setEl('dash-kaia-clients', m.kaia.clients||0);
+  }
+  if (m.nh) {
+    setEl('nh-miners', m.nh.miners||0); setEl('nh-investors', m.nh.investors||0); setEl('nh-btc', m.nh.btc||0);
+    setEl('dash-nh-miners', m.nh.miners||0); setEl('dash-nh-investors', m.nh.investors||0); setEl('dash-nh-btc', m.nh.btc||0);
+  }
+  if (m.re) {
+    setEl('re-rentals', m.re.rentals||2); setEl('re-leads', m.re.leads||0); setEl('re-listings', m.re.listings||0);
+    setEl('dash-re-rentals', m.re.rentals||2); setEl('dash-re-leads', m.re.leads||0); setEl('dash-re-listings', m.re.listings||0);
+  }
+  const fillInp = (id, val) => { const el = document.getElementById(id); if (el && !el.value && val) el.value = val; };
+  if (m.kaia) { fillInp('kaia-rentals-inp', m.kaia.rentals); fillInp('kaia-clients-inp', m.kaia.clients); fillInp('kaia-income-inp', m.kaia.income); }
+  if (m.nh) { fillInp('nh-miners-inp', m.nh.miners); fillInp('nh-investors-inp', m.nh.investors); fillInp('nh-btc-inp', m.nh.btc); }
+  if (m.re) { fillInp('re-rentals-inp', m.re.rentals); fillInp('re-leads-inp', m.re.leads); fillInp('re-listings-inp', m.re.listings); }
 }
 
-// ===== V3: CHARTS =====
-function renderHabitChart(){
-  const c=document.getElementById('habit-chart');if(!c)return;
-  const days=getLast7();const dayNames=['Do','Lu','Ma','Mi','Ju','Vi','S\u00e1'];const maxVal=S.habits.length||5;
-  c.innerHTML=days.map(d=>{const count=S.habits.filter(h=>h.log&&h.log[d]).length;const pct=maxVal>0?(count/maxVal*100):0;const dow=new Date(d+'T12:00:00').getDay();const color=pct>=80?'var(--g)':pct>=50?'var(--y)':'#2a2a2a';return`<div class="bar-col"><div class="bar-val">${count}</div><div class="bar-fill" style="height:${Math.max(pct,3)}%;background:${color}"></div><div class="bar-label">${dayNames[dow]}</div></div>`;}).join('');
-}
-function renderFinanceChart(){
-  const c=document.getElementById('finance-chart');if(!c)return;
-  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-  const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);const net=inc-exp;const maxVal=Math.max(inc,exp,1);
-  c.innerHTML=`<div class="bar-col" style="flex:2"><div class="bar-val">$${inc.toFixed(0)}</div><div class="bar-fill" style="height:${Math.max(inc/maxVal*100,3)}%;background:var(--g)"></div><div class="bar-label">Ingresos</div></div><div class="bar-col" style="flex:2"><div class="bar-val">$${exp.toFixed(0)}</div><div class="bar-fill" style="height:${Math.max(exp/maxVal*100,3)}%;background:var(--r)"></div><div class="bar-label">Gastos</div></div><div class="bar-col" style="flex:2"><div class="bar-val">${net>=0?'+':''}$${net.toFixed(0)}</div><div class="bar-fill" style="height:${Math.max(Math.abs(net)/maxVal*100,3)}%;background:${net>=0?'var(--b)':'var(--r)'}"></div><div class="bar-label">Balance</div></div>`;
-}
-function renderMetricsGrid(){
-  const c=document.getElementById('metrics-grid-v3');if(!c)return;
-  const today=todayKey();const doneH=S.habits.filter(h=>h.log&&h.log[today]).length;
-  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-  const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
-  const done=S.tasks.filter(t=>t.done).length;const pending=S.tasks.filter(t=>!t.done).length;
-  const m=S.metrics||{};const xp=S.xp||0;const lvl=Math.floor(xp/100)+1;
-  c.innerHTML=[
-    {l:'H\u00e1bitos hoy',v:`${doneH}/${S.habits.length}`,s:'completados',c:'cg'},
-    {l:'Ingresos',v:'$'+inc.toFixed(0),s:'registrados',c:'cg'},
-    {l:'Gastos',v:'$'+exp.toFixed(0),s:'registrados',c:'cr'},
-    {l:'Balance',v:(inc-exp>=0?'+':'')+'$'+(inc-exp).toFixed(0),s:'neto',c:inc-exp>=0?'cg':'cr'},
-    {l:'Tareas done',v:done,s:`${pending} pendientes`,c:'cb'},
-    {l:'Streak',v:(S.streak||0)+' d\u00edas',s:'seguidos',c:'cy'},
-    {l:'XP Total',v:xp,s:'LVL '+lvl,c:'cp'},
-    {l:'KAIA rentas',v:m.kaia?.rentals||0,s:'registradas',c:'cr'},
-    {l:'NH inversores',v:m.nh?.investors||0,s:'activos',c:'cg'},
-    {l:'RE rentals',v:m.re?.rentals||2,s:'cerradas',c:'cb'},
-  ].map(i=>`<div class="metric-card-v3"><div class="ml">${i.l}</div><div class="mv ${i.c}">${i.v}</div><div class="ms">${i.s}</div></div>`).join('');
+// ---- ANALYTICS ENGINE ----
+function generateInsights() {
+  const c = document.getElementById('insights-container'); if (!c) return;
+  const today = todayKey();
+  const inc = S.transactions.filter(t => t.type==='income').reduce((s,t) => s+t.amount, 0);
+  const exp = S.transactions.filter(t => t.type==='expense').reduce((s,t) => s+t.amount, 0);
+  const net = inc - exp;
+  const pending = S.tasks.filter(t => !t.done).length;
+  const doneH = S.habits.filter(h => h.log && h.log[today]).length;
+  const totalH = S.habits.length;
+  const days = getLast7();
+  const habW = days.reduce((sum, d) => sum + S.habits.filter(h => h.log && h.log[d]).length, 0);
+  const habitPct = totalH * 7 > 0 ? Math.round(habW / (totalH * 7) * 100) : 0;
+  const m = S.metrics || {};
+  const ins = [];
+  if (doneH === totalH && totalH > 0) ins.push({i:'🏆', t:'100% de hábitos completados hoy', d:'Sos el 1% de las personas que hace lo que dice.', c:'badge-g', b:'Excelente'});
+  else if (doneH > 0) ins.push({i:'💪', t:`${doneH}/${totalH} hábitos hoy`, d:`Faltan ${totalH-doneH}. Cada uno suma XP.`, c:'badge-y', b:'En progreso'});
+  else ins.push({i:'⚡', t:'Sin hábitos marcados hoy', d:'Empieza con el más fácil. El primer check activa el momentum.', c:'badge-r', b:'Pendiente'});
+  if (net > 0) ins.push({i:'💰', t:`Balance positivo: +$${net.toFixed(0)}`, d:`$${inc.toFixed(0)} ingresos vs $${exp.toFixed(0)} gastos.`, c:'badge-g', b:'Positivo'});
+  else if (inc === 0) ins.push({i:'📊', t:'Sin ingresos registrados aún', d:'Registra tus movimientos en Finanzas.', c:'badge-b', b:'Acción'});
+  else ins.push({i:'⚠️', t:`Gastos superan ingresos: -$${Math.abs(net).toFixed(0)}`, d:'Revisá qué gastos podés reducir.', c:'badge-r', b:'Atención'});
+  if (pending > 7) ins.push({i:'📋', t:`${pending} tareas acumuladas`, d:'Elegí las 3 más importantes para hoy.', c:'badge-y', b:'Priorizar'});
+  else if (pending > 0) ins.push({i:'✅', t:`${pending} tarea${pending>1?'s':''} pendiente${pending>1?'s':''}`, d:'Sistema manejable. Completá una y el momentum se activa.', c:'badge-b', b:'Enfocado'});
+  else if (S.tasks.length > 0) ins.push({i:'🎯', t:'Todas las tareas completadas', d:'Qué nuevas metas agregás hoy?', c:'badge-g', b:'Limpio'});
+  ins.push({i:'📈', t:`Consistencia: ${habitPct}% esta semana`, d:`${habW} de ${totalH*7} hábitos posibles. Meta: superar el 80%.`, c: habitPct>=80?'badge-g':habitPct>=50?'badge-y':'badge-r', b: habitPct+'%'});
+  if ((m.kaia?.rentals||0) === 0) ins.push({i:'👗', t:'KAIA: actualizá tus rentas', d:'Registrá tus rentas reales en Proyectos.', c:'badge-y', b:'Actualizar'});
+  else ins.push({i:'👗', t:`KAIA: ${m.kaia.rentals} renta${m.kaia.rentals>1?'s':''} registrada${m.kaia.rentals>1?'s':''}`, d:`Ingresos: $${m.kaia.income||0}. Clientes: ${m.kaia.clients||0}.`, c:'badge-g', b:'Activo'});
+  if ((m.nh?.investors||0) === 0) ins.push({i:'⚡', t:'NeuraHash: sin inversores aún', d:'El primer inversor es el más difícil. Enfocate en eso hoy.', c:'badge-y', b:'Prioritario'});
+  else ins.push({i:'⚡', t:`NeuraHash: ${m.nh.investors} inversor${m.nh.investors>1?'es':''} activo${m.nh.investors>1?'s':''}`, d:`${m.nh.miners||0} miners activos.`, c:'badge-g', b:'Activo'});
+  c.innerHTML = ins.map(i =>
+    `<div class="insight-item"><div class="insight-icon">${i.i}</div><div class="insight-body"><div class="insight-title">${i.t}</div><div class="insight-desc">${i.d}</div></div><div class="insight-badge ${i.c}">${i.b}</div></div>`
+  ).join('');
 }
 
-// ===== ENGLISH =====
-const ENG_DATA={
-  business:[
-    {word:'Revenue',pron:'/\u02c8r\u025bv.\u0259n.ju\u02d0/',meaning:'Ingresos totales que genera un negocio antes de descontar gastos.',example:'<strong>"Our revenue this month increased 20%"</strong> \u2014 Nuestros ingresos este mes subieron 20%.'},
-    {word:'Leverage',pron:'/\u02c8lev.\u0259r.\u026ad\u0292/',meaning:'Usar algo para maximizar resultados.',example:'<strong>"We can leverage our Miami network"</strong>'},
-    {word:'Scalable',pron:'/\u02c8ske\u026a.l\u0259.b\u0259l/',meaning:'Un negocio que puede crecer sin aumentar costos proporcionalmente.',example:'<strong>"NeuraHash is a scalable business model"</strong>'},
-    {word:'Pitch',pron:'/p\u026at\u0283/',meaning:'Presentacion corta y convincente de tu negocio para inversores.',example:'<strong>"I need to pitch NeuraHash to investors"</strong>'},
-    {word:'Cashflow',pron:'/\u02c8k\u00e6\u0283.flo\u028a/',meaning:'El flujo de dinero que entra y sale de tu negocio.',example:'<strong>"Positive cashflow keeps the business alive"</strong>'},
-    {word:'ROI',pron:'/\u0251\u02d0r.o\u028a.\u026a/',meaning:'Return on Investment \u2014 Retorno sobre la inversi\u00f3n.',example:'<strong>"The ROI on mining is strong in Paraguay"</strong>'},
-    {word:'Disruptive',pron:'/d\u026a\u02c8sr\u028cp.t\u026av/',meaning:'Que cambia radicalmente una industria o mercado existente.',example:'<strong>"KAIA is a disruptive fashion model"</strong>'},
+// ---- CHARTS ----
+function renderHabitChart() {
+  const c = document.getElementById('habit-chart'); if (!c) return;
+  const days = getLast7();
+  const dayNames = ['Do','Lu','Ma','Mi','Ju','Vi','Sá'];
+  const maxVal = S.habits.length || 5;
+  c.innerHTML = days.map(d => {
+    const count = S.habits.filter(h => h.log && h.log[d]).length;
+    const pct = maxVal > 0 ? (count / maxVal * 100) : 0;
+    const dow = new Date(d + 'T12:00:00').getDay();
+    const color = pct >= 80 ? 'var(--g)' : pct >= 50 ? 'var(--y)' : '#2a2a2a';
+    return `<div class="bar-col"><div class="bar-val">${count}</div><div class="bar-fill" style="height:${Math.max(pct,3)}%;background:${color}"></div><div class="bar-label">${dayNames[dow]}</div></div>`;
+  }).join('');
+}
+function renderFinanceChart() {
+  const c = document.getElementById('finance-chart'); if (!c) return;
+  const inc = S.transactions.filter(t => t.type==='income').reduce((s,t) => s+t.amount, 0);
+  const exp = S.transactions.filter(t => t.type==='expense').reduce((s,t) => s+t.amount, 0);
+  const net = inc - exp;
+  const maxVal = Math.max(inc, exp, 1);
+  c.innerHTML = `<div class="bar-col" style="flex:2"><div class="bar-val">$${inc.toFixed(0)}</div><div class="bar-fill" style="height:${Math.max(inc/maxVal*100,3)}%;background:var(--g)"></div><div class="bar-label">Ingresos</div></div><div class="bar-col" style="flex:2"><div class="bar-val">$${exp.toFixed(0)}</div><div class="bar-fill" style="height:${Math.max(exp/maxVal*100,3)}%;background:var(--r)"></div><div class="bar-label">Gastos</div></div><div class="bar-col" style="flex:2"><div class="bar-val">${net>=0?'+':''}$${net.toFixed(0)}</div><div class="bar-fill" style="height:${Math.max(Math.abs(net)/maxVal*100,3)}%;background:${net>=0?'var(--b)':'var(--r)'}"></div><div class="bar-label">Balance</div></div>`;
+}
+function renderMetricsGrid() {
+  const c = document.getElementById('metrics-grid-v3'); if (!c) return;
+  const today = todayKey();
+  const doneH = S.habits.filter(h => h.log && h.log[today]).length;
+  const inc = S.transactions.filter(t => t.type==='income').reduce((s,t) => s+t.amount, 0);
+  const exp = S.transactions.filter(t => t.type==='expense').reduce((s,t) => s+t.amount, 0);
+  const done = S.tasks.filter(t => t.done).length;
+  const pending = S.tasks.filter(t => !t.done).length;
+  const m = S.metrics || {};
+  const xp = S.xp || 0; const lvl = Math.floor(xp/100)+1;
+  c.innerHTML = [
+    {l:'Hábitos hoy', v:`${doneH}/${S.habits.length}`, s:'completados', c:'cg'},
+    {l:'Ingresos', v:'$'+inc.toFixed(0), s:'registrados', c:'cg'},
+    {l:'Gastos', v:'$'+exp.toFixed(0), s:'registrados', c:'cr'},
+    {l:'Balance', v:(inc-exp>=0?'+':'')+'$'+(inc-exp).toFixed(0), s:'neto', c:inc-exp>=0?'cg':'cr'},
+    {l:'Tareas done', v:done, s:`${pending} pendientes`, c:'cb'},
+    {l:'Streak', v:(S.streak||0)+' días', s:'seguidos', c:'cy'},
+    {l:'XP Total', v:xp, s:'LVL '+lvl, c:'cp'},
+    {l:'KAIA rentas', v:m.kaia?.rentals||0, s:'registradas', c:'cr'},
+    {l:'NH inversores', v:m.nh?.investors||0, s:'activos', c:'cg'},
+    {l:'RE rentals', v:m.re?.rentals||2, s:'cerradas', c:'cb'},
+  ].map(i => `<div class="metric-card-v3"><div class="ml">${i.l}</div><div class="mv ${i.c}">${i.v}</div><div class="ms">${i.s}</div></div>`).join('');
+}
+
+// ---- ENGLISH ----
+const ENG_DATA = {
+  business: [
+    {word:'Revenue', pron:'/ˈrev.ən.juː/', meaning:'Ingresos totales que genera un negocio antes de descontar gastos.', example:'<strong>"Our revenue this month increased 20%"</strong>'},
+    {word:'Leverage', pron:'/ˈlev.ər.ɪdʒ/', meaning:'Usar algo para maximizar resultados.', example:'<strong>"We can leverage our Miami network"</strong>'},
+    {word:'Scalable', pron:'/ˈskeɪ.lə.bəl/', meaning:'Un negocio que puede crecer sin aumentar costos proporcionalmente.', example:'<strong>"NeuraHash is a scalable business model"</strong>'},
+    {word:'Pitch', pron:'/pɪtʃ/', meaning:'Presentacion corta y convincente para inversores.', example:'<strong>"I need to pitch NeuraHash to investors"</strong>'},
+    {word:'Cashflow', pron:'/ˈkæʃ.floʊ/', meaning:'El flujo de dinero que entra y sale de tu negocio.', example:'<strong>"Positive cashflow keeps the business alive"</strong>'},
+    {word:'ROI', pron:'/ɑːr.oʊ.ɪ/', meaning:'Return on Investment — Retorno sobre la inversión.', example:'<strong>"The ROI on mining is strong in Paraguay"</strong>'},
+    {word:'Disruptive', pron:'/dɪˈsrʌp.tɪv/', meaning:'Que cambia radicalmente una industria existente.', example:'<strong>"KAIA is a disruptive fashion model"</strong>'},
   ],
-  daily:[
-    {word:'Grind',pron:'/\u0261ra\u026and/',meaning:'Trabajar duro y de forma consistente hacia una meta.',example:'<strong>"The grind never stops"</strong> \u2014 El esfuerzo nunca para.'},
-    {word:'Hustle',pron:'/\u02c8h\u028cs.\u0259l/',meaning:'Trabajar con mucha energia y urgencia para lograr algo.',example:'<strong>"You have to hustle every day"</strong>'},
-    {word:'Mindset',pron:'/\u02c8ma\u026and.s\u025bt/',meaning:'La forma en que pensas y ves el mundo. Tu mentalidad.',example:'<strong>"A growth mindset changes everything"</strong>'},
-    {word:'Consistency',pron:'/k\u0259n\u02c8s\u026as.t\u0259n.si/',meaning:'Hacer algo de forma regular y sostenida en el tiempo.',example:'<strong>"Consistency beats motivation every time"</strong>'},
-    {word:'Breakthrough',pron:'/\u02c8bre\u026ak.\u03b8ru\u02d0/',meaning:'Un gran avance o logro despues de mucho esfuerzo.',example:'<strong>"Your breakthrough is coming"</strong>'},
+  daily: [
+    {word:'Grind', pron:'/ɡraɪnd/', meaning:'Trabajar duro y de forma consistente.', example:'<strong>"The grind never stops"</strong>'},
+    {word:'Hustle', pron:'/ˈhʌs.əl/', meaning:'Trabajar con mucha energia y urgencia.', example:'<strong>"You have to hustle every day"</strong>'},
+    {word:'Mindset', pron:'/ˈmaɪnd.sɛt/', meaning:'Tu mentalidad. La forma en que pensas y ves el mundo.', example:'<strong>"A growth mindset changes everything"</strong>'},
+    {word:'Consistency', pron:'/kənˈsɪs.tən.si/', meaning:'Hacer algo de forma regular y sostenida.', example:'<strong>"Consistency beats motivation every time"</strong>'},
+    {word:'Breakthrough', pron:'/ˈbreɪk.θruː/', meaning:'Un gran avance despues de mucho esfuerzo.', example:'<strong>"Your breakthrough is coming"</strong>'},
   ],
-  advanced:[
-    {word:'Arbitrage',pron:'/\u02c8\u0251\u02d0r.b\u026a.tr\u0251\u02d0\u0292/',meaning:'Aprovechar diferencias de precio en distintos mercados.',example:'<strong>"Energy arbitrage is at the core of NeuraHash"</strong>'},
-    {word:'Venture',pron:'/\u02c8ven.t\u0283\u0259r/',meaning:'Un negocio o proyecto nuevo con cierto nivel de riesgo.',example:'<strong>"Each of my ventures has a different model"</strong>'},
-    {word:'Equity',pron:'/\u02c8ek.w\u026a.ti/',meaning:'La participacion o propiedad que tenes en un negocio.',example:'<strong>"I want to keep 80% equity in KAIA"</strong>'},
+  advanced: [
+    {word:'Arbitrage', pron:'/ˈɑːr.bɪ.trɑːʒ/', meaning:'Aprovechar diferencias de precio en distintos mercados.', example:'<strong>"Energy arbitrage is at the core of NeuraHash"</strong>'},
+    {word:'Venture', pron:'/ˈven.tʃər/', meaning:'Un negocio o proyecto nuevo con cierto nivel de riesgo.', example:'<strong>"Each of my ventures has a different model"</strong>'},
+    {word:'Equity', pron:'/ˈek.wɪ.ti/', meaning:'La participacion que tenes en un negocio.', example:'<strong>"I want to keep 80% equity in KAIA"</strong>'},
   ]
 };
-const PHRASES=[{en:"Let's get this done.",es:"Hagamos que esto suceda."},{en:"I'll follow up with you.",es:"Te hago un seguimiento."},{en:"Can we schedule a call?",es:"\u00bfPodemos agendar una llamada?"},{en:"I'm working on a deal.",es:"Estoy cerrando un trato."},{en:"What's your budget?",es:"\u00bfCu\u00e1l es tu presupuesto?"},{en:"We need to scale this.",es:"Necesitamos escalar esto."},{en:"I'll send you the details.",es:"Te mando los detalles."}];
-const QUIZ=[{q:"\u00bfC\u00f3mo se dice 'ingresos' en ingl\u00e9s?",opts:["Revenue","Refund","Request","Report"],correct:0},{q:"\u00bfQu\u00e9 significa 'scalable'?",opts:["Costoso","Escalable","Riesgoso","Lento"],correct:1},{q:"\u00bfC\u00f3mo se dice 'inversor' en ingl\u00e9s?",opts:["Inventor","Investor","Innovator","Inspector"],correct:1},{q:"\u00bfQu\u00e9 significa 'leverage'?",opts:["Levantar","Apalancar","Vender","Comprar"],correct:1},{q:"\u00bfC\u00f3mo se dice 'flujo de caja'?",opts:["Money flow","Cash flow","Fund flow","Pay flow"],correct:1},{q:"\u00bfQu\u00e9 significa 'pitch'?",opts:["Campo de f\u00fatbol","Tono musical","Presentaci\u00f3n de negocio","Precio"],correct:2}];
-let quizIdx=Math.floor(Math.random()*QUIZ.length);let quizAnswered=false;
-function setEngCat(cat){S.engCat=cat;document.querySelectorAll('.eng-chip').forEach(c=>c.classList.remove('active'));event.target.classList.add('active');loadWord();}
-function loadWord(){const cat=S.engCat||'business';const words=ENG_DATA[cat];const w=words[Math.floor(Math.random()*words.length)];document.getElementById('eng-word').textContent=w.word;document.getElementById('eng-pron').textContent=w.pron;document.getElementById('eng-meaning').textContent=w.meaning;document.getElementById('eng-example').innerHTML=w.example;S.engStreak=(S.engStreak||0)+1;addXP(10);save();updateStats();}
-function renderPhrases(){const c=document.getElementById('eng-phrases-container');if(!c)return;c.innerHTML=[...PHRASES].sort(()=>Math.random()-0.5).slice(0,4).map(p=>`<div class="eng-phrase"><div class="en">${p.en}</div><div class="es">${p.es}</div></div>`).join('');}
-function renderQuiz(){const c=document.getElementById('eng-quiz');if(!c)return;const q=QUIZ[quizIdx];document.getElementById('quiz-q').textContent=q.q;document.getElementById('quiz-opts').innerHTML=q.opts.map((o,i)=>`<div class="eng-quiz-opt" onclick="answerQuiz(${i})">${o}</div>`).join('');document.getElementById('quiz-score').textContent='';quizAnswered=false;}
-function answerQuiz(idx){if(quizAnswered)return;quizAnswered=true;const q=QUIZ[quizIdx];const opts=document.querySelectorAll('.eng-quiz-opt');opts[q.correct].classList.add('correct');if(idx!==q.correct)opts[idx].classList.add('wrong');const correct=idx===q.correct;document.getElementById('quiz-score').textContent=correct?'\u2713 Correcto! +15 XP':'\u2717 Incorrecto. La respuesta correcta est\u00e1 marcada.';if(correct)addXP(15);setTimeout(()=>{quizIdx=(quizIdx+1)%QUIZ.length;renderQuiz();},2000);}
+const PHRASES = [
+  {en:"Let's get this done.", es:"Hagamos que esto suceda."},
+  {en:"I'll follow up with you.", es:"Te hago un seguimiento."},
+  {en:"Can we schedule a call?", es:"¿Podemos agendar una llamada?"},
+  {en:"I'm working on a deal.", es:"Estoy cerrando un trato."},
+  {en:"What's your budget?", es:"¿Cuál es tu presupuesto?"},
+  {en:"We need to scale this.", es:"Necesitamos escalar esto."},
+  {en:"I'll send you the details.", es:"Te mando los detalles."}
+];
+const QUIZ = [
+  {q:"¿Cómo se dice 'ingresos' en inglés?", opts:["Revenue","Refund","Request","Report"], correct:0},
+  {q:"¿Qué significa 'scalable'?", opts:["Costoso","Escalable","Riesgoso","Lento"], correct:1},
+  {q:"¿Cómo se dice 'inversor'?", opts:["Inventor","Investor","Innovator","Inspector"], correct:1},
+  {q:"¿Qué significa 'leverage'?", opts:["Levantar","Apalancar","Vender","Comprar"], correct:1},
+  {q:"¿Cómo se dice 'flujo de caja'?", opts:["Money flow","Cash flow","Fund flow","Pay flow"], correct:1},
+  {q:"¿Qué significa 'pitch'?", opts:["Campo de fútbol","Tono musical","Presentación de negocio","Precio"], correct:2}
+];
+let quizIdx = Math.floor(Math.random() * QUIZ.length);
+let quizAnswered = false;
+let currentWordIdx = {}; // track per category
 
-const QUOTES=[{q:"La felicidad de tu vida depende de la calidad de tus pensamientos.",a:"Marco Aurelio"},{q:"No busques que los eventos sean como quieres. Desea que los eventos sean como son.",a:"Epicteto"},{q:"El universo no te da lo que pedis con tus pensamientos, te da lo que sos.",a:"Ley de Atracci\u00f3n"},{q:"Cada ma\u00f1ana nacemos de nuevo. Lo que hacemos hoy es lo que m\u00e1s importa.",a:"Buda"},{q:"La disciplina es elegir entre lo que queres ahora y lo que queres m\u00e1s.",a:"Abraham Lincoln"},{q:"Tu \u00fanica obligaci\u00f3n en cualquier tiempo es ser verdadero contigo mismo.",a:"Richard Bach"},{q:"El hombre que mueve monta\u00f1as comienza cargando peque\u00f1as piedras.",a:"Confucio"},{q:"La mente es todo. En lo que piensas, te conviertes.",a:"Buda"},{q:"No tengas miedo de renunciar a lo bueno para ir por lo grandioso.",a:"John D. Rockefeller"},{q:"Soy el arquitecto de mi vida. La construyo y la vivo como yo elija.",a:"Afirmaci\u00f3n de poder"},{q:"Un paraguayo en Miami construyendo un imperio. Eso ya es \u00e9pico.",a:"JOEL OS"}];
-function newQuote(){const q=QUOTES[Math.floor(Math.random()*QUOTES.length)];document.getElementById('spirit-quote').textContent='"'+q.q+'"';document.getElementById('spirit-author').textContent='\u2014 '+q.a;}
-function togglePractice(el){el.classList.toggle('done');if(el.classList.contains('done'))addXP(10);}
-
-const GYM_ROUTINES={lunes:{title:'Pecho + Tr\u00edceps',sub:'Lunes \u2014 Push superior',exercises:[{name:'Press de banca',detail:'4 series \u00d7 8-10 reps',id:'e1'},{name:'Press inclinado mancuernas',detail:'3 series \u00d7 10-12 reps',id:'e2'},{name:'Aperturas en cable',detail:'3 series \u00d7 12-15 reps',id:'e3'},{name:'Press franc\u00e9s',detail:'3 series \u00d7 10-12 reps',id:'e4'},{name:'Extensiones en polea',detail:'3 series \u00d7 12-15 reps',id:'e5'}]},martes:{title:'Espalda + B\u00edceps',sub:'Martes \u2014 Pull superior',exercises:[{name:'Dominadas',detail:'4 series \u00d7 m\u00e1ximo reps',id:'e6'},{name:'Remo con barra',detail:'4 series \u00d7 8-10 reps',id:'e7'},{name:'Jal\u00f3n al pecho',detail:'3 series \u00d7 10-12 reps',id:'e8'},{name:'Curl con barra',detail:'3 series \u00d7 10-12 reps',id:'e9'},{name:'Curl martillo',detail:'3 series \u00d7 12 reps',id:'e10'}]},miercoles:{title:'Piernas',sub:'Mi\u00e9rcoles \u2014 Lower body',exercises:[{name:'Sentadilla',detail:'4 series \u00d7 8-10 reps',id:'e11'},{name:'Prensa de piernas',detail:'4 series \u00d7 10-12 reps',id:'e12'},{name:'Extensiones de cu\u00e1driceps',detail:'3 series \u00d7 12-15 reps',id:'e13'},{name:'Curl femoral',detail:'3 series \u00d7 12 reps',id:'e14'},{name:'Pantorrillas de pie',detail:'4 series \u00d7 15-20 reps',id:'e15'}]},jueves:{title:'Hombros + Core',sub:'Jueves \u2014 Shoulders & Core',exercises:[{name:'Press militar',detail:'4 series \u00d7 8-10 reps',id:'e16'},{name:'Elevaciones laterales',detail:'4 series \u00d7 12-15 reps',id:'e17'},{name:'Face pulls',detail:'3 series \u00d7 15 reps',id:'e18'},{name:'Plancha',detail:'3 \u00d7 60 segundos',id:'e19'},{name:'Abdominales en polea',detail:'3 series \u00d7 15 reps',id:'e20'}]},viernes:{title:'Full body / Fuerza',sub:'Viernes \u2014 Compound movements',exercises:[{name:'Peso muerto',detail:'4 series \u00d7 5-6 reps pesado',id:'e21'},{name:'Sentadilla b\u00falgara',detail:'3 series \u00d7 10 reps',id:'e22'},{name:'Press banca agarre cerrado',detail:'3 series \u00d7 8-10 reps',id:'e23'},{name:'Remo con mancuerna',detail:'3 series \u00d7 10-12 reps',id:'e24'}]},sabado:{title:'Cardio + Movilidad',sub:'S\u00e1bado \u2014 Active recovery',exercises:[{name:'HIIT 20 minutos',detail:'20 seg on / 10 seg off \u00d7 8 rondas',id:'e25'},{name:'Caminata 30 minutos',detail:'Ritmo moderado, al aire libre',id:'e26'},{name:'Stretching full body',detail:'15 minutos de elongaci\u00f3n',id:'e27'}]},domingo:{title:'Descanso activo',sub:'Domingo \u2014 Rest & recover',exercises:[{name:'Caminar o nadar',detail:'Actividad ligera, sin intensidad',id:'e28'},{name:'Meditaci\u00f3n 10 min',detail:'Visualizaci\u00f3n de la semana que viene',id:'e29'},{name:'Preparar comidas',detail:'Meal prep para la semana',id:'e30'}]}};
-function setGymDay(day,el){document.querySelectorAll('.gym-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderGym(day);}
-function renderGym(day){const r=GYM_ROUTINES[day];if(!r)return;document.getElementById('gym-day-title').textContent=r.title;document.getElementById('gym-day-sub').textContent=r.sub;const c=document.getElementById('gym-exercises');if(!c)return;c.innerHTML=r.exercises.map((e,i)=>{const done=S.gymDone&&S.gymDone[e.id];return`<div class="exercise-item${done?' done':''}" id="ex-${e.id}"><div class="exercise-num">${String(i+1).padStart(2,'0')}</div><div class="exercise-info"><div class="exercise-name">${e.name}</div><div class="exercise-detail">${e.detail}</div></div><div class="exercise-done" onclick="toggleExercise('${e.id}')"></div></div>`;}).join('');}
-function toggleExercise(id){if(!S.gymDone)S.gymDone={};S.gymDone[id]=!S.gymDone[id];if(S.gymDone[id])addXP(8);save();const el=document.getElementById('ex-'+id);if(el)el.classList.toggle('done',S.gymDone[id]);}
-function updatePR(){const ex=document.getElementById('pr-exercise').value;const val=document.getElementById('pr-value').value;if(!val)return;S.prs[ex]=val;save();document.getElementById('pr-'+ex).textContent=val;addXP(20);document.getElementById('pr-value').value='';}
-
-const MOTIVATIONS=[{q:"El \u00e9xito no es final, el fracaso no es fatal. Lo que cuenta es el coraje de continuar.",a:"Winston Churchill"},{q:"No te detengas cuando est\u00e9s cansado. Detenete cuando hayas terminado.",a:"Marilyn Monroe"},{q:"Tu futuro es creado por lo que haces hoy, no ma\u00f1ana.",a:"Robert Kiyosaki"},{q:"Los ganadores nunca se rinden y los que se rinden nunca ganan.",a:"Vince Lombardi"},{q:"Un paraguayo en Miami construyendo un imperio. Eso ya es \u00e9pico.",a:"JOEL OS"},{q:"El sacrificio de hoy es el \u00e9xito de ma\u00f1ana.",a:"An\u00f3nimo"},{q:"Trabaja en silencio. Deja que el \u00e9xito haga el ruido.",a:"Frank Ocean"},{q:"No tenes que ser grande para empezar, pero tenes que empezar para ser grande.",a:"Zig Ziglar"},{q:"La diferencia entre ordinario y extraordinario es ese peque\u00f1o 'extra'.",a:"Jimmy Johnson"}];
-function newMotivation(){const m=MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)];document.getElementById('mot-quote').textContent='"'+m.q+'"';document.getElementById('mot-author').textContent='\u2014 '+m.a;addXP(5);}
-let beastActive=false;
-function toggleBeastMode(){beastActive=!beastActive;const btn=document.getElementById('beast-btn');const sub=document.getElementById('beast-sub');if(beastActive){btn.classList.add('active');sub.textContent='\u{1F525} MODO BESTIA ACTIVO. Cerra todo. Apaga el tel\u00e9fono. EJECUTA.';addXP(25);}else{btn.classList.remove('active');sub.textContent='Activa cuando necesitas m\u00e1ximo enfoque. Sin excusas.';}}
-
-const NEWS=[{cat:'crypto',color:'var(--y)',title:'Bitcoin supera resistencia clave \u2014 \u00bfQu\u00e9 significa para miners como NeuraHash?',meta:'Crypto \u00b7 Relevante para tu negocio',filter:'crypto'},{cat:'business',color:'var(--g)',title:'El modelo de econom\u00eda circular en moda crece 40% en USA \u2014 oportunidad para KAIA',meta:'Business \u00b7 Fashion rental market',filter:'business'},{cat:'miami',color:'var(--b)',title:'Miami sigue siendo el hub #1 de crypto y fintech en Am\u00e9rica',meta:'Miami \u00b7 Tu mercado',filter:'miami'},{cat:'crypto',color:'var(--y)',title:'Paraguay: uno de los 5 pa\u00edses con energ\u00eda m\u00e1s barata para Bitcoin mining',meta:'Crypto \u00b7 Ventaja competitiva',filter:'crypto'},{cat:'business',color:'var(--g)',title:'El mercado de renta de ropa en USA crecer\u00e1 a $2.5B en 2026',meta:'Business \u00b7 KAIA market size',filter:'business'},{cat:'miami',color:'var(--b)',title:'Miami tiene el mayor crecimiento de eventos corporativos del pa\u00eds \u2014 +23%',meta:'Miami \u00b7 Oportunidad KAIA',filter:'miami'},{cat:'politics',color:'var(--p)',title:'USA y Paraguay fortalecen acuerdos de energ\u00eda renovable',meta:'Pol\u00edtica \u00b7 Relevante para NeuraHash',filter:'politics'},{cat:'business',color:'var(--g)',title:'Airbnb reporta crecimiento del 35% \u2014 los modelos marketplace siguen dominando',meta:'Business \u00b7 Validaci\u00f3n del modelo KAIA',filter:'business'},{cat:'crypto',color:'var(--y)',title:'El halving de Bitcoin ya impacta la rentabilidad \u2014 qui\u00e9nes ganan y qui\u00e9nes pierden',meta:'Crypto \u00b7 Mining analysis',filter:'crypto'},{cat:'miami',color:'var(--b)',title:'Real estate en Miami: demanda de alquileres sube 18% \u2014 oportunidad de mercado',meta:'Miami \u00b7 Tu negocio RE',filter:'miami'}];
-let newsFilter='all';
-function setNewsFilter(f,el){newsFilter=f;document.querySelectorAll('.news-filter').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderNews();}
-function renderNews(){const c=document.getElementById('news-container');if(!c)return;const filtered=newsFilter==='all'?NEWS:NEWS.filter(n=>n.filter===newsFilter);c.innerHTML=filtered.map(n=>`<div class="news-card"><div class="news-cat" style="color:${n.color}">${n.cat.toUpperCase()}</div><div class="news-title">${n.title}</div><div class="news-meta">${n.meta}</div></div>`).join('');}
-
-function generateDailyResume(){
-  const today=todayKey();const doneH=S.habits.filter(h=>h.log&&h.log[today]).length;const pending=S.tasks.filter(t=>!t.done).length;
-  const inc=S.transactions.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);const exp=S.transactions.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
-  const q=MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)];const m=S.metrics||{};
-  return `\u{1F7E2} *JOEL OS v3 \u2014 Briefing del d\u00eda*\n\u{1F4C5} ${new Date().toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'})}\n\n*\u{1F4CA} TUS N\u00daMEROS:*\n\u2022 Tareas pendientes: ${pending}\n\u2022 H\u00e1bitos completados: ${doneH}/${S.habits.length}\n\u2022 Balance del mes: $${(inc-exp).toFixed(0)}\n\u2022 KAIA rentas: ${m.kaia?.rentals||0}\n\u2022 NeuraHash miners: ${m.nh?.miners||0}\n\n*\u{1F680} PROYECTOS \u2014 FOCO DE HOY:*\n\u2022 KAIA: Activar Meta Ads y crear contenido\n\u2022 NeuraHash: Avanzar landing + inversores\n\u2022 Real Estate: Subir listings nuevos\n\n*\u{1F4A1} FRASE DEL D\u00cdA:*\n"${q.q}"\n\u2014 ${q.a}\n\n\u{1F525} Streak: ${S.streak||0} d\u00edas\n\u26a1 XP Total: ${S.xp||0}\n\n_Ejecuta. No hay otro camino._`;
+function setEngCat(cat, el) {
+  S.engCat = cat;
+  document.querySelectorAll('.eng-chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  save();
+  loadWordForCat(cat);
 }
-function renderWAPreview(){const c=document.getElementById('wa-preview');if(c)c.textContent=generateDailyResume();}
-function openWhatsApp(){window.open(`https://wa.me/?text=${encodeURIComponent(generateDailyResume())}`,'_blank');}
-function generateWAMessage(){const type=document.getElementById('wa-type').value;let msg='';const m=S.metrics||{};if(type==='daily')msg=generateDailyResume();else if(type==='kaia')msg=`\u{1F534} *KAIA Update*\n\n\u{1F4CC} Estado: En fase de marketing\n\u2705 M\u00e9tricas:\n\u2022 Rentas: ${m.kaia?.rentals||0}\n\u2022 Clientes: ${m.kaia?.clients||0}\n\u2022 Ingresos: $${m.kaia?.income||0}\n\n\u2705 Pr\u00f3ximos pasos:\n\u2022 Activar Meta Ads ($300-500)\n\u2022 Crear contenido UGC para TikTok\n\u2022 Contactar 20 event planners esta semana\n\n\u{1F484} *Let's grow KAIA!*`;else if(type==='neurahash')msg=`\u{1F7E2} *NeuraHash Update*\n\n\u26a1 Mining activo en PY + BO\n\u{1F4CC} M\u00e9tricas:\n\u2022 Miners activos: ${m.nh?.miners||0}\n\u2022 Inversores: ${m.nh?.investors||0}\n\u2022 BTC/mes: ${m.nh?.btc||0}\n\n\u2705 Pr\u00f3ximos pasos:\n\u2022 Finalizar landing page\n\u2022 Onboard primer inversor externo\n\u2022 Crear calculadora ROI\n\n\u20bf *Energy is the business.*`;else if(type==='motivation')msg=`\u{1F525} *Mensaje para Joel*\n\n"${MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)].q}"\n\nTenes 27 a\u00f1os. Vivis en Miami. Tenes 4 proyectos activos. Sos un emprendedor real.\n\n*Ejecuta hoy. \u{1F680}*`;const c=document.getElementById('wa-custom');const btn=document.getElementById('wa-send-btn');c.textContent=msg;c.style.display='block';btn.style.display='inline-block';btn.onclick=()=>{window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,'_blank');};}
-function sendCustomWA(){const btn=document.getElementById('wa-send-btn');if(btn)btn.click();}
-
-const AI_SYSTEM=`Sos el asistente personal de Joel Gonzalez, 27 anos, paraguayo viviendo en Miami hace 4 anos.\n\nSus proyectos:\n1. KAIA: Renta vestidos lujo Miami. Modelo Airbnb. Pagina lista, necesita marketing, ads, primeros clientes.\n2. NeuraHash: Bitcoin mining Paraguay y Bolivia. Hosting para inversores. Energia barata y limpia.\n3. Real Estate: Acceso MLS. Facebook Marketplace. 2 rentals cerradas. Quiere escalar.\n4. H2O+: Agua con cafeina en lata. Paraguay como origen. Todo por construir: FDA, marca, manufactura.\n\nHabitos a desarrollar: gym, meditacion, lectura, ingles, comida limpia.\nVision: sistema de vida y negocios solido. Ser su mejor version.\n\nResponde siempre en espanol. Se directo, estrategico, honesto. No uses fluff. Como un socio senior que lo conoce bien. Maximo 180 palabras salvo que pidan mas detalle.`;
-
-async function sendAI(){
-  const input=document.getElementById('ai-input');const text=input.value.trim();if(!text)return;input.value='';
-  const msgs=document.getElementById('ai-messages');
-  msgs.innerHTML+=`<div class="ai-msg user"><div class="ai-msg-label">VOS</div>${text}</div>`;
-  const lid='l'+Date.now();
-  msgs.innerHTML+=`<div class="ai-msg assistant" id="${lid}"><div class="ai-msg-label">JOEL OS</div><span class="loading-dots"></span></div>`;
-  msgs.scrollTop=msgs.scrollHeight;
-  try{
-    const allMsgs=[];
-    document.querySelectorAll('.ai-msg').forEach(m=>{if(m.id===lid)return;const role=m.classList.contains('user')?'user':'assistant';const label=m.querySelector('.ai-msg-label');const content=label?m.innerHTML.replace(label.outerHTML,'').trim():m.textContent.trim();if(content)allMsgs.push({role,content});});
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:AI_SYSTEM,messages:allMsgs})});
-    const data=await res.json();const reply=data.content?.map(c=>c.text||'').join('')||'Error al responder.';
-    document.getElementById(lid).innerHTML=`<div class="ai-msg-label">JOEL OS</div>${reply.replace(/\n/g,'<br>')}`;
-  }catch(e){document.getElementById(lid).innerHTML=`<div class="ai-msg-label">JOEL OS</div>Error de conexi\u00f3n. Intenta de nuevo.`;}
-  msgs.scrollTop=msgs.scrollHeight;
+function loadWordForCat(cat) {
+  const words = ENG_DATA[cat || 'business'];
+  const w = words[Math.floor(Math.random() * words.length)];
+  document.getElementById('eng-word').textContent = w.word;
+  document.getElementById('eng-pron').textContent = w.pron;
+  document.getElementById('eng-meaning').textContent = w.meaning;
+  document.getElementById('eng-example').innerHTML = w.example;
+}
+function loadNewWord() {
+  // FIX: streak solo incrementa 1 vez por día
+  const today = todayKey();
+  if (S.engLastDate !== today) {
+    S.engStreak = (S.engStreak || 0) + 1;
+    S.engLastDate = today;
+    addXP(10);
+    save();
+    updateStats();
+  }
+  loadWordForCat(S.engCat || 'business');
+}
+function renderPhrases() {
+  const c = document.getElementById('eng-phrases-container'); if (!c) return;
+  c.innerHTML = [...PHRASES].sort(() => Math.random()-0.5).slice(0,4).map(p =>
+    `<div class="eng-phrase"><div class="en">${p.en}</div><div class="es">${p.es}</div></div>`
+  ).join('');
+}
+function renderQuiz() {
+  const q = QUIZ[quizIdx];
+  const qq = document.getElementById('quiz-q'); if (qq) qq.textContent = q.q;
+  const qo = document.getElementById('quiz-opts');
+  if (qo) qo.innerHTML = q.opts.map((o,i) => `<div class="eng-quiz-opt" onclick="answerQuiz(${i})">${o}</div>`).join('');
+  const qs = document.getElementById('quiz-score'); if (qs) qs.textContent = '';
+  quizAnswered = false;
+}
+function answerQuiz(idx) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const q = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('.eng-quiz-opt');
+  opts[q.correct].classList.add('correct');
+  if (idx !== q.correct) opts[idx].classList.add('wrong');
+  const correct = idx === q.correct;
+  const qs = document.getElementById('quiz-score');
+  if (qs) qs.textContent = correct ? '✓ Correcto! +15 XP' : '✗ Incorrecto. La respuesta correcta está marcada.';
+  if (correct) addXP(15);
+  setTimeout(() => { quizIdx = (quizIdx + 1) % QUIZ.length; renderQuiz(); }, 2000);
 }
 
-function render(){
-  renderTasks();renderHabits();renderFinances();renderIdeas();renderNews();
-  updateStats();updateXPDisplay();
-  loadWord();renderPhrases();renderQuiz();renderWAPreview();
-  renderGym('lunes');
-  generateInsights();renderHabitChart();renderFinanceChart();renderMetricsGrid();
+// ---- SPIRITUALITY ----
+const QUOTES = [
+  {q:"La felicidad de tu vida depende de la calidad de tus pensamientos.", a:"Marco Aurelio"},
+  {q:"No busques que los eventos sean como quieres. Desea que los eventos sean como son.", a:"Epicteto"},
+  {q:"Cada mañana nacemos de nuevo. Lo que hacemos hoy es lo que más importa.", a:"Buda"},
+  {q:"La disciplina es elegir entre lo que querés ahora y lo que querés más.", a:"Abraham Lincoln"},
+  {q:"El hombre que mueve montañas comienza cargando pequeñas piedras.", a:"Confucio"},
+  {q:"La mente es todo. En lo que pensas, te convertis.", a:"Buda"},
+  {q:"Un paraguayo en Miami construyendo un imperio. Eso ya es épico.", a:"JOEL OS"},
+];
+function newQuote() {
+  const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+  document.getElementById('spirit-quote').textContent = '"' + q.q + '"';
+  document.getElementById('spirit-author').textContent = '— ' + q.a;
+}
+function togglePractice(el) { el.classList.toggle('done'); if (el.classList.contains('done')) addXP(10); }
+
+// ---- GYM ----
+const GYM_ROUTINES = {
+  lunes: {title:'Pecho + Tríceps', sub:'Lunes — Push superior', exercises:[{name:'Press de banca',detail:'4 × 8-10 reps',id:'e1'},{name:'Press inclinado mancuernas',detail:'3 × 10-12 reps',id:'e2'},{name:'Aperturas en cable',detail:'3 × 12-15 reps',id:'e3'},{name:'Press francés',detail:'3 × 10-12 reps',id:'e4'},{name:'Extensiones en polea',detail:'3 × 12-15 reps',id:'e5'}]},
+  martes: {title:'Espalda + Bíceps', sub:'Martes — Pull superior', exercises:[{name:'Dominadas',detail:'4 × máximo reps',id:'e6'},{name:'Remo con barra',detail:'4 × 8-10 reps',id:'e7'},{name:'Jalón al pecho',detail:'3 × 10-12 reps',id:'e8'},{name:'Curl con barra',detail:'3 × 10-12 reps',id:'e9'},{name:'Curl martillo',detail:'3 × 12 reps',id:'e10'}]},
+  miercoles: {title:'Piernas', sub:'Miércoles — Lower body', exercises:[{name:'Sentadilla',detail:'4 × 8-10 reps',id:'e11'},{name:'Prensa de piernas',detail:'4 × 10-12 reps',id:'e12'},{name:'Extensiones cuádriceps',detail:'3 × 12-15 reps',id:'e13'},{name:'Curl femoral',detail:'3 × 12 reps',id:'e14'},{name:'Pantorrillas de pie',detail:'4 × 15-20 reps',id:'e15'}]},
+  jueves: {title:'Hombros + Core', sub:'Jueves — Shoulders & Core', exercises:[{name:'Press militar',detail:'4 × 8-10 reps',id:'e16'},{name:'Elevaciones laterales',detail:'4 × 12-15 reps',id:'e17'},{name:'Face pulls',detail:'3 × 15 reps',id:'e18'},{name:'Plancha',detail:'3 × 60 segundos',id:'e19'},{name:'Abdominales en polea',detail:'3 × 15 reps',id:'e20'}]},
+  viernes: {title:'Full body / Fuerza', sub:'Viernes — Compound movements', exercises:[{name:'Peso muerto',detail:'4 × 5-6 reps pesado',id:'e21'},{name:'Sentadilla búlgara',detail:'3 × 10 reps',id:'e22'},{name:'Press banca agarre cerrado',detail:'3 × 8-10 reps',id:'e23'},{name:'Remo con mancuerna',detail:'3 × 10-12 reps',id:'e24'}]},
+  sabado: {title:'Cardio + Movilidad', sub:'Sábado — Active recovery', exercises:[{name:'HIIT 20 minutos',detail:'20 seg on / 10 seg off × 8 rondas',id:'e25'},{name:'Caminata 30 minutos',detail:'Ritmo moderado',id:'e26'},{name:'Stretching full body',detail:'15 minutos de elongación',id:'e27'}]},
+  domingo: {title:'Descanso activo', sub:'Domingo — Rest & recover', exercises:[{name:'Caminar o nadar',detail:'Actividad ligera',id:'e28'},{name:'Meditación 10 min',detail:'Visualización de la semana',id:'e29'},{name:'Preparar comidas',detail:'Meal prep para la semana',id:'e30'}]}
+};
+let currentGymDay = 'lunes';
+function setGymDay(day, el) {
+  currentGymDay = day;
+  document.querySelectorAll('.gym-tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderGym(day);
+}
+function renderGym(day) {
+  const r = GYM_ROUTINES[day || currentGymDay]; if (!r) return;
+  const dt = document.getElementById('gym-day-title'); if (dt) dt.textContent = r.title;
+  const ds = document.getElementById('gym-day-sub'); if (ds) ds.textContent = r.sub;
+  const c = document.getElementById('gym-exercises'); if (!c) return;
+  c.innerHTML = r.exercises.map((e, i) => {
+    const done = S.gymDone && S.gymDone[e.id];
+    return `<div class="exercise-item${done?' done':''}" id="ex-${e.id}"><div class="exercise-num">${String(i+1).padStart(2,'0')}</div><div class="exercise-info"><div class="exercise-name">${e.name}</div><div class="exercise-detail">${e.detail}</div></div><div class="exercise-done" onclick="toggleExercise('${e.id}')"></div></div>`;
+  }).join('');
+}
+function toggleExercise(id) {
+  if (!S.gymDone) S.gymDone = {};
+  S.gymDone[id] = !S.gymDone[id];
+  if (S.gymDone[id]) addXP(8);
+  save();
+  const el = document.getElementById('ex-' + id);
+  if (el) el.classList.toggle('done', S.gymDone[id]);
+}
+function updatePR() {
+  const ex = document.getElementById('pr-exercise').value;
+  const val = document.getElementById('pr-value').value;
+  if (!val) return;
+  S.prs[ex] = val; save();
+  document.getElementById('pr-' + ex).textContent = val;
+  addXP(20);
+  document.getElementById('pr-value').value = '';
+}
+
+// ---- MOTIVATION ----
+const MOTIVATIONS = [
+  {q:"El éxito no es final, el fracaso no es fatal. Lo que cuenta es el coraje de continuar.", a:"Winston Churchill"},
+  {q:"No te detengas cuando estés cansado. Detenete cuando hayas terminado.", a:"Marilyn Monroe"},
+  {q:"Tu futuro es creado por lo que haces hoy, no mañana.", a:"Robert Kiyosaki"},
+  {q:"Un paraguayo en Miami construyendo un imperio. Eso ya es épico.", a:"JOEL OS"},
+  {q:"El sacrificio de hoy es el éxito de mañana.", a:"Anónimo"},
+  {q:"Trabajá en silencio. Deja que el éxito haga el ruido.", a:"Frank Ocean"},
+  {q:"La diferencia entre ordinario y extraordinario es ese pequeño 'extra'.", a:"Jimmy Johnson"},
+];
+function newMotivation() {
+  const m = MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)];
+  document.getElementById('mot-quote').textContent = '"' + m.q + '"';
+  document.getElementById('mot-author').textContent = '— ' + m.a;
+  addXP(5);
+}
+let beastActive = false;
+function toggleBeastMode() {
+  beastActive = !beastActive;
+  const btn = document.getElementById('beast-btn');
+  const sub = document.getElementById('beast-sub');
+  if (beastActive) { btn.classList.add('active'); sub.textContent = '🔥 MODO BESTIA ACTIVO. Cerrá todo. Apagá el teléfono. EJECUTA.'; addXP(25); }
+  else { btn.classList.remove('active'); sub.textContent = 'Activá cuando necesitás máximo enfoque. Sin excusas.'; }
+}
+
+// ---- NEWS ----
+const NEWS = [
+  {cat:'crypto', color:'var(--y)', title:'Bitcoin supera resistencia clave — ¿Qué significa para miners como NeuraHash?', meta:'Crypto · Relevante para tu negocio', filter:'crypto'},
+  {cat:'business', color:'var(--g)', title:'El modelo de economía circular en moda crece 40% en USA — oportunidad para KAIA', meta:'Business · Fashion rental market', filter:'business'},
+  {cat:'miami', color:'var(--b)', title:'Miami sigue siendo el hub #1 de crypto y fintech en América', meta:'Miami · Tu mercado', filter:'miami'},
+  {cat:'crypto', color:'var(--y)', title:'Paraguay: uno de los 5 países con energía más barata para Bitcoin mining', meta:'Crypto · Ventaja competitiva', filter:'crypto'},
+  {cat:'business', color:'var(--g)', title:'El mercado de renta de ropa en USA crecerá a $2.5B en 2026', meta:'Business · KAIA market size', filter:'business'},
+  {cat:'miami', color:'var(--b)', title:'Miami tiene el mayor crecimiento de eventos corporativos — +23%', meta:'Miami · Oportunidad KAIA', filter:'miami'},
+  {cat:'crypto', color:'var(--y)', title:'El halving de Bitcoin ya impacta la rentabilidad — quiénes ganan y quiénes pierden', meta:'Crypto · Mining analysis', filter:'crypto'},
+  {cat:'miami', color:'var(--b)', title:'Real estate en Miami: demanda de alquileres sube 18%', meta:'Miami · Tu negocio RE', filter:'miami'}
+];
+let newsFilter = 'all';
+function setNewsFilter(f, el) {
+  newsFilter = f;
+  document.querySelectorAll('.news-filter').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderNews();
+}
+function renderNews() {
+  const c = document.getElementById('news-container'); if (!c) return;
+  const filtered = newsFilter === 'all' ? NEWS : NEWS.filter(n => n.filter === newsFilter);
+  c.innerHTML = filtered.map(n =>
+    `<div class="news-card"><div class="news-cat" style="color:${n.color}">${n.cat.toUpperCase()}</div><div class="news-title">${n.title}</div><div class="news-meta">${n.meta}</div></div>`
+  ).join('');
+}
+
+// ---- WHATSAPP ----
+function generateDailyResume() {
+  const today = todayKey();
+  const doneH = S.habits.filter(h => h.log && h.log[today]).length;
+  const pending = S.tasks.filter(t => !t.done).length;
+  const inc = S.transactions.filter(t => t.type==='income').reduce((s,t) => s+t.amount, 0);
+  const exp = S.transactions.filter(t => t.type==='expense').reduce((s,t) => s+t.amount, 0);
+  const q = MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)];
+  const m = S.metrics || {};
+  return `🟢 *JOEL OS v3 — Briefing del día*\n📅 ${new Date().toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'})}\n\n*📊 TUS NÚMEROS:*\n• Tareas pendientes: ${pending}\n• Hábitos completados: ${doneH}/${S.habits.length}\n• Balance del mes: $${(inc-exp).toFixed(0)}\n• KAIA rentas: ${m.kaia?.rentals||0}\n• NeuraHash miners: ${m.nh?.miners||0}\n\n*🚀 PROYECTOS — FOCO DE HOY:*\n• KAIA: Activar Meta Ads y crear contenido\n• NeuraHash: Avanzar landing + inversores\n• Real Estate: Subir listings nuevos\n\n*💡 FRASE DEL DÍA:*\n"${q.q}"\n— ${q.a}\n\n🔥 Streak: ${S.streak||0} días\n⚡ XP Total: ${S.xp||0}\n\n_Ejecuta. No hay otro camino._`;
+}
+function renderWAPreview() { const c = document.getElementById('wa-preview'); if (c) c.textContent = generateDailyResume(); }
+function openWhatsApp() { window.open(`https://wa.me/?text=${encodeURIComponent(generateDailyResume())}`, '_blank'); }
+function generateWAMessage() {
+  const type = document.getElementById('wa-type').value;
+  let msg = '';
+  const m = S.metrics || {};
+  if (type === 'daily') msg = generateDailyResume();
+  else if (type === 'kaia') msg = `🔴 *KAIA Update*\n\n📌 Estado: En fase de marketing\n✅ Métricas:\n• Rentas: ${m.kaia?.rentals||0}\n• Clientes: ${m.kaia?.clients||0}\n• Ingresos: $${m.kaia?.income||0}`;
+  else if (type === 'neurahash') msg = `🟢 *NeuraHash Update*\n\n⚡ Mining activo en PY + BO\n📌 Métricas:\n• Miners activos: ${m.nh?.miners||0}\n• Inversores: ${m.nh?.investors||0}`;
+  else if (type === 'motivation') msg = `🔥 *Mensaje para Joel*\n\n"${MOTIVATIONS[Math.floor(Math.random()*MOTIVATIONS.length)].q}"\n\nTenés 27 años. Vivís en Miami. Tenés 4 proyectos activos.\n\n*Ejecutá hoy. 🚀*`;
+  const c = document.getElementById('wa-custom');
+  const btn = document.getElementById('wa-send-btn');
+  if (c) { c.textContent = msg; c.style.display = 'block'; }
+  if (btn) { btn.style.display = 'inline-block'; btn._msg = msg; }
+}
+function sendCustomWA() {
+  const btn = document.getElementById('wa-send-btn');
+  if (btn && btn._msg) window.open(`https://wa.me/?text=${encodeURIComponent(btn._msg)}`, '_blank');
+}
+
+// ---- FOCUS MODE (POMODORO) ----
+let focusInterval = null;
+let focusSeconds = 25 * 60;
+let focusRunning = false;
+let focusTotalSeconds = 25 * 60;
+
+function openFocus() {
+  const overlay = document.getElementById('focus-overlay');
+  overlay.classList.add('active');
+  // Set current task
+  const pending = S.tasks.filter(t => !t.done);
+  const ft = document.getElementById('focus-task');
+  if (ft) ft.textContent = pending.length > 0 ? pending[0].text : 'Sin tarea seleccionada — agregá una en Tareas';
+  updateFocusDisplay();
+}
+function focusClose() {
+  document.getElementById('focus-overlay').classList.remove('active');
+  if (focusInterval) { clearInterval(focusInterval); focusInterval = null; focusRunning = false; }
+  document.getElementById('focus-play-btn').textContent = '▶ Iniciar';
+}
+function focusToggle() {
+  if (focusRunning) {
+    clearInterval(focusInterval); focusInterval = null; focusRunning = false;
+    document.getElementById('focus-play-btn').textContent = '▶ Continuar';
+  } else {
+    focusRunning = true;
+    document.getElementById('focus-play-btn').textContent = '⏸ Pausar';
+    focusInterval = setInterval(() => {
+      focusSeconds--;
+      if (focusSeconds <= 0) {
+        clearInterval(focusInterval); focusInterval = null; focusRunning = false;
+        focusSeconds = 0;
+        addXP(50);
+        document.getElementById('focus-label').textContent = '✓ POMODORO COMPLETADO — +50 XP';
+        document.getElementById('focus-play-btn').textContent = '▶ Iniciar';
+      }
+      updateFocusDisplay();
+    }, 1000);
+  }
+}
+function focusReset() {
+  if (focusInterval) { clearInterval(focusInterval); focusInterval = null; }
+  focusRunning = false; focusSeconds = 25 * 60; focusTotalSeconds = 25 * 60;
+  document.getElementById('focus-play-btn').textContent = '▶ Iniciar';
+  document.getElementById('focus-label').textContent = 'POMODORO — ENFOQUE';
+  updateFocusDisplay();
+}
+function updateFocusDisplay() {
+  const m = Math.floor(focusSeconds / 60);
+  const s = focusSeconds % 60;
+  const ft = document.getElementById('focus-timer');
+  if (ft) ft.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  // Ring rotation
+  const ring = document.getElementById('focus-ring');
+  if (ring) {
+    const pct = (focusTotalSeconds - focusSeconds) / focusTotalSeconds;
+    ring.style.transform = `rotate(${pct * 360}deg)`;
+    const color = pct > 0.8 ? 'var(--r)' : pct > 0.5 ? 'var(--y)' : 'var(--g)';
+    ring.style.borderTopColor = color;
+  }
+}
+
+// ---- SETUP STATS ----
+function renderSetupStats() {
+  const st = document.getElementById('stat-tasks'); if (st) st.textContent = S.tasks.length;
+  const sh = document.getElementById('stat-habits'); if (sh) sh.textContent = S.habits.length;
+  const str = document.getElementById('stat-trans'); if (str) str.textContent = S.transactions.length;
+  const si = document.getElementById('stat-ideas'); if (si) si.textContent = S.ideas.length;
+  const sx = document.getElementById('stat-xp'); if (sx) sx.textContent = S.xp || 0;
+}
+function resetData() {
+  S = {tasks:[],habits:[{id:1,name:'Gym / Entrenamiento 💪',log:{}},{id:2,name:'Meditación 🧘',log:{}},{id:3,name:'Lectura 20min 📖',log:{}},{id:4,name:'Inglés diario 🇺🇸',log:{}},{id:5,name:'Comida limpia 🥗',log:{}}],transactions:[],ideas:[],prs:{bench:'—',squat:'—',dead:'—',weight:'—'},engCat:'business',engStreak:0,engLastDate:'',gymDone:{},xp:0,streak:0,beastMode:false,nextId:200,metrics:{kaia:{rentals:0,clients:0,income:0},nh:{miners:0,investors:0,btc:0},re:{rentals:2,leads:0,listings:0}}};
+  save(); render();
+}
+
+// ---- AI ----
+const AI_SYSTEM = `Sos el asistente personal de Joel Gonzalez, 27 años, paraguayo viviendo en Miami.
+
+Sus proyectos:
+1. KAIA: Renta vestidos lujo Miami. Modelo Airbnb. Necesita marketing, primeros clientes.
+2. NeuraHash: Bitcoin mining Paraguay y Bolivia. Hosting para inversores. Energía barata.
+3. Real Estate: Acceso MLS. Facebook Marketplace. 2 rentals cerradas. Quiere escalar.
+4. H2O+: Agua con cafeína en lata. Paraguay como origen. Todo por construir.
+
+Respondé siempre en español. Sé directo, estratégico, honesto. Máximo 180 palabras salvo que pidan más.`;
+
+async function sendAI() {
+  const input = document.getElementById('ai-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  const msgs = document.getElementById('ai-messages');
+  msgs.innerHTML += `<div class="ai-msg user"><div class="ai-msg-label">VOS</div>${text}</div>`;
+  const lid = 'l' + Date.now();
+  msgs.innerHTML += `<div class="ai-msg assistant" id="${lid}"><div class="ai-msg-label">JOEL OS</div><span class="loading-dots"></span></div>`;
+  msgs.scrollTop = msgs.scrollHeight;
+  try {
+    const allMsgs = [];
+    document.querySelectorAll('.ai-msg').forEach(m => {
+      if (m.id === lid) return;
+      const role = m.classList.contains('user') ? 'user' : 'assistant';
+      const label = m.querySelector('.ai-msg-label');
+      const content = label ? m.innerHTML.replace(label.outerHTML, '').trim() : m.textContent.trim();
+      if (content) allMsgs.push({role, content});
+    });
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:1000, system:AI_SYSTEM, messages:allMsgs})
+    });
+    const data = await res.json();
+    const reply = data.content?.map(c => c.text||'').join('') || 'Error al responder.';
+    document.getElementById(lid).innerHTML = `<div class="ai-msg-label">JOEL OS</div>${reply.replace(/\n/g,'<br>')}`;
+  } catch(e) {
+    document.getElementById(lid).innerHTML = `<div class="ai-msg-label">JOEL OS</div>Error de conexión. Intentá de nuevo.`;
+  }
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ---- RENDER PRINCIPAL ----
+function render() {
+  updateStats();
+  updateXPDisplay();
+  generateInsights();
+  renderHabitChart();
+  renderFinanceChart();
+  renderMetricsGrid();
   renderProjMetrics();
-  if(S.prs){['bench','squat','dead','weight'].forEach(k=>{const el=document.getElementById('pr-'+k);if(el)el.textContent=S.prs[k]||'\u2014';});}
+  renderTasks();
+  renderHabits();
+  renderFinances();
+  renderIdeas();
+  renderNews();
+  renderWAPreview();
+  renderGym('lunes');
+  renderPhrases();
+  renderQuiz();
+  loadWordForCat(S.engCat || 'business');
+  if (S.prs) ['bench','squat','dead','weight'].forEach(k => { const el = document.getElementById('pr-' + k); if (el) el.textContent = S.prs[k] || '—'; });
 }
 
-
-  // ===== FIREBASE INIT =====
-  let db = null;
-  let FB_USER = 'joel';
-
-  function initFirebase(){
-    try {
-      if(!firebase.apps.length){
-        firebase.initializeApp(firebaseConfig);
-      }
-      db = firebase.database();
-      setSyncStatus('syncing');
-      // Load from Firebase
-      db.ref('users/' + FB_USER).once('value').then(snap => {
-        const data = snap.val();
-        if(data){
-          S = {...S, ...data};
-          render();
-        }
-        setSyncStatus('synced');
-        // Listen for real-time changes
-        db.ref('users/' + FB_USER).on('value', snap => {
-          const d = snap.val();
-          if(d){ S = {...S, ...d}; render(); }
-          setSyncStatus('synced');
-        });
-      }).catch(e => {
-        console.log('Firebase error:', e);
-        setSyncStatus('local');
-      });
-    } catch(e) {
-      console.log('Firebase init error:', e);
-      setSyncStatus('local');
-    }
-  }
-
-  // Override save to also sync Firebase
-  const _save = save;
-  function save(){
-    try { localStorage.setItem(SK, JSON.stringify(S)); } catch(e){}
-    if(db){
-      setSyncStatus('syncing');
-      db.ref('users/' + FB_USER).set(S).then(()=>{
-        setSyncStatus('synced');
-      }).catch(()=>{ setSyncStatus('local'); });
-    }
-  }
-
-  function setSyncStatus(status){
-    const dot = document.getElementById('sync-dot');
-    const label = document.getElementById('sync-label');
-    if(!dot || !label) return;
-    dot.className = 'sync-dot ' + status;
-    const labels = {synced:'Sincronizado', syncing:'Sincronizando...', local:'Local', errored:'Local'};
-    label.textContent = labels[status] || 'Local';
-  }
-
-load();renderTabs();render();
-initFirebase();
+// ---- INIT ----
+load();
+renderTabs();
+render();
 window._joelOSLoaded = true;
-document.addEventListener('firebase-ready', function(){
+
+document.addEventListener('firebase-ready', () => {
   setSyncStatus('synced');
-  const fst = document.getElementById('firebase-status-text');
-  const sst = document.getElementById('sync-status-text');
-  if(fst) fst.textContent = 'Conectado ✓';
-  if(fst) fst.style.color = 'var(--g)';
-  if(sst) sst.textContent = 'Activo en tiempo real ✓';
-  if(sst) sst.style.color = 'var(--g)';
+  renderSetupStats();
 });
 
-// Firebase real-time sync
-document.addEventListener('firebase-ready', ()=>{
-  const dot=document.getElementById('sync-dot');const lbl=document.getElementById('sync-label');
-  if(dot)dot.className='sync-dot synced';if(lbl)lbl.textContent='Firebase activo';
-  document.getElementById('firebase-status-text').textContent='Conectado';
-  document.getElementById('sync-status-text').textContent='Activo - sync en tiempo real';
-  // Listen for changes from other devices
-  window._fbOnValue(window._fbRef(window._fbDb,'joel/state'),(snapshot)=>{
-    if(snapshot.exists()){
-      const data=snapshot.val();
-      // Only update if data is newer (avoid loops)
-      if(JSON.stringify(data)!==JSON.stringify(S)){
-        S={...S,...data};
-        try{localStorage.setItem(SK,JSON.stringify(S));}catch(e){}
-        render();
-      }
-    }
-  });
-});
-
-if("serviceWorker"in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("/sw.js").catch(()=>{});});}
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => { navigator.serviceWorker.register("/sw.js").catch(() => {}); });
+}
 </script>
 </body>
 </html>
